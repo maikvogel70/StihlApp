@@ -1,16 +1,15 @@
 package stihlonlinedb.entities;
 
-public class Einsatzzweck {
+public class Kunde {
+
 	private int id;
-	private String name;
+	private String name, adresse;
 
-	public Einsatzzweck() {
-	}
-
-	public Einsatzzweck(int id, String name) {
+	public Kunde(int id, String name, String adresse) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.adresse = adresse;
 	}
 
 	/**
@@ -41,6 +40,21 @@ public class Einsatzzweck {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the adresse
+	 */
+	public String getAdresse() {
+		return adresse;
+	}
+
+	/**
+	 * @param adresse
+	 *            the adresse to set
+	 */
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
 	}
 
 }

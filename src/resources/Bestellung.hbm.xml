@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.09.2017 10:24:15 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+ <class name="stihlonlinedb.entities.Bestellung" table="bestellung">
+  <id name="id" type="int">
+   <column name="ID"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="menge" type="int">
+   <column name="MENGE"/>
+  </property>
+  <property generated="never" lazy="false" name="bestellnummer" type="java.lang.String">
+   <column name="BESTELLNUMMER"/>
+  </property>
+  <property generated="never" lazy="false" name="kettenBestNr" type="java.lang.String">
+   <column name="KETTENBESTNR"/>
+  </property>
+  <property generated="never" lazy="false" name="rabatt" type="double">
+   <column name="RABATT"/>
+  </property>
+  <property generated="never" lazy="false" name="preis" type="double">
+   <column name="PREIS"/>
+  </property>
+  <set lazy="true" name="fuehrungsschienen" sort="unsorted" table="FUEHRUNGSSCHIENEN">
+   <key>
+    <column name="ID"/>
+   </key>
+   <one-to-many class="stihlonlinedb.entities.Fuehrungsschienen"/>
+  </set>
+  <set lazy="true" name="kunde" sort="unsorted" table="KUNDE">
+   <key>
+    <column name="ID"/>
+   </key>
+   <one-to-many class="stihlonlinedb.entities.Kunde"/>
+  </set>
+  <set lazy="true" name="rechnungsnummer" sort="unsorted" table="RECHNUNG">
+   <key>
+    <column name="ID"/>
+   </key>
+   <one-to-many class="stihlonlinedb.entities.Rechnung"/>
+  </set>
+  <set lazy="true" name="saege" sort="unsorted" table="saege">
+   <key>
+    <column name="ID"/>
+   </key>
+   <one-to-many class="stihlonlinedb.entities.Saege"/>
+  </set>
+  <set lazy="true" name="ketten" sort="unsorted" table="KETTEN">
+   <key>
+    <column name="ID"/>
+   </key>
+   <one-to-many class="stihlonlinedb.entities.Ketten"/>
+  </set>
+  <set lazy="true" name="zubehoer" sort="unsorted" table="ZUBEHOER">
+   <key>
+    <column name="ID"/>
+   </key>
+   <one-to-many class="stihlonlinedb.entities.Zubehoer"/>
+  </set>
+ </class>
+</hibernate-mapping>

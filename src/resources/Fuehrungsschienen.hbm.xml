@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13.09.2017 12:39:12 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 14.09.2017 10:24:15 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="stihlonlinedb.entities.Ketten" table="KETTEN">
+    <class name="stihlonlinedb.entities.Fuehrungsschienen" table="FUEHRUNGSSCHIENEN">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <property name="treibgliedanzahl" type="int">
-            <column name="TREIBGLIEDANZAHL" />
+        <property name="anzahlZaehneUmlenkung" type="int">
+            <column name="ANZAHLZAEHNEUMLENKUNG" />
         </property>
         <property name="laenge" type="int">
             <column name="LAENGE" />
@@ -17,20 +17,20 @@
         <property name="name" type="java.lang.String">
             <column name="NAME" />
         </property>
-        <property name="teileBestellnummer" type="java.lang.String">
-            <column name="TEILEBESTELLNUMMER" />
+        <property name="bestellnummer" type="java.lang.String">
+            <column name="BESTELLNUMMER" />
         </property>
         <property name="beschreibung" type="java.lang.String">
             <column name="BESCHREIBUNG" />
         </property>
-        <property name="teilung" type="java.lang.String">
-            <column name="TEILUNG" />
-        </property>
         <property name="preis" type="double">
             <column name="PREIS" />
         </property>
-        <property name="treibglieddicke" type="double">
-            <column name="TREIBGLIEDDICKE" />
-        </property>
+        <set name="bildablageFK" table="BILDABLAGE" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="stihlonlinedb.entities.Bildablage" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -1,15 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13.09.2017 12:32:34 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 14.09.2017 10:24:15 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="stihlonlinedb.entities.Bildablage" table="BILDABLAGE">
+    <class name="stihlonlinedb.entities.Kunde" table="KUNDE">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <property name="pfad" type="java.lang.String">
-            <column name="PFAD" />
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="adresse" type="java.lang.String">
+            <column name="ADRESSE" />
         </property>
     </class>
 </hibernate-mapping>

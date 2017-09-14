@@ -2,11 +2,20 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="stihldb">
-  <property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/stihlonlinedb</property>
   <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.dialect">org.hibernate.dialect.MySQLMyISAMDialect</property>
-  <mapping resource="stihlonlinedb/entities/Bildablage.hbm.xml"/>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.show_sql">true</property>
+  <mapping resource="resources/Bildablage.hbm.xml"/>
+  <mapping resource="resources/Bestellung.hbm.xml"/>
+  <mapping resource="resources/Einsatzzweck.hbm.xml"/>
+  <mapping resource="resources/Fuehrungsschienen.hbm.xml"/>
+  <mapping resource="resources/Ketten.hbm.xml"/>
+  <mapping resource="resources/Kunde.hbm.xml"/>
+  <mapping resource="resources/Rechnung.hbm.xml"/>
+  <mapping resource="resources/Saege.hbm.xml"/>
+  <mapping resource="resources/Zubehoer.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

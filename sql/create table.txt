@@ -1,0 +1,120 @@
+CREATE TABLE Bildablage(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Pfad varchar(255) NOT NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Bestellung(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Bestellnummer varchar(20) NOT NULL,
+	Menge int NOT NULL,
+	Rabatt decimal(5, 2) NULL,
+	Preis decimal(7, 2) NULL,
+	FK_Fuehrungsschienen int NULL,
+	FK_Kunde int NOT NULL,
+	FK_Rechnungsnummer int NOT NULL,
+	FK_Zubehoer int NULL,
+	FK_Ketten int NULL,
+	KettenBestNr varchar(15) NULL,
+	FK_Saege int NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Einsatzzweck(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Name varchar(20) NOT NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Fuehrungsschienen(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Bestellnummer varchar(15) NOT NULL,
+	Name varchar(255) NULL,
+	Beschreibung text NULL,
+	AnzahlZaehneUmlenkung tinyint NOT NULL,
+	Laenge tinyint NOT NULL,
+	Preis decimal(7, 2) NULL,
+	FK_Bild int NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Ketten(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	TeileBestellnummer varchar(6) NOT NULL,
+	Name varchar(255) NOT NULL,
+	Beschreibung text NULL,
+	Teilung varchar(5) NOT NULL,
+	Treibglieddicke decimal(3, 1) NOT NULL,
+	Treibgliedanzahl tinyint NOT NULL,
+	Preis decimal(7, 2) NOT NULL,
+	Laenge tinyint NOT NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Kunde(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Name varchar(128) NOT NULL,
+	Adresse varchar(128) NOT NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Rechnung(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Datum date NOT NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Saege(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Bestellnummer varchar(12) NOT NULL,
+	Kettenteilung varchar(5) NULL,
+	Name varchar(255) NOT NULL,
+	Beschreibung text NULL,
+	Besonderheiten varchar(255) NULL,
+	KW decimal(4, 2) NULL,
+	PS decimal(4, 2) NULL,
+	Schienenlaenge tinyint NOT NULL,
+	Gewicht decimal(4, 2) NOT NULL,
+	Hubraum decimal(5, 2) NOT NULL,
+	Preis decimal(7, 2) NOT NULL,
+	FK_Bild int NULL,
+	FK_Einsatzzweck int NOT NULL,
+	FK_Bestellung int NULL)
+	ENGINE=MyISAM;
+	
+CREATE TABLE Zubehoer(
+	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Bestellnummer varchar(15) NOT NULL,
+	Name varchar(255) NOT NULL,
+	Beschreibung text NULL,
+	Preis decimal(7, 2) NOT NULL,
+	FK_Bild int NULL)
+	ENGINE=MyISAM;
+	
+
+ALTER TABLE Bestellung ADD FOREIGN KEY(FK_Fuehrungsschienen)
+REFERENCES Fuehrungsschienen (ID);
+
+ALTER TABLE Bestellung ADD FOREIGN KEY(FK_Ketten)
+REFERENCES Ketten (ID);
+
+ALTER TABLE Bestellung ADD FOREIGN KEY(FK_Kunde)
+REFERENCES Kunde (ID);
+
+ALTER TABLE Bestellung ADD FOREIGN KEY(FK_Rechnungsnummer)
+REFERENCES Rechnung (ID);
+
+ALTER TABLE Bestellung ADD FOREIGN KEY(FK_Zubehoer)
+REFERENCES Zubehoer (ID);
+
+ALTER TABLE Bestellung ADD  CONSTRAINT FK_Saege FOREIGN KEY(FK_Saege)
+REFERENCES Saege (ID);
+
+
+ALTER TABLE Fuehrungsschienen ADD FOREIGN KEY(FK_Bild)
+REFERENCES Bildablage (ID);
+
+ALTER TABLE Saege ADD FOREIGN KEY(FK_Bestellung)
+REFERENCES Bestellung (ID);
+
+ALTER TABLE Saege ADD FOREIGN KEY(FK_Bild)
+REFERENCES Bildablage (ID);
+
+ALTER TABLE Saege ADD FOREIGN KEY(FK_Einsatzzweck)
+REFERENCES Einsatzzweck (ID);
+
+ALTER TABLE Zubehoer ADD FOREIGN KEY(FK_Bild)
+REFERENCES Bildablage (ID);

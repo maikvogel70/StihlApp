@@ -4,6 +4,9 @@ public class Bildablage {
 	private int id;
 	private String pfad;
 
+	public Bildablage() {
+	}
+
 	public Bildablage(int id, String pfad) {
 		super();
 		this.id = id;
