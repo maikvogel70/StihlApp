@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13.09.2017 12:32:34 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="stihlonlinedb.entities.Fuehrungsschienen" table="FUEHRUNGSSCHIENEN">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="anzahlZaehneUmlenkung" type="int">
+            <column name="ANZAHLZAEHNEUMLENKUNG" />
+        </property>
+        <property name="laenge" type="int">
+            <column name="LAENGE" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="bestellnummer" type="java.lang.String">
+            <column name="BESTELLNUMMER" />
+        </property>
+        <property name="beschreibung" type="java.lang.String">
+            <column name="BESCHREIBUNG" />
+        </property>
+        <property name="preis" type="double">
+            <column name="PREIS" />
+        </property>
+        <set name="bildablageFK" table="BILDABLAGE" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="stihlonlinedb.entities.Bildablage" />
+        </set>
+    </class>
+</hibernate-mapping>
