@@ -1,6 +1,18 @@
 package stihlonlinedb.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "BILDABLAGE")
 public class Bildablage {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private int id;
 	private String pfad;
 
@@ -8,7 +20,6 @@ public class Bildablage {
 	}
 
 	public Bildablage(int id, String pfad) {
-		super();
 		this.id = id;
 		this.pfad = pfad;
 	}
@@ -41,6 +52,16 @@ public class Bildablage {
 	 */
 	public void setPfad(String pfad) {
 		this.pfad = pfad;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Bildablage [id=" + id + ", pfad=" + pfad + "]";
 	}
 
 }

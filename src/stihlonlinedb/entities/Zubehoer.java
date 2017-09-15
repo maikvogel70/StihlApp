@@ -1,17 +1,33 @@
 package stihlonlinedb.entities;
 
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "ZUBEHOER")
 public class Zubehoer {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private int id;
+
 	private String bestellnummer, name, beschreibung;
 	private double preis;
-	private Set<Integer> bild;
+
+	@OneToOne
+	@JoinColumn(name = "FK_BILD")
+	private Bildablage bild;
 
 	public Zubehoer() {
 	}
 
-	public Zubehoer(int id, String bestellnummer, String name, String beschreibung, double preis, Set<Integer> bild) {
+	public Zubehoer(int id, String bestellnummer, String name, String beschreibung, double preis, Bildablage bild) {
 		super();
 		this.id = id;
 		this.bestellnummer = bestellnummer;
@@ -99,7 +115,7 @@ public class Zubehoer {
 	/**
 	 * @return the bild
 	 */
-	public Set<Integer> getBild() {
+	public Bildablage getBild() {
 		return bild;
 	}
 
@@ -107,8 +123,19 @@ public class Zubehoer {
 	 * @param bild
 	 *            the bild to set
 	 */
-	public void setBild(Set<Integer> bild) {
+	public void setBild(Bildablage bild) {
 		this.bild = bild;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Zubehoer [id=" + id + ", bestellnummer=" + bestellnummer + ", name=" + name + ", beschreibung="
+				+ beschreibung + ", preis=" + preis + ", bild=" + bild.getPfad() + "]";
 	}
 
 }

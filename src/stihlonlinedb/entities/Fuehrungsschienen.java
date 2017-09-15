@@ -1,17 +1,34 @@
 package stihlonlinedb.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "FUEHUNGSSCHIENEN")
 public class Fuehrungsschienen {
 
-	private int id, anzahlZaehneUmlenkung, laenge;
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private int id;
+	private int anzahlZaehneUmlenkung, laenge;
 	private String name, bestellnummer, beschreibung;
 	private double preis;
-	private Set<Bildablage> bildablageFK = new HashSet<Bildablage>(0);
+
+	@OneToOne
+	@JoinColumn(name = "FK_BILD")
+	private Bildablage bild;
+
+	public Fuehrungsschienen() {
+	}
 
 	public Fuehrungsschienen(int id, int anzahlZaehneUmlenkung, int laenge, String name, String bestellnummer,
-			String beschreibung, double preis, Set<Bildablage> bildablageFK) {
+			String beschreibung, double preis, Bildablage bildablageFK) {
 		super();
 		this.id = id;
 		this.anzahlZaehneUmlenkung = anzahlZaehneUmlenkung;
@@ -20,7 +37,7 @@ public class Fuehrungsschienen {
 		this.bestellnummer = bestellnummer;
 		this.beschreibung = beschreibung;
 		this.preis = preis;
-		this.bildablageFK = bildablageFK;
+		this.bild = bildablageFK;
 	}
 
 	/**
@@ -129,18 +146,30 @@ public class Fuehrungsschienen {
 	}
 
 	/**
-	 * @return the bildablageFK
+	 * @return the bild
 	 */
-	public Set<Bildablage> getBildablageFK() {
-		return bildablageFK;
+	public Bildablage getBild() {
+		return bild;
 	}
 
 	/**
-	 * @param bildablageFK
-	 *            the bildablageFK to set
+	 * @param bild
+	 *            the bild to set
 	 */
-	public void setBildablageFK(Set<Bildablage> bildablageFK) {
-		this.bildablageFK = bildablageFK;
+	public void setBild(Bildablage bild) {
+		this.bild = bild;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Fuehrungsschienen [id=" + id + ", anzahlZaehneUmlenkung=" + anzahlZaehneUmlenkung + ", laenge=" + laenge
+				+ ", name=" + name + ", bestellnummer=" + bestellnummer + ", beschreibung=" + beschreibung + ", preis="
+				+ preis + ", bild=" + bild.getPfad() + "]";
 	}
 
 }

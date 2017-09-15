@@ -17,5 +17,6 @@
   <mapping resource="resources/Rechnung.hbm.xml"/>
   <mapping resource="resources/Saege.hbm.xml"/>
   <mapping resource="resources/Zubehoer.hbm.xml"/>
+  <mapping resource="resources/Produkte.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

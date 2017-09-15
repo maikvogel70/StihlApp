@@ -1,18 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 14.09.2017 14:21:26 by Hibernate Tools 3.5.0.Final -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.09.2017 15:55:19 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
- <class name="stihlonlinedb.entities.Produkte" table="PRODUKTE">
-  <id name="name" type="java.lang.String">
-   <column name="NAME"/>
-   <generator class="assigned"/>
-  </id>
-  <property generated="never" lazy="false" name="bild" type="java.lang.String">
-   <column name="BILD"/>
-  </property>
-  <property generated="never" lazy="false" name="name" type="string">
-   <column name="NAME"/>
-  </property>
- </class>
+    <class name="stihlonlinedb.entities.Produkte" table="PRODUKTE">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <one-to-one name="bild" class="stihlonlinedb.entities.Bildablage"></one-to-one>
+    </class>
 </hibernate-mapping>

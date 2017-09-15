@@ -1,63 +1,55 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 14.09.2017 10:24:15 by Hibernate Tools 3.5.0.Final -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.09.2017 15:55:19 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
- <class name="stihlonlinedb.entities.Bestellung" table="bestellung">
-  <id name="id" type="int">
-   <column name="ID"/>
-   <generator class="assigned"/>
-  </id>
-  <property generated="never" lazy="false" name="menge" type="int">
-   <column name="MENGE"/>
-  </property>
-  <property generated="never" lazy="false" name="bestellnummer" type="java.lang.String">
-   <column name="BESTELLNUMMER"/>
-  </property>
-  <property generated="never" lazy="false" name="kettenBestNr" type="java.lang.String">
-   <column name="KETTENBESTNR"/>
-  </property>
-  <property generated="never" lazy="false" name="rabatt" type="double">
-   <column name="RABATT"/>
-  </property>
-  <property generated="never" lazy="false" name="preis" type="double">
-   <column name="PREIS"/>
-  </property>
-  <set lazy="true" name="fuehrungsschienen" sort="unsorted" table="FUEHRUNGSSCHIENEN">
-   <key>
-    <column name="ID"/>
-   </key>
-   <one-to-many class="stihlonlinedb.entities.Fuehrungsschienen"/>
-  </set>
-  <set lazy="true" name="kunde" sort="unsorted" table="KUNDE">
-   <key>
-    <column name="ID"/>
-   </key>
-   <one-to-many class="stihlonlinedb.entities.Kunde"/>
-  </set>
-  <set lazy="true" name="rechnungsnummer" sort="unsorted" table="RECHNUNG">
-   <key>
-    <column name="ID"/>
-   </key>
-   <one-to-many class="stihlonlinedb.entities.Rechnung"/>
-  </set>
-  <set lazy="true" name="saege" sort="unsorted" table="saege">
-   <key>
-    <column name="ID"/>
-   </key>
-   <one-to-many class="stihlonlinedb.entities.Saege"/>
-  </set>
-  <set lazy="true" name="ketten" sort="unsorted" table="KETTEN">
-   <key>
-    <column name="ID"/>
-   </key>
-   <one-to-many class="stihlonlinedb.entities.Ketten"/>
-  </set>
-  <set lazy="true" name="zubehoer" sort="unsorted" table="ZUBEHOER">
-   <key>
-    <column name="ID"/>
-   </key>
-   <one-to-many class="stihlonlinedb.entities.Zubehoer"/>
-  </set>
- </class>
+    <class name="stihlonlinedb.entities.Bestellung" table="BESTELLUNG">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="menge" type="int">
+            <column name="MENGE" />
+        </property>
+        <property name="bestellnummer" type="java.lang.String">
+            <column name="BESTELLNUMMER" />
+        </property>
+        <property name="kettenBestNr" type="java.lang.String">
+            <column name="KETTENBESTNR" />
+        </property>
+        <property name="rabatt" type="double">
+            <column name="RABATT" />
+        </property>
+        <property name="preis" type="double">
+            <column name="PREIS" />
+        </property>
+        <set name="fuehrungsschienen" table="FUEHRUNGSSCHIENEN" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="stihlonlinedb.entities.Fuehrungsschienen" />
+        </set>
+        <many-to-one name="kunde" class="stihlonlinedb.entities.Kunde" fetch="join">
+            <column name="KUNDE" />
+        </many-to-one>
+        <one-to-one name="rechnungsnummer" class="stihlonlinedb.entities.Rechnung"></one-to-one>
+        <set name="saege" table="SAEGE" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="stihlonlinedb.entities.Saege" />
+        </set>
+        <set name="ketten" table="KETTEN" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="stihlonlinedb.entities.Ketten" />
+        </set>
+        <set name="zubehoer" table="ZUBEHOER" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="stihlonlinedb.entities.Zubehoer" />
+        </set>
+    </class>
 </hibernate-mapping>

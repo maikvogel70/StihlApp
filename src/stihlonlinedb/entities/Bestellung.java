@@ -2,13 +2,32 @@ package stihlonlinedb.entities;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "BESTELLUNG")
 public class Bestellung {
-	private int id, menge;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private int id;
+	private int menge;
 	private String bestellnummer, kettenBestNr;
 	private double rabatt, preis;
 	private Set<Fuehrungsschienen> fuehrungsschienen;
-	private Set<Kunde> kunde;
-	private Set<Rechnung> rechnungsnummer;
+	private Kunde kunde;
+
+	@OneToOne
+	@JoinColumn(name = "FK_BILD")
+	private Rechnung rechnungsnummer;
+
 	private Set<Saege> saege;
 	private Set<Ketten> ketten;
 	private Set<Zubehoer> zubehoer;
@@ -17,7 +36,7 @@ public class Bestellung {
 	}
 
 	public Bestellung(int id, int menge, String bestellnummer, String kettenBestNr, double rabatt, double preis,
-			Set<Fuehrungsschienen> fuehrungsschienen, Set<Kunde> kunde, Set<Rechnung> rechnungsnummer, Set<Saege> saege,
+			Set<Fuehrungsschienen> fuehrungsschienen, Kunde kunde, Rechnung rechnungsnummer, Set<Saege> saege,
 			Set<Ketten> ketten, Set<Zubehoer> zubehoer) {
 		super();
 		this.id = id;
@@ -142,7 +161,7 @@ public class Bestellung {
 	/**
 	 * @return the kunde
 	 */
-	public Set<Kunde> getKunde() {
+	public Kunde getKunde() {
 		return kunde;
 	}
 
@@ -150,14 +169,14 @@ public class Bestellung {
 	 * @param kunde
 	 *            the kunde to set
 	 */
-	public void setKunde(Set<Kunde> kunde) {
+	public void setKunde(Kunde kunde) {
 		this.kunde = kunde;
 	}
 
 	/**
 	 * @return the rechnungsnummer
 	 */
-	public Set<Rechnung> getRechnungsnummer() {
+	public Rechnung getRechnungsnummer() {
 		return rechnungsnummer;
 	}
 
@@ -165,7 +184,7 @@ public class Bestellung {
 	 * @param rechnungsnummer
 	 *            the rechnungsnummer to set
 	 */
-	public void setRechnungsnummer(Set<Rechnung> rechnungsnummer) {
+	public void setRechnungsnummer(Rechnung rechnungsnummer) {
 		this.rechnungsnummer = rechnungsnummer;
 	}
 
@@ -212,6 +231,19 @@ public class Bestellung {
 	 */
 	public void setZubehoer(Set<Zubehoer> zubehoer) {
 		this.zubehoer = zubehoer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Bestellung [id=" + id + ", menge=" + menge + ", bestellnummer=" + bestellnummer + ", kettenBestNr="
+				+ kettenBestNr + ", rabatt=" + rabatt + ", preis=" + preis + ", fuehrungsschienen=" + fuehrungsschienen
+				+ ", kunde=" + kunde + ", rechnungsnummer=" + rechnungsnummer + ", saege=" + saege + ", ketten="
+				+ ketten + ", zubehoer=" + zubehoer + "]";
 	}
 
 }

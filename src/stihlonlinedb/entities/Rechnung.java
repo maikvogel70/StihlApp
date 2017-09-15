@@ -2,6 +2,11 @@ package stihlonlinedb.entities;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "RECHNUNG")
 public class Rechnung {
 	private int id;
 	private Date datum;

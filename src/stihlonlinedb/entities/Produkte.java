@@ -1,13 +1,33 @@
 package stihlonlinedb.entities;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "PRODUKTE")
 public class Produkte {
 
-	private String name, bild;
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private int id;
 
-	public Produkte(List<Produkte> produkteList, String name, String bild) {
-		super();
+	private String name;
+
+	@OneToOne
+	@JoinColumn(name = "FK_BILD")
+	private Bildablage bild;
+
+	public Produkte() {
+	}
+
+	public Produkte(String name, Bildablage bild, int id) {
+		this.id = id;
 		this.name = name;
 		this.bild = bild;
 	}
@@ -30,7 +50,7 @@ public class Produkte {
 	/**
 	 * @return the bild
 	 */
-	public String getBild() {
+	public Bildablage getBild() {
 		return bild;
 	}
 
@@ -38,8 +58,33 @@ public class Produkte {
 	 * @param bild
 	 *            the bild to set
 	 */
-	public void setBild(String bild) {
+	public void setBild(Bildablage bild) {
 		this.bild = bild;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Produkte [id=" + id + ", name=" + name + ", bild=" + bild.getPfad() + "]";
 	}
 
 }

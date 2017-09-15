@@ -1,8 +1,20 @@
 package stihlonlinedb.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "KUNDEN")
 public class Kunde {
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private int id;
+
 	private String name, adresse;
 
 	public Kunde(int id, String name, String adresse) {
