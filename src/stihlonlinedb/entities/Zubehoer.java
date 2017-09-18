@@ -1,11 +1,13 @@
 package stihlonlinedb.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,27 +16,32 @@ public class Zubehoer {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column
 	private int id;
-
-	private String bestellnummer, name, beschreibung;
+	@Column
+	private String bestellnummer;
+	@Column
+	private String name;
+	@Column
+	private String beschreibung;
+	@Column
 	private double preis;
-
-	@OneToOne
-	@JoinColumn(name = "FK_BILD")
-	private Bildablage bild;
+	@OneToMany
+	private Set<Bildablage> bildablage = new HashSet<>();
+	private Zubehoer zubehoer;
 
 	public Zubehoer() {
 	}
 
-	public Zubehoer(int id, String bestellnummer, String name, String beschreibung, double preis, Bildablage bild) {
+	public Zubehoer(int id, String bestellnummer, String name, String beschreibung, double preis,
+			Set<Bildablage> bildablage) {
 		super();
 		this.id = id;
 		this.bestellnummer = bestellnummer;
 		this.name = name;
 		this.beschreibung = beschreibung;
 		this.preis = preis;
-		this.bild = bild;
+		this.bildablage = bildablage;
 	}
 
 	/**
@@ -113,18 +120,33 @@ public class Zubehoer {
 	}
 
 	/**
-	 * @return the bild
+	 * @return the bildablage
 	 */
-	public Bildablage getBild() {
-		return bild;
+	public Set<Bildablage> getBildablage() {
+		return bildablage;
 	}
 
 	/**
-	 * @param bild
-	 *            the bild to set
+	 * @param bildablage
+	 *            the bildablage to set
 	 */
-	public void setBild(Bildablage bild) {
-		this.bild = bild;
+	public void setBildablage(Set<Bildablage> bildablage) {
+		this.bildablage = bildablage;
+	}
+
+	/**
+	 * @return the zubehoer
+	 */
+	public Zubehoer getZubehoer() {
+		return zubehoer;
+	}
+
+	/**
+	 * @param zubehoer
+	 *            the zubehoer to set
+	 */
+	public void setZubehoer(Zubehoer zubehoer) {
+		this.zubehoer = zubehoer;
 	}
 
 	/*
@@ -135,7 +157,7 @@ public class Zubehoer {
 	@Override
 	public String toString() {
 		return "Zubehoer [id=" + id + ", bestellnummer=" + bestellnummer + ", name=" + name + ", beschreibung="
-				+ beschreibung + ", preis=" + preis + ", bild=" + bild.getPfad() + "]";
+				+ beschreibung + ", preis=" + preis + ", bild=" + bildablage + "]";
 	}
 
 }

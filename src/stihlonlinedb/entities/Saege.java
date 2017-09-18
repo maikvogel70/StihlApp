@@ -1,11 +1,14 @@
 package stihlonlinedb.entities;
 
-import javax.persistence.Column;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,16 +17,14 @@ import javax.persistence.Table;
 public class Saege {
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
-	private int id;
+	private long id;
 
 	private int schienenlaenge;
 	private String bestellnummer, kettenteilung, name, beschreibung, besonderheiten;
 	private double kw, ps, gewicht, hubraum, preis;
 
-	@OneToOne
-	@JoinColumn(name = "FK_BILD")
-	private Bildablage bild;
+	@OneToMany(targetEntity = Bildablage.class)
+	private Set<Bildablage> bildablage = new HashSet<>(0);
 	@OneToOne
 	@JoinColumn(name = "FK_EINSATZZWECK")
 	private Einsatzzweck einsatzzweck;
@@ -34,9 +35,9 @@ public class Saege {
 	public Saege() {
 	}
 
-	public Saege(int id, int schienenlaenge, String bestellnummer, String kettenteilung, String name,
+	public Saege(long id, int schienenlaenge, String bestellnummer, String kettenteilung, String name,
 			String beschreibung, String besonderheiten, double kw, double ps, double gewicht, double hubraum,
-			double preis, Bildablage bild, Einsatzzweck einsatzzweck, Bestellung bestellung) {
+			double preis, Set<Bildablage> bild, Einsatzzweck einsatzzweck, Bestellung bestellung) {
 		super();
 		this.id = id;
 		this.schienenlaenge = schienenlaenge;
@@ -50,7 +51,7 @@ public class Saege {
 		this.gewicht = gewicht;
 		this.hubraum = hubraum;
 		this.preis = preis;
-		this.bild = bild;
+		this.bildablage = bild;
 		this.einsatzzweck = einsatzzweck;
 		this.bestellung = bestellung;
 	}
@@ -58,7 +59,7 @@ public class Saege {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -66,7 +67,7 @@ public class Saege {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -236,21 +237,6 @@ public class Saege {
 	}
 
 	/**
-	 * @return the bild
-	 */
-	public Bildablage getBild() {
-		return bild;
-	}
-
-	/**
-	 * @param bild
-	 *            the bild to set
-	 */
-	public void setBild(Bildablage bild) {
-		this.bild = bild;
-	}
-
-	/**
 	 * @return the einsatzzweck
 	 */
 	public Einsatzzweck getEinsatzzweck() {
@@ -280,6 +266,21 @@ public class Saege {
 		this.bestellung = bestellung;
 	}
 
+	/**
+	 * @return the bildablage
+	 */
+	public Set<Bildablage> getBildablage() {
+		return bildablage;
+	}
+
+	/**
+	 * @param bildablage
+	 *            the bildablage to set
+	 */
+	public void setBildablage(Set<Bildablage> bildablage) {
+		this.bildablage = bildablage;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -287,10 +288,11 @@ public class Saege {
 	 */
 	@Override
 	public String toString() {
-		return "Saege [id=" + id + ", schienenlaenge=" + schienenlaenge + ", bestellnummer=" + bestellnummer
+		// return bild + "";
+		return "Saege [id=" + id + ", schienenlaenge=" + schienenlaenge + " bestellnummer=" + bestellnummer
 				+ ", kettenteilung=" + kettenteilung + ", name=" + name + ", beschreibung=" + beschreibung
-				+ ", besonderheiten=" + besonderheiten + ", kw=" + kw + ", ps=" + ps + ", gewicht=" + gewicht
-				+ ", hubraum=" + hubraum + ", preis=" + preis + ", bild=" + bild.getPfad() + ", einsatzzweck="
+				+ ", besonderheiten=" + besonderheiten + ", kw=" + kw + ", ps=" + ps + "gewicht=" + gewicht
+				+ ", hubraum=" + hubraum + ", preis=" + preis + ", bild=" + bildablage + ", einsatzzweck="
 				+ einsatzzweck + ", bestellung=" + bestellung + "]";
 	}
 

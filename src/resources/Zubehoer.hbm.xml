@@ -1,25 +1,29 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 14.09.2017 15:55:19 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="stihlonlinedb.entities.Zubehoer" table="ZUBEHOER">
-        <id name="id" type="int">
-            <column name="ID" />
-            <generator class="assigned" />
-        </id>
-        <property name="bestellnummer" type="java.lang.String">
-            <column name="BESTELLNUMMER" />
-        </property>
-        <property name="name" type="java.lang.String">
-            <column name="NAME" />
-        </property>
-        <property name="beschreibung" type="java.lang.String">
-            <column name="BESCHREIBUNG" />
-        </property>
-        <property name="preis" type="double">
-            <column name="PREIS" />
-        </property>
-        <one-to-one name="bild" class="stihlonlinedb.entities.Bildablage"></one-to-one>
-    </class>
+ <class name="stihlonlinedb.entities.Zubehoer" table="ZUBEHOER">
+  <id access="field" name="id" type="int">
+   <column name="ID"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="bestellnummer" type="java.lang.String">
+   <column name="BESTELLNUMMER"/>
+  </property>
+  <property generated="never" lazy="false" name="name" type="java.lang.String">
+   <column name="NAME"/>
+  </property>
+  <property generated="never" lazy="false" name="beschreibung" type="java.lang.String">
+   <column name="BESCHREIBUNG"/>
+  </property>
+  <property generated="never" lazy="false" name="preis" type="double">
+   <column name="PREIS"/>
+  </property>
+  <many-to-one class="stihlonlinedb.entities.Zubehoer" column="FK_Bild"
+   name="zubehoerFK" not-null="true"/>
+  <property column="FK_Bild" name="bildablage" type="integer">
+   <column name="FK_Bild"/>
+  </property>
+ </class>
 </hibernate-mapping>

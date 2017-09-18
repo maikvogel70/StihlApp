@@ -1,50 +1,46 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 14.09.2017 15:55:19 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="stihlonlinedb.entities.Saege" table="SAEGE">
-        <id name="id" type="int">
-            <column name="ID" />
-            <generator class="assigned" />
-        </id>
-        <property name="schienenlaenge" type="int">
-            <column name="SCHIENENLAENGE" />
-        </property>
-        <property name="bestellnummer" type="java.lang.String">
-            <column name="BESTELLNUMMER" />
-        </property>
-        <property name="kettenteilung" type="java.lang.String">
-            <column name="KETTENTEILUNG" />
-        </property>
-        <property name="name" type="java.lang.String">
-            <column name="NAME" />
-        </property>
-        <property name="beschreibung" type="java.lang.String">
-            <column name="BESCHREIBUNG" />
-        </property>
-        <property name="besonderheiten" type="java.lang.String">
-            <column name="BESONDERHEITEN" />
-        </property>
-        <property name="kw" type="double">
-            <column name="KW" />
-        </property>
-        <property name="ps" type="double">
-            <column name="PS" />
-        </property>
-        <property name="gewicht" type="double">
-            <column name="GEWICHT" />
-        </property>
-        <property name="hubraum" type="double">
-            <column name="HUBRAUM" />
-        </property>
-        <property name="preis" type="double">
-            <column name="PREIS" />
-        </property>
-        <one-to-one name="bild" class="stihlonlinedb.entities.Bildablage"></one-to-one>
-        <one-to-one name="einsatzzweck" class="stihlonlinedb.entities.Einsatzzweck"></one-to-one>
-        <many-to-one name="bestellung" class="stihlonlinedb.entities.Bestellung" fetch="join">
-            <column name="FK_BESTELLUNG" />
-        </many-to-one>
-    </class>
+ <class name="stihlonlinedb.entities.Saege" table="SAEGE">
+  <id name="id" type="int">
+   <column name="ID"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="schienenlaenge" type="int">
+   <column name="SCHIENENLAENGE"/>
+  </property>
+  <property generated="never" lazy="false" name="bestellnummer" type="java.lang.String">
+   <column name="BESTELLNUMMER"/>
+  </property>
+  <property generated="never" lazy="false" name="kettenteilung" type="java.lang.String">
+   <column name="KETTENTEILUNG"/>
+  </property>
+  <property generated="never" lazy="false" name="name" type="java.lang.String">
+   <column name="NAME"/>
+  </property>
+  <property generated="never" lazy="false" name="beschreibung" type="java.lang.String">
+   <column name="BESCHREIBUNG"/>
+  </property>
+  <property generated="never" lazy="false" name="besonderheiten" type="java.lang.String">
+   <column name="BESONDERHEITEN"/>
+  </property>
+  <property generated="never" lazy="false" name="kw" type="double">
+   <column name="KW"/>
+  </property>
+  <property generated="never" lazy="false" name="ps" type="double">
+   <column name="PS"/>
+  </property>
+  <property generated="never" lazy="false" name="gewicht" type="double">
+   <column name="GEWICHT"/>
+  </property>
+  <property generated="never" lazy="false" name="hubraum" type="double">
+   <column name="HUBRAUM"/>
+  </property>
+  <property generated="never" lazy="false" name="preis" type="double">
+   <column name="PREIS"/>
+  </property>
+  
+ </class>
 </hibernate-mapping>

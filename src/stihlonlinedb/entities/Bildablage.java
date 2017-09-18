@@ -1,33 +1,44 @@
 package stihlonlinedb.entities;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "BILDABLAGE")
-public class Bildablage {
+public class Bildablage implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
-	private int id;
+	@Column
+	private long id;
+	@Column
 	private String pfad;
+
+	@OneToMany
+	private Set<Bildablage> bildablage = new HashSet<>();
 
 	public Bildablage() {
 	}
 
-	public Bildablage(int id, String pfad) {
+	public Bildablage(long id, String pfad, Set<Bildablage> bildablage) {
+		super();
 		this.id = id;
 		this.pfad = pfad;
+		this.bildablage = bildablage;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -35,7 +46,7 @@ public class Bildablage {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -62,6 +73,21 @@ public class Bildablage {
 	@Override
 	public String toString() {
 		return "Bildablage [id=" + id + ", pfad=" + pfad + "]";
+	}
+
+	/**
+	 * @return the bildablage
+	 */
+	public Set<Bildablage> getBildablage() {
+		return bildablage;
+	}
+
+	/**
+	 * @param bildablage
+	 *            the bildablage to set
+	 */
+	public void setBildablage(Set<Bildablage> bildablage) {
+		this.bildablage = bildablage;
 	}
 
 }

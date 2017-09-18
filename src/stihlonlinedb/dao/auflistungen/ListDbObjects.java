@@ -16,16 +16,7 @@ import stihlonlinedb.entities.Produkte;
 import stihlonlinedb.entities.Saege;
 import stihlonlinedb.entities.Zubehoer;
 
-public class ListDbObjects {
-
-	private static final String FROM_CLAUSE_PRODUKTE = "FROM stihlonlinedb.entities.Produkte";
-	private static final String FROM_CLAUSE_BILDER = "FROM stihlonlinedb.entities.Bildablage";
-	private static final String FROM_CLAUSE_EINSATZ = "FROM stihlonlinedb.entities.Einsatzzweck";
-	private static final String FROM_CLAUSE_KETTEN = "FROM stihlonlinedb.entities.Ketten";
-	private static final String FROM_CLAUSE_FUEHRUNG = "FROM stihlonlinedb.entities.Fuehrungsschienen";
-	private static final String FROM_CLAUSE_SAEGE = "FROM stihlonlinedb.entities.Saege";
-	private static final String FROM_CLAUSE_ZUBEHOER = "FROM stihlonlinedb.entities.Zubehoer";
-	private static final String FROM_CLAUSE_KUNDE = "FROM stihlonlinedb.entities.Kunde";
+public class ListDbObjects implements IClauses {
 
 	private SessionFactory sessionFactory;
 
