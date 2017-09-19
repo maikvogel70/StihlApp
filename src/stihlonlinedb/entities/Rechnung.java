@@ -11,6 +11,9 @@ public class Rechnung {
 	private int id;
 	private Date datum;
 
+	public Rechnung() {
+	}
+
 	public Rechnung(int id, Date datum) {
 		super();
 		this.id = id;

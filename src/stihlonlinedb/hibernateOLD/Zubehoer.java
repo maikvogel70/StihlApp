@@ -1,19 +1,44 @@
-package stihlonlinedb.entities;
+package stihlonlinedb.hibernateOLD;
 
-public class Zubehoer {
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ZUBEHOER")
+public class Zubehoer implements Serializable {
+
+	private static final long serialVersionUID = -5587393447258724609L;
 	private int id;
 	private String bestellnummer;
+	@Column
 	private String name;
+	@Column
 	private String beschreibung;
+	@Column
 	private double preis;
-	private Bildablage bildablage;
+	@JoinColumn(name = "FK_Bild", foreignKey = @ForeignKey(name = "FK_Bild"))
+	private int fk_Bild;
+
+	// @JoinColumn(name = "bild_ID", foreignKey = @ForeignKey(name = "FK_Bild"))
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Bildablage.class)
+	// @JoinColumn(foreignKey = @ForeignKey(name = "FK_Bild"))
+	private Set<Bildablage> bildablage = new HashSet<>();
 
 	public Zubehoer() {
 	}
 
 	public Zubehoer(int id, String bestellnummer, String name, String beschreibung, double preis,
-			Bildablage bildablage) {
+			Set<Bildablage> bildablage) {
 		super();
 		this.id = id;
 		this.bestellnummer = bestellnummer;
@@ -101,7 +126,7 @@ public class Zubehoer {
 	/**
 	 * @return the bildablage
 	 */
-	public Bildablage getBildablage() {
+	public Set<Bildablage> getBildablage() {
 		return bildablage;
 	}
 
@@ -109,7 +134,7 @@ public class Zubehoer {
 	 * @param bildablage
 	 *            the bildablage to set
 	 */
-	public void setBildablage(Bildablage bildablage) {
+	public void setBildablage(Set<Bildablage> bildablage) {
 		this.bildablage = bildablage;
 	}
 

@@ -1,25 +1,8 @@
 package stihlonlinedb.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "EINSATZZWECK")
 public class Einsatzzweck {
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
 	private int id;
-
 	private String name;
-
-	@OneToOne
-	@JoinColumn(name = "FK_BILD")
 	private Bildablage bild;
 
 	public Einsatzzweck() {

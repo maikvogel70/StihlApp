@@ -1,20 +1,42 @@
-package stihlonlinedb.entities;
+package stihlonlinedb.hibernateOLD;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import stihlonlinedb.entities.Bestellung;
+import stihlonlinedb.entities.Einsatzzweck;
+
+@Entity
+@Table(name = "SAEGE")
 public class Saege {
-	private int id;
+	@Id
+	@GeneratedValue
+	private long id;
+
 	private int schienenlaenge;
 	private String bestellnummer, kettenteilung, name, beschreibung, besonderheiten;
 	private double kw, ps, gewicht, hubraum, preis;
-	private Bildablage bildablage;
-	private Einsatzzweck einsatzzweck;
-	private Bestellung bestellung;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "Bild_ID", targetEntity = Bildablage.class)
+	private Set<Bildablage> bildablage = new HashSet<>();
+	// @OneToMany(fetch = FetchType.EAGER)
+	// private Einsatzzweck einsatzzweck;
+	// @ManyToMany(fetch = FetchType.EAGER)
+	// private Bestellung bestellung;
 
 	public Saege() {
 	}
 
-	public Saege(int id, int schienenlaenge, String bestellnummer, String kettenteilung, String name,
+	public Saege(long id, int schienenlaenge, String bestellnummer, String kettenteilung, String name,
 			String beschreibung, String besonderheiten, double kw, double ps, double gewicht, double hubraum,
-			double preis, Bildablage bild, Einsatzzweck einsatzzweck, Bestellung bestellung) {
+			double preis, Set<Bildablage> bild, Einsatzzweck einsatzzweck, Bestellung bestellung) {
 		super();
 		this.id = id;
 		this.schienenlaenge = schienenlaenge;
@@ -29,14 +51,14 @@ public class Saege {
 		this.hubraum = hubraum;
 		this.preis = preis;
 		this.bildablage = bild;
-		this.einsatzzweck = einsatzzweck;
-		this.bestellung = bestellung;
+		// this.einsatzzweck = einsatzzweck;
+		// this.bestellung = bestellung;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -44,7 +66,7 @@ public class Saege {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -212,41 +234,41 @@ public class Saege {
 	public void setPreis(double preis) {
 		this.preis = preis;
 	}
-
-	/**
-	 * @return the einsatzzweck
-	 */
-	public Einsatzzweck getEinsatzzweck() {
-		return einsatzzweck;
-	}
-
-	/**
-	 * @param einsatzzweck
-	 *            the einsatzzweck to set
-	 */
-	public void setEinsatzzweck(Einsatzzweck einsatzzweck) {
-		this.einsatzzweck = einsatzzweck;
-	}
-
-	/**
-	 * @return the bestellung
-	 */
-	public Bestellung getBestellung() {
-		return bestellung;
-	}
-
-	/**
-	 * @param bestellung
-	 *            the bestellung to set
-	 */
-	public void setBestellung(Bestellung bestellung) {
-		this.bestellung = bestellung;
-	}
+	//
+	// /**
+	// * @return the einsatzzweck
+	// */
+	// public Einsatzzweck getEinsatzzweck() {
+	// return einsatzzweck;
+	// }
+	//
+	// /**
+	// * @param einsatzzweck
+	// * the einsatzzweck to set
+	// */
+	// public void setEinsatzzweck(Einsatzzweck einsatzzweck) {
+	// this.einsatzzweck = einsatzzweck;
+	// }
+	//
+	// /**
+	// * @return the bestellung
+	// */
+	// public Bestellung getBestellung() {
+	// return bestellung;
+	// }
+	//
+	// /**
+	// * @param bestellung
+	// * the bestellung to set
+	// */
+	// public void setBestellung(Bestellung bestellung) {
+	// this.bestellung = bestellung;
+	// }
 
 	/**
 	 * @return the bildablage
 	 */
-	public Bildablage getBildablage() {
+	public Set<Bildablage> getBildablage() {
 		return bildablage;
 	}
 
@@ -254,7 +276,7 @@ public class Saege {
 	 * @param bildablage
 	 *            the bildablage to set
 	 */
-	public void setBildablage(Bildablage bildablage) {
+	public void setBildablage(Set<Bildablage> bildablage) {
 		this.bildablage = bildablage;
 	}
 

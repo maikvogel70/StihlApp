@@ -4,16 +4,12 @@
 <!-- Generated 14.09.2017 15:55:19 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
  <class name="stihlonlinedb.entities.Bildablage" table="BILDABLAGE">
-  <id access="field" name="id" type="int">
-   <column name="ID"/>
+  <id access="property" name="Bild_ID" type="int">
+   <column name="Bild_ID"/>
    <generator class="identity"/>
   </id>
   <property generated="never" lazy="false" name="pfad" type="java.lang.String">
    <column name="PFAD"/>
   </property>
-  <set cascade="all" inverse="true" name="bildablage" sort="unsorted">
-   <key column="ID"/>
-   <one-to-many class="stihlonlinedb.entities.Bildablage"/>
-  </set>
  </class>
 </hibernate-mapping>

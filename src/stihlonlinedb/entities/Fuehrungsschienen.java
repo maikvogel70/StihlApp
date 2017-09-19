@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import stihlonlinedb.hibernateOLD.Bildablage;
+
 @Entity
 @Table(name = "FUEHUNGSSCHIENEN")
 public class Fuehrungsschienen {

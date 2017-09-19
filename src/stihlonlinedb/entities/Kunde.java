@@ -17,6 +17,9 @@ public class Kunde {
 
 	private String name, adresse;
 
+	public Kunde() {
+	}
+
 	public Kunde(int id, String name, String adresse) {
 		super();
 		this.id = id;

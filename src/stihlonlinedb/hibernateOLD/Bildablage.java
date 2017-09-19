@@ -1,8 +1,18 @@
-package stihlonlinedb.entities;
+package stihlonlinedb.hibernateOLD;
 
-public class Bildablage {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "BILDABLAGE")
+public class Bildablage implements Serializable {
+
+	private static final long serialVersionUID = 8004534648974848525L;
 	private int bild_ID;
+	@Column
 	private String pfad;
 
 	public Bildablage() {
@@ -51,7 +61,7 @@ public class Bildablage {
 	 */
 	@Override
 	public String toString() {
-		return "Bildablage [bild_ID=" + bild_ID + ", pfad=" + pfad + "]";
+		return "Bildablage [id=" + bild_ID + ", pfad=" + pfad + "]";
 	}
 
 }

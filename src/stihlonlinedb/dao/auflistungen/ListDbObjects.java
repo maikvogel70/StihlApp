@@ -1,12 +1,11 @@
 package stihlonlinedb.dao.auflistungen;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
+import stihlonlinedb.db.DBConnection;
 import stihlonlinedb.entities.Bildablage;
 import stihlonlinedb.entities.Einsatzzweck;
 import stihlonlinedb.entities.Fuehrungsschienen;
@@ -18,58 +17,125 @@ import stihlonlinedb.entities.Zubehoer;
 
 public class ListDbObjects implements IClauses {
 
-	private SessionFactory sessionFactory;
-
-	public ListDbObjects(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public ListDbObjects() {
 	}
 
 	public List<Produkte> getAllProdukte() {
-		return (List<Produkte>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_PRODUKTE);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_PRODUKTE);
+		List<Produkte> pList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				pList.add(new Produkte(rs.getInt(1), rs.getString(2), new Bildablage(0, rs.getString(5))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pList;
 	}
 
 	public List<Bildablage> getAllBilder() {
-		return (List<Bildablage>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_BILDER);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_BILDER);
+		List<Bildablage> bList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				bList.add(new Bildablage(rs.getInt(1), rs.getString(2)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bList;
 	}
 
 	public List<Einsatzzweck> getAllEinsatzzwecke() {
-		return (List<Einsatzzweck>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_EINSATZ);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_EINSATZ);
+		List<Einsatzzweck> eList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				eList.add(
+						new Einsatzzweck(rs.getInt(1), rs.getString(2), new Bildablage(rs.getInt(4), rs.getString(5))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return eList;
 	}
 
 	public List<Zubehoer> getAllZubehoer() {
-		return (List<Zubehoer>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_ZUBEHOER);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_ZUBEHOER);
+		List<Zubehoer> zList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				zList.add(new Zubehoer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5),
+						new Bildablage(0, rs.getString(8))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return zList;
 	}
 
 	public List<Saege> getAllSaegen() {
-		return (List<Saege>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_SAEGE);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_SAEGE);
+		List<Saege> sList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				Saege s = new Saege();
+				s.setBeschreibung(rs.getString(4));
+				s.setBesonderheiten(rs.getString(6));
+				s.setBestellnummer(rs.getString(3));
+				s.setBestellung(null);
+				s.setBildablage(new Bildablage(0, rs.getString(13)));
+				s.setEinsatzzweck(null);
+				s.setGewicht(rs.getDouble(10));
+				s.setHubraum(rs.getDouble(11));
+				s.setId(rs.getInt(1));
+				s.setKettenteilung(rs.getString(5));
+				s.setKw(rs.getDouble(7));
+				s.setName(rs.getString(2));
+				s.setPreis(rs.getDouble(12));
+				s.setPs(rs.getDouble(8));
+				s.setSchienenlaenge(rs.getInt(9));
+				sList.add(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sList;
 	}
 
 	public List<Ketten> getAllKetten() {
-		return (List<Ketten>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_KETTEN);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_KETTEN);
+		List<Ketten> kList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				kList.add(new Ketten(rs.getInt(1), rs.getInt(6), rs.getInt(9), rs.getString(3), rs.getString(2),
+						rs.getString(4), rs.getString(5), rs.getDouble(8), rs.getDouble(6)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return kList;
 	}
 
 	public List<Fuehrungsschienen> getAllFuerungsschienen() {
-		return (List<Fuehrungsschienen>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_FUEHRUNG);
+		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_FUEHRUNG);
+		List<Fuehrungsschienen> fList = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				fList.add(new Fuehrungsschienen(rs.getInt(1), rs.getInt(5), rs.getInt(6), rs.getString(3),
+						rs.getString(2), rs.getString(4), rs.getDouble(7),
+						new stihlonlinedb.hibernateOLD.Bildablage(0, rs.getString(10))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fList;
 	}
 
 	public List<Kunde> getAllKunden() {
-		return (List<Kunde>) getObjects(sessionFactory.openSession(), FROM_CLAUSE_KUNDE);
+		return null;
+		// return (List<Kunde>) getObjects(sessionFactory.openSession(),
+		// FROM_CLAUSE_KUNDE);
 	}
 
-	private List<?> getObjects(Session session, String fromClause) {
-		List<?> objects = null;
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			objects = session.createQuery(fromClause).list();
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return objects;
-	}
 }

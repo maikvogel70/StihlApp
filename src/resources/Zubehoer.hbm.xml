@@ -4,8 +4,8 @@
 <!-- Generated 14.09.2017 15:55:19 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
  <class name="stihlonlinedb.entities.Zubehoer" table="ZUBEHOER">
-  <id access="field" name="id" type="int">
-   <column name="ID"/>
+  <id access="property" name="Zubehoer_ID" type="int">
+   <column name="Zubehoer_ID"/>
    <generator class="identity"/>
   </id>
   <property generated="never" lazy="false" name="bestellnummer" type="java.lang.String">
@@ -20,10 +20,14 @@
   <property generated="never" lazy="false" name="preis" type="double">
    <column name="PREIS"/>
   </property>
-  <many-to-one class="stihlonlinedb.entities.Zubehoer" column="FK_Bild"
-   name="zubehoerFK" not-null="true"/>
-  <property column="FK_Bild" name="bildablage" type="integer">
+  <property name="fk_bild" lazy="false" type="int">
    <column name="FK_Bild"/>
   </property>
+  <!-- <set access="field" name="bildablage">
+   <key/>
+   <one-to-many class="stihlonlinedb.entities.Bildablage" />
+  </set> 
+ <many-to-one class="stihlonlinedb.entities.Zubehoer" column="FK_Bild"
+   name="fk_bild" not-null="true"/> -->
  </class>
 </hibernate-mapping>

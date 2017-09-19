@@ -41,6 +41,7 @@
   <property generated="never" lazy="false" name="preis" type="double">
    <column name="PREIS"/>
   </property>
-  
+    <many-to-one class="stihlonlinedb.entities.Saege" column="FK_Bild"
+   name="fk_bild" not-null="true" />
  </class>
 </hibernate-mapping>
