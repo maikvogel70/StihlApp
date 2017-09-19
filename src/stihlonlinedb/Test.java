@@ -26,7 +26,7 @@ public class Test implements IClauses {
 			System.out.println(qs.getZubehoerById(3));
 			System.out.println(qs.getSaegeById(6));
 			System.out.println(qs.getProdukteById(5));
-			System.out.println(qs.getEinsatzzweckById(12));
+			System.out.println(qs.getEinsatzzweckById(3));
 			System.out.println(qs.getFuehungsschienenById(6));
 			System.out.println(qs.getKettenById(15));
 			System.out.println(qs.getBildById(15));

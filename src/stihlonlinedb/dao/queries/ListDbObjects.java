@@ -84,8 +84,10 @@ public class ListDbObjects implements IClauses {
 				s.setBesonderheiten(rs.getString(6));
 				s.setBestellnummer(rs.getString(3));
 				s.setBestellung(null);
-				s.setBildablage(new Bildablage(0, rs.getString(13)));
-				s.setEinsatzzweck(null);
+				s.setBildablage(new Bildablage(0, rs.getString(16)));
+				Bildablage b = new Bildablage(0, rs.getString(18));
+				Einsatzzweck e = new Einsatzzweck(0, rs.getString(17), b);
+				s.setEinsatzzweck(e);
 				s.setGewicht(rs.getDouble(10));
 				s.setHubraum(rs.getDouble(11));
 				s.setId(rs.getInt(1));

@@ -265,12 +265,11 @@ public class Saege {
 	 */
 	@Override
 	public String toString() {
-		// return bild + "";
-		return "Saege [id=" + id + ", schienenlaenge=" + schienenlaenge + " bestellnummer=" + bestellnummer
+		return "Saege [id=" + id + ", schienenlaenge=" + schienenlaenge + ", bestellnummer=" + bestellnummer
 				+ ", kettenteilung=" + kettenteilung + ", name=" + name + ", beschreibung=" + beschreibung
-				+ ", besonderheiten=" + besonderheiten + ", kw=" + kw + ", ps=" + ps + "gewicht=" + gewicht
-				+ ", hubraum=" + hubraum + ", preis=" + preis + ", bild=" + bildablage + ", einsatzzweck=" + null
-				+ ", bestellung=" + null + "]";
+				+ ", besonderheiten=" + besonderheiten + ", kw=" + kw + ", ps=" + ps + ", gewicht=" + gewicht
+				+ ", hubraum=" + hubraum + ", preis=" + preis + ", bildablage=" + bildablage + ", einsatzzweck="
+				+ einsatzzweck + ", bestellung=" + bestellung + "]";
 	}
 
 }
