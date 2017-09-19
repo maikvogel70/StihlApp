@@ -15,12 +15,18 @@
       </TitledPane>
    </center>
    <left>
-      <FlowPane prefHeight="600.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox fx:id="productHBox" prefHeight="100.0" prefWidth="200.0">
+      <ScrollPane prefViewportHeight="600.0" prefViewportWidth="300.0" >
+         <content>
+            <FlowPane prefHeight="600.0" prefWidth="300.0" BorderPane.alignment="CENTER" fx:id="productPane">
                <children>
-                  <Label fx:id="label" prefHeight="17.0" prefWidth="111.0" text="aaASDFASDF" />
-               </children></HBox>
-         </children></FlowPane>
+                  <HBox fx:id="productHBox" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="label" prefHeight="17.0" prefWidth="111.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </FlowPane>
+         </content>
+      </ScrollPane>
    </left>
 </BorderPane>
