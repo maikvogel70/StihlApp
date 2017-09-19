@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.SessionFactory;
 
-import stihlonlinedb.dao.auflistungen.IClauses;
+import stihlonlinedb.dao.queries.IClauses;
 
 public class DbCommands implements IClauses, Serializable {
 

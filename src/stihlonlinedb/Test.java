@@ -1,8 +1,8 @@
 package stihlonlinedb;
 
-import stihlonlinedb.dao.Queries;
-import stihlonlinedb.dao.auflistungen.IClauses;
-import stihlonlinedb.dao.auflistungen.ListDbObjects;
+import stihlonlinedb.dao.queries.IClauses;
+import stihlonlinedb.dao.queries.ListDbObjects;
+import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.db.DBConnection;
 import stihlonlinedb.db.DbCommands;
 

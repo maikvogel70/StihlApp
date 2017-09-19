@@ -1,4 +1,4 @@
-package stihlonlinedb.dao.auflistungen;
+package stihlonlinedb.dao.queries;
 
 public interface IClauses {
 	public final String FROM_CLAUSE_PRODUKTE = "SELECT * FROM Produkte INNER JOIN bildablage ON bildablage.ID = Produkte.FK_Bild";

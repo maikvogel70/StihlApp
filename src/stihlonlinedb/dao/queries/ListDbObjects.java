@@ -1,4 +1,4 @@
-package stihlonlinedb.dao.auflistungen;
+package stihlonlinedb.dao.queries;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
