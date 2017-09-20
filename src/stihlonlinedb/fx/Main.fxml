@@ -5,7 +5,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="stihlonlinedb.fx.controller.MainController">
 	<children>
-		<BorderPane minHeight="600" minWidth="800"
+		<BorderPane minHeight="600" minWidth="1000"
 			xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 			<left>
 				<fx:include fx:id="productPane" source="ProduktePane.fxml" />

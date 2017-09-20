@@ -42,7 +42,6 @@ public class ProdukteController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// addProductPane();
 		addProductFlowPaneContent();
 		addLabel();
 	}
@@ -50,12 +49,6 @@ public class ProdukteController implements Initializable {
 	private void addLabel() {
 		produkteLabel.setText("STIHL Produkte");
 		produkteLabel.getStyleClass().add("labelProductView");
-	}
-
-	private void addProductPane() {
-		Button btn = new Button("halloBtn");
-		productHBox.getChildren().add(btn);
-		productHBox.setVisible(true);
 	}
 
 	private void addProductFlowPaneContent() {
@@ -83,10 +76,18 @@ public class ProdukteController implements Initializable {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					System.out.println(((Button) e.getSource()).getId());
-					mainController.setContentVisible(true);
+					KategorienController kategorienPaneController = mainController.getKategorienPaneController();
+					if ("productBtn_1".equals(((Button) e.getSource()).getId())) {
+						kategorienPaneController.addKategorienToFlowPane(((Button) e.getSource()).getId());
+						kategorienPaneController.getAnchorPaneKategorien().setVisible(true);
+						kategorienPaneController.setDefaultView(false);
+						kategorienPaneController.getKategorienLabel().setText(((Button) e.getSource()).getText());
+					} else {
+						kategorienPaneController.getKategoriePane().getChildren().clear();
+						kategorienPaneController.getKategorienLabel().setText("sorry... nur zu Demozwecken...");
+						kategorienPaneController.setDefaultView(true);
+					}
 				}
-
 			});
 			idCounter++;
 			productPane.getChildren().add(btn);

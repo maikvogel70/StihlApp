@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-	fx:controller="stihlonlinedb.fx.controller.KategorienController" fx:id="anchorPaneKategorien" visible="false">
+<AnchorPane fx:id="anchorPaneKategorien" xmlns="http://javafx.com/javafx/8.0.141"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="stihlonlinedb.fx.controller.KategorienController">
 	<children>
 		<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 			<top>
-				<Label fx:id="kategorienLabel" prefHeight="20.0" prefWidth="300.0" />
+				<Label fx:id="kategorienLabel" />
 			</top>
 			<center>
-				<FlowPane prefHeight="400.0" prefWidth="400.0"
-					BorderPane.alignment="CENTER" fx:id="kategoriePane">
-					<children>
-
-					</children>
+				<FlowPane fx:id="kategorieMainPane" BorderPane.alignment="CENTER">
+					<ScrollPane fx:id="kategorieScrollPane" fitToHeight="true"
+						prefViewportHeight="600" prefViewportWidth="800.0">
+						<VBox prefHeight="600.0" prefWidth="600.0"
+							BorderPane.alignment="CENTER">
+							<children>
+								<TitledPane fx:id="collapsiblePane" animated="true"
+									text="Einsatzzwecke">
+									<content>
+										<FlowPane fx:id="kategoriePane" BorderPane.alignment="CENTER" />
+									</content>
+								</TitledPane>
+								<TitledPane fx:id="collapsiblePaneContent" animated="true"
+									text="sadf">
+									<content>
+										<HBox>
+											<ScrollPane fitToHeight="true" prefViewportHeight="600"
+												prefViewportWidth="800.0">
+												<FlowPane fx:id="kategoriePaneContent"
+													BorderPane.alignment="CENTER">
+												</FlowPane>
+											</ScrollPane>
+										</HBox>
+									</content>
+								</TitledPane>
+							</children>
+						</VBox>
+					</ScrollPane>
 				</FlowPane>
 			</center>
 		</BorderPane>
