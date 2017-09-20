@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+	fx:controller="stihlonlinedb.fx.controller.ProdukteController">
+	<ScrollPane prefViewportHeight="600.0" prefViewportWidth="400.0">
+		<content>
+			<FlowPane prefHeight="600.0" prefWidth="400.0"
+				BorderPane.alignment="CENTER" fx:id="productPane">
+				<children>
+					<Label fx:id="produkteLabel" prefHeight="20.0" prefWidth="300.0" />
+				</children>
+			</FlowPane>
+		</content>
+	</ScrollPane>
+</AnchorPane>

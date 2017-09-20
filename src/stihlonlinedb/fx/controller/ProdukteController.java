@@ -4,7 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -12,19 +15,30 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.entities.Produkte;
 
-public class FXMLController implements Initializable {
+public class ProdukteController implements Initializable {
 	@FXML
 	private HBox productHBox;
 	@FXML
-	private Label label;
+	private Label produkteLabel;
 	@FXML
 	private FlowPane productPane;
+	@FXML
+	private AnchorPane centerPane;
+
+	@FXML
+	private KategorienController katCon;
+	VBox vboxKategorien;
+	KategorienController c;
+	FXMLLoader fxmlLoader;
+	private MainController mainController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -34,8 +48,8 @@ public class FXMLController implements Initializable {
 	}
 
 	private void addLabel() {
-		label.setText("STIHL Produkte");
-		label.getStyleClass().add("labelProductView");
+		produkteLabel.setText("STIHL Produkte");
+		produkteLabel.getStyleClass().add("labelProductView");
 	}
 
 	private void addProductPane() {
@@ -52,20 +66,35 @@ public class FXMLController implements Initializable {
 
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Produkte> allProdukte = dbObjects.getAllProdukte();
-
+		int idCounter = 0;
 		for (Produkte produkte : allProdukte) {
 			Image image = new Image(getClass().getResourceAsStream("/pics/" + produkte.getBild().getPfad()), 160, 100,
 					true, true);
 			ImageView view = new ImageView(image);
 			Button btn = new Button(produkte.getName(), view);
+			btn.setId("productBtn_" + idCounter);
 			btn.setContentDisplay(ContentDisplay.TOP);
 			btn.setTextAlignment(TextAlignment.CENTER);
 			btn.setMaxWidth(160);
 			btn.setMinHeight(140);
 			btn.setWrapText(true);
 			btn.getStyleClass().add("btnProductView");
+
+			btn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					System.out.println(((Button) e.getSource()).getId());
+					mainController.setContentVisible(true);
+				}
+
+			});
+			idCounter++;
 			productPane.getChildren().add(btn);
 		}
 
+	}
+
+	public void init(MainController mainController) {
+		this.mainController = mainController;
 	}
 }

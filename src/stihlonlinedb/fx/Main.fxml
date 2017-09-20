@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="stihlonlinedb.fx.controller.MainController">
+	<children>
+		<BorderPane minHeight="600" minWidth="800"
+			xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+			<left>
+				<fx:include fx:id="productPane" source="ProduktePane.fxml" />
+			</left>
+			<center>
+				<fx:include fx:id="kategorienPane" source="KategorienPane.fxml" />
+			</center>
+		</BorderPane>
+	</children>
+</AnchorPane>
+
