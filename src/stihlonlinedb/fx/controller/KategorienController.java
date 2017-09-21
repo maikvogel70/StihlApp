@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
@@ -44,8 +45,14 @@ public class KategorienController implements Initializable {
 	private ScrollPane kategorieScrollPane;
 	@FXML
 	private TableView<Saege> kategorieContent;
-
-	private MainController mainController;
+	@FXML
+	private Dialog<Saege> detailDialog;
+	@FXML
+	private Label saegenDetailsLabel, saegenTitleLabel;
+	@FXML
+	private ImageView saegenImage;
+	@FXML
+	private Button closeBtn;
 	private KategorieContentTable tableContent;
 
 	@Override
@@ -66,16 +73,16 @@ public class KategorienController implements Initializable {
 	}
 
 	public void addKategorienToFlowPane(String produktId) {
+
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Einsatzzweck> allProdukte = dbObjects.getAllEinsatzzwecke();
-		int idCounter = 0;
-
+		KategorienController kc = this;
 		for (Einsatzzweck einsatzzweck : allProdukte) {
 			Image image = new Image(getClass().getResourceAsStream("/pics/" + einsatzzweck.getBild().getPfad()), 160,
 					100, true, true);
 			ImageView view = new ImageView(image);
 			Button btn = new Button(einsatzzweck.getName(), view);
-			btn.setId("kategorieBtn_" + idCounter);
+			btn.setId("" + einsatzzweck.getId());
 			btn.setContentDisplay(ContentDisplay.TOP);
 			btn.setTextAlignment(TextAlignment.CENTER);
 			btn.setMaxWidth(160);
@@ -86,17 +93,60 @@ public class KategorienController implements Initializable {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					System.out.println(((Button) e.getSource()).getId());
-					collapsiblePane.setExpanded(false);
 					collapsiblePaneContent.setExpanded(true);
 					tableContent = new KategorieContentTable();
-					kategoriePaneContent.getChildren().addAll(tableContent.getTable());
+					kategoriePaneContent.getChildren().clear();
+					kategoriePaneContent.getChildren()
+							.addAll(tableContent.getTable(Integer.parseInt(((Button) e.getSource()).getId())));
 				}
 			});
-			idCounter++;
 			kategoriePane.getChildren().add(btn);
 		}
 	}
+
+	// public void start(int id) {
+	// try {
+	// loader = FXMLLoader.load(getClass().getResource("../DetailDialog.fxml"));
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	// Queries qs = new Queries();
+	// Saege saege = qs.getSaegeById(id);
+	// if (saege == null) {
+	// return;
+	// }
+	// Image image = new Image(getClass().getResourceAsStream("/pics/" +
+	// saege.getBildablage().getPfad()), 300, 200,
+	// true, true);
+	// saegenImage = new ImageView(image);
+	// saegenTitleLabel.setText(saege.getName());
+	// StringBuffer sb = new StringBuffer();
+	// sb.append("Beschreibung: ");
+	// sb.append(saege.getBeschreibung() + "\n");
+	// sb.append("Bestellnummer: ");
+	// sb.append(saege.getBestellnummer() + "\n");
+	// sb.append("Schienenlänge: ");
+	// sb.append(saege.getSchienenlaenge() + "\n");
+	// sb.append("Kettenteilung");
+	// sb.append(saege.getKettenteilung() + "\n");
+	// sb.append("Gewicht: ");
+	// sb.append(saege.getGewicht() + "\n");
+	// sb.append("Hubraum");
+	// sb.append(saege.getHubraum() + "cm³\n");
+	// sb.append("Leistung: ");
+	// sb.append(saege.getKw() + "kW/");
+	// sb.append(saege.getPs() + "PS\n");
+	// sb.append("Einsatzzweck: ");
+	// sb.append(saege.getEinsatzzweck().getName() + "\n");
+	// sb.append("Preis");
+	// sb.append("€ " + saege.getPreis());
+	// saegenDetailsLabel.setText(sb.toString());
+	//
+	// Stage stage = new Stage();
+	// stage.setScene(new Scene(loader));
+	// stage.show();
+	//
+	// }
 
 	/**
 	 * @return the vboxKategorien
@@ -105,9 +155,11 @@ public class KategorienController implements Initializable {
 		return anchorPaneKategorien;
 	}
 
-	public void init(MainController mainController) {
-		this.mainController = mainController;
-		setDefaultView(true);
+	/**
+	 * @return the tableContent
+	 */
+	public KategorieContentTable getTableContent() {
+		return tableContent;
 	}
 
 	/**

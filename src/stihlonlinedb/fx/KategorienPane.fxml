@@ -22,7 +22,7 @@
 				<FlowPane fx:id="kategorieMainPane" BorderPane.alignment="CENTER">
 					<ScrollPane fx:id="kategorieScrollPane" fitToHeight="true"
 						prefViewportHeight="600" prefViewportWidth="800.0">
-						<VBox prefHeight="600.0" prefWidth="600.0"
+						<VBox prefHeight="600.0" prefWidth="750.0"
 							BorderPane.alignment="CENTER">
 							<children>
 								<TitledPane fx:id="collapsiblePane" animated="true"
@@ -35,12 +35,9 @@
 									text="sadf">
 									<content>
 										<HBox>
-											<ScrollPane fitToHeight="true" prefViewportHeight="600"
-												prefViewportWidth="800.0">
-												<FlowPane fx:id="kategoriePaneContent"
-													BorderPane.alignment="CENTER">
-												</FlowPane>
-											</ScrollPane>
+											<FlowPane fx:id="kategoriePaneContent"
+												BorderPane.alignment="CENTER">
+											</FlowPane>
 										</HBox>
 									</content>
 								</TitledPane>
