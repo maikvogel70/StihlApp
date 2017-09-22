@@ -4,18 +4,20 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +27,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import stihlonlinedb.dao.KategorieContentTable;
 import stihlonlinedb.dao.queries.ListDbObjects;
@@ -40,8 +43,6 @@ public class KategorienController implements Initializable {
 	@FXML
 	private AnchorPane anchorPaneKategorien;
 	@FXML
-	private TitledPane collapsiblePane, collapsiblePaneContent;
-	@FXML
 	private ScrollPane kategorieScrollPane;
 	@FXML
 	private TableView<Saege> kategorieContent;
@@ -53,21 +54,28 @@ public class KategorienController implements Initializable {
 	private ImageView saegenImage;
 	@FXML
 	private Button closeBtn;
+	@FXML
+	private VBox kategorieVbox;
+
 	private KategorieContentTable tableContent;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		addLabel();
 		addKategorienFlowPaneContent();
+		setDefaultView(true);
+		kategorieVbox.setBorder(null);
+		kategorieScrollPane.setStyle("-fx-background-color:transparent;");
+		kategoriePaneContent.setMinWidth(795);
+		kategoriePaneContent.setPadding(new Insets(10, 0, 0, 10));
 	}
 
 	private void addLabel() {
-		kategorienLabel.getStyleClass().add("labelProductView");
-		kategorienLabel.setPadding(new Insets(10, 0, 0, 10));
+		kategorienLabel.getStyleClass().add("labelTitleView");
 	}
 
 	private void addKategorienFlowPaneContent() {
-		kategoriePane.setPadding(new Insets(5, 0, 0, 10));
+		kategoriePane.setPadding(new Insets(10, 0, 0, 10));
 		kategoriePane.setVgap(4);
 		kategoriePane.setHgap(4);
 	}
@@ -76,12 +84,11 @@ public class KategorienController implements Initializable {
 
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Einsatzzweck> allProdukte = dbObjects.getAllEinsatzzwecke();
-		KategorienController kc = this;
 		for (Einsatzzweck einsatzzweck : allProdukte) {
 			Image image = new Image(getClass().getResourceAsStream("/pics/" + einsatzzweck.getBild().getPfad()), 160,
 					100, true, true);
 			ImageView view = new ImageView(image);
-			Button btn = new Button(einsatzzweck.getName(), view);
+			ToggleButton btn = new ToggleButton(einsatzzweck.getName(), view);
 			btn.setId("" + einsatzzweck.getId());
 			btn.setContentDisplay(ContentDisplay.TOP);
 			btn.setTextAlignment(TextAlignment.CENTER);
@@ -93,60 +100,34 @@ public class KategorienController implements Initializable {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					collapsiblePaneContent.setExpanded(true);
+					if (e.getSource() instanceof ToggleButton) {
+						ObservableList<Node> children = kategoriePane.getChildren();
+						for (Node tb : children) {
+							((ToggleButton) tb).setSelected(false);
+						}
+					}
+					btn.setSelected(true);
 					tableContent = new KategorieContentTable();
 					kategoriePaneContent.getChildren().clear();
 					kategoriePaneContent.getChildren()
-							.addAll(tableContent.getTable(Integer.parseInt(((Button) e.getSource()).getId())));
+							.addAll(tableContent.getTable(Integer.parseInt(((ToggleButton) e.getSource()).getId())));
 				}
 			});
 			kategoriePane.getChildren().add(btn);
 		}
 	}
 
-	// public void start(int id) {
-	// try {
-	// loader = FXMLLoader.load(getClass().getResource("../DetailDialog.fxml"));
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// Queries qs = new Queries();
-	// Saege saege = qs.getSaegeById(id);
-	// if (saege == null) {
-	// return;
-	// }
-	// Image image = new Image(getClass().getResourceAsStream("/pics/" +
-	// saege.getBildablage().getPfad()), 300, 200,
-	// true, true);
-	// saegenImage = new ImageView(image);
-	// saegenTitleLabel.setText(saege.getName());
-	// StringBuffer sb = new StringBuffer();
-	// sb.append("Beschreibung: ");
-	// sb.append(saege.getBeschreibung() + "\n");
-	// sb.append("Bestellnummer: ");
-	// sb.append(saege.getBestellnummer() + "\n");
-	// sb.append("Schienenlänge: ");
-	// sb.append(saege.getSchienenlaenge() + "\n");
-	// sb.append("Kettenteilung");
-	// sb.append(saege.getKettenteilung() + "\n");
-	// sb.append("Gewicht: ");
-	// sb.append(saege.getGewicht() + "\n");
-	// sb.append("Hubraum");
-	// sb.append(saege.getHubraum() + "cm³\n");
-	// sb.append("Leistung: ");
-	// sb.append(saege.getKw() + "kW/");
-	// sb.append(saege.getPs() + "PS\n");
-	// sb.append("Einsatzzweck: ");
-	// sb.append(saege.getEinsatzzweck().getName() + "\n");
-	// sb.append("Preis");
-	// sb.append("€ " + saege.getPreis());
-	// saegenDetailsLabel.setText(sb.toString());
-	//
-	// Stage stage = new Stage();
-	// stage.setScene(new Scene(loader));
-	// stage.show();
-	//
-	// }
+	public void setDefaultView(boolean b) {
+		if (b) {
+			Image image = new Image(getClass().getResourceAsStream("/pics/startLogo.jpg"), 0, 800, true, true);
+			kategorieMainPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+			kategorieScrollPane.setVisible(false);
+		} else {
+			kategorieMainPane.setBackground(null);
+			kategorieScrollPane.setVisible(true);
+		}
+	}
 
 	/**
 	 * @return the vboxKategorien
@@ -176,15 +157,4 @@ public class KategorienController implements Initializable {
 		return kategoriePane;
 	}
 
-	public void setDefaultView(boolean b) {
-		if (b) {
-			Image image = new Image(getClass().getResourceAsStream("/pics/startLogo.jpg"), 600, 600, true, true);
-			kategorieMainPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-			kategorieScrollPane.setVisible(false);
-		} else {
-			kategorieMainPane.setBackground(null);
-			kategorieScrollPane.setVisible(true);
-		}
-	}
 }

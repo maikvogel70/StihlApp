@@ -4,15 +4,17 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
+import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -48,14 +50,13 @@ public class ProdukteController implements Initializable {
 
 	private void addLabel() {
 		produkteLabel.setText("STIHL Produkte");
-		produkteLabel.getStyleClass().add("labelProductView");
+		produkteLabel.getStyleClass().add("labelTitleView");
 	}
 
 	private void addProductFlowPaneContent() {
-		productPane.setPadding(new Insets(10, 10, 10, 10));
+		productPane.setPadding(new Insets(10));
 		productPane.setVgap(4);
 		productPane.setHgap(4);
-		productPane.setPrefWrapLength(170);
 
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Produkte> allProdukte = dbObjects.getAllProdukte();
@@ -64,7 +65,7 @@ public class ProdukteController implements Initializable {
 			Image image = new Image(getClass().getResourceAsStream("/pics/" + produkte.getBild().getPfad()), 160, 100,
 					true, true);
 			ImageView view = new ImageView(image);
-			Button btn = new Button(produkte.getName(), view);
+			ToggleButton btn = new ToggleButton(produkte.getName(), view);
 			btn.setId("productBtn_" + idCounter);
 			btn.setContentDisplay(ContentDisplay.TOP);
 			btn.setTextAlignment(TextAlignment.CENTER);
@@ -77,11 +78,17 @@ public class ProdukteController implements Initializable {
 				@Override
 				public void handle(ActionEvent e) {
 					KategorienController kategorienPaneController = mainController.getKategorienPaneController();
-					if ("productBtn_1".equals(((Button) e.getSource()).getId())) {
-						kategorienPaneController.addKategorienToFlowPane(((Button) e.getSource()).getId());
+					ToggleButton btn = (ToggleButton) e.getSource();
+					ObservableList<Node> children = productPane.getChildren();
+					for (Node tb : children) {
+						((ToggleButton) tb).setSelected(false);
+					}
+					btn.setSelected(true);
+					if ("productBtn_1".equals(btn.getId())) {
+						kategorienPaneController.addKategorienToFlowPane(btn.getId());
 						kategorienPaneController.getAnchorPaneKategorien().setVisible(true);
 						kategorienPaneController.setDefaultView(false);
-						kategorienPaneController.getKategorienLabel().setText(((Button) e.getSource()).getText());
+						kategorienPaneController.getKategorienLabel().setText(btn.getText());
 					} else {
 						kategorienPaneController.getKategoriePane().getChildren().clear();
 						kategorienPaneController.getKategorienLabel().setText("sorry... nur zu Demozwecken...");

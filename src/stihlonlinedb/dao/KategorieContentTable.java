@@ -43,6 +43,7 @@ public class KategorieContentTable {
 				public void handle(ActionEvent event) {
 					FXMLLoader load = null;
 					try {
+						// zur kommunikation mit dem dialog
 						load = new FXMLLoader(getClass().getResource("../fx/DetailDialog.fxml"));
 						Parent root = load.load();
 						load.<DetailDialogController>getController().setLoader(root);
@@ -94,7 +95,7 @@ public class KategorieContentTable {
 		preisCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("preis"));
 
 		table = new TableView<SaegeView>();
-		table.setMaxHeight(250);
+		table.setMaxHeight(280);
 		table.setMinWidth(600);
 		table.setItems(tableData);
 		table.scrollTo(0);

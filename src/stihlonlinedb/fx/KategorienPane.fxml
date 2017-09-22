@@ -2,9 +2,6 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -16,31 +13,21 @@
 	<children>
 		<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 			<top>
-				<Label fx:id="kategorienLabel" />
+				<Label fx:id="kategorienLabel" prefHeight="20.0"/>
 			</top>
 			<center>
-				<FlowPane fx:id="kategorieMainPane" BorderPane.alignment="CENTER">
+				<FlowPane fx:id="kategorieMainPane" BorderPane.alignment="CENTER" >
 					<ScrollPane fx:id="kategorieScrollPane" fitToHeight="true"
-						prefViewportHeight="600" prefViewportWidth="800.0">
-						<VBox prefHeight="600.0" prefWidth="750.0"
-							BorderPane.alignment="CENTER">
+						prefHeight="600" prefWidth="800.0">
+						<VBox prefWidth="780.0"
+							BorderPane.alignment="CENTER" styleClass="whiteBackground" fx:id="kategorieVbox">
 							<children>
-								<TitledPane fx:id="collapsiblePane" animated="true"
-									text="Einsatzzwecke">
-									<content>
-										<FlowPane fx:id="kategoriePane" BorderPane.alignment="CENTER" />
-									</content>
-								</TitledPane>
-								<TitledPane fx:id="collapsiblePaneContent" animated="true"
-									text="sadf">
-									<content>
-										<HBox>
-											<FlowPane fx:id="kategoriePaneContent"
-												BorderPane.alignment="CENTER">
-											</FlowPane>
-										</HBox>
-									</content>
-								</TitledPane>
+								<FlowPane fx:id="kategoriePane" BorderPane.alignment="CENTER" />
+								<HBox>
+									<FlowPane fx:id="kategoriePaneContent"
+										BorderPane.alignment="CENTER" styleClass="whiteBackground">
+									</FlowPane>
+								</HBox>
 							</children>
 						</VBox>
 					</ScrollPane>

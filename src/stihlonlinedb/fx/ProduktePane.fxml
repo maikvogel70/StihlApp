@@ -3,17 +3,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
 	fx:controller="stihlonlinedb.fx.controller.ProdukteController">
-	<ScrollPane prefViewportHeight="600" fitToHeight="true" prefViewportWidth="400.0">
-		<content>
-			<FlowPane  prefWidth="400.0"
-				BorderPane.alignment="CENTER" fx:id="productPane">
-				<children>
-					<Label fx:id="produkteLabel" prefHeight="20.0" prefWidth="300.0" />
-				</children>
-			</FlowPane>
-		</content>
-	</ScrollPane>
+
+	<BorderPane>
+		<top>
+			<Label fx:id="produkteLabel" prefHeight="20.0" prefWidth="300.0" />
+		</top>
+		<center>
+			<ScrollPane prefHeight="600" fitToHeight="true"
+				prefWidth="400.0" styleClass="whiteBackground">
+				<content>
+					<FlowPane prefWidth="380.0" BorderPane.alignment="CENTER"
+						fx:id="productPane" styleClass="whiteBackground" />
+				</content>
+			</ScrollPane>
+		</center>
+	</BorderPane>
 </AnchorPane>

@@ -10,8 +10,17 @@
 .btnProductView:pressed{
 	-fx-background-color:  #f37a1f;
 }
-.labelProductView{
+.btnProductView:selected{
+	-fx-background-color:  #f37a1f;
+}
+
+.whiteBackground {
+	 -fx-background-color:  white;
+}
+
+.labelTitleView{
 		-fx-font-size: 20.0;
         -fx-text-fill: #f37a1f;
         -fx-font-weight: bold;
+        -fx-padding: 5;
 }

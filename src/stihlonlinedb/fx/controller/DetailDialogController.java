@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,8 +20,10 @@ import stihlonlinedb.entities.Saege;
 
 public class DetailDialogController implements Initializable {
 
+	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
+
 	@FXML
-	private Dialog<Saege> detailDialog;
+	private DialogPane detailDialog;
 	@FXML
 	private Label saegenDetailsLabel, saegenTitleLabel;
 	@FXML
@@ -39,6 +41,12 @@ public class DetailDialogController implements Initializable {
 				((Stage) closeBtn.getScene().getWindow()).close();
 			}
 		});
+		closeBtn.setStyle(closeBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
+
+		// musste hier gesetzt werden. in der fxml zogen die änderungen nicht
+		detailDialog.setStyle("-fx-background-color: white;");
+		saegenDetailsLabel.setStyle(detailDialog.getStyle() + "-fx-font-size: 14.0; -fx-text-fill: #444;");
+		saegenTitleLabel.setStyle("-fx-font-size: 20.0; -fx-text-fill: #f37a1f; -fx-font-weight: bold;");
 	}
 
 	public void start(int id) {
@@ -52,28 +60,30 @@ public class DetailDialogController implements Initializable {
 		saegenImage.setImage(image);
 		saegenTitleLabel.setText(saege.getName());
 		StringBuffer sb = new StringBuffer();
-		sb.append("Beschreibung: ");
+		sb.append("Beschreibung: \t");
 		sb.append(saege.getBeschreibung() + "\n");
-		sb.append("Bestellnummer: ");
+		sb.append("Bestellnummer: \t");
 		sb.append(saege.getBestellnummer() + "\n");
-		sb.append("Schienenlänge: ");
-		sb.append(saege.getSchienenlaenge() + "\n");
-		sb.append("Kettenteilung");
-		sb.append(saege.getKettenteilung() + "\n");
-		sb.append("Gewicht: ");
-		sb.append(saege.getGewicht() + "\n");
-		sb.append("Hubraum");
-		sb.append(saege.getHubraum() + "cm³\n");
-		sb.append("Leistung: ");
-		sb.append(saege.getKw() + "kW/");
-		sb.append(saege.getPs() + "PS\n");
-		sb.append("Einsatzzweck: ");
+		sb.append("Schienenlänge: \t");
+		sb.append(saege.getSchienenlaenge() + " cm\n");
+		sb.append("Kettenteilung: \t\t");
+		sb.append(saege.getKettenteilung() + "\"\n");
+		sb.append("Gewicht: \t\t\t");
+		sb.append(saege.getGewicht() + " kg\n");
+		sb.append("Hubraum: \t\t");
+		sb.append(saege.getHubraum() + " cm³\n");
+		sb.append("Leistung: \t\t\t");
+		sb.append(saege.getKw() + " kW / ");
+		sb.append(saege.getPs() + " PS\n");
+		sb.append("Einsatzzweck: \n");
 		// sb.append(saege.getEinsatzzweck().getName() + "\n");
-		sb.append("Preis");
+		sb.append("Preis: \t\t\t");
 		sb.append("€ " + saege.getPreis());
 		saegenDetailsLabel.setText(sb.toString());
 
 		Stage stage = new Stage();
+		stage.setTitle(saege.getName());
+		stage.setResizable(false);
 		stage.setScene(new Scene(loader));
 		stage.show();
 	}
