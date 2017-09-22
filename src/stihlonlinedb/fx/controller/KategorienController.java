@@ -1,19 +1,22 @@
 package stihlonlinedb.fx.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
@@ -49,6 +52,8 @@ public class KategorienController implements Initializable {
 	@FXML
 	private Dialog<Saege> detailDialog;
 	@FXML
+	private DialogPane vergleichDetailDialog;
+	@FXML
 	private Label saegenDetailsLabel, saegenTitleLabel;
 	@FXML
 	private ImageView saegenImage;
@@ -56,8 +61,11 @@ public class KategorienController implements Initializable {
 	private Button closeBtn;
 	@FXML
 	private VBox kategorieVbox;
+	@FXML
+	private Hyperlink vergleicheAuswahlLink;
 
 	private KategorieContentTable tableContent;
+	private VergleichContentTable vergleichTableContent;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -68,6 +76,9 @@ public class KategorienController implements Initializable {
 		kategorieScrollPane.setStyle("-fx-background-color:transparent;");
 		kategoriePaneContent.setMinWidth(795);
 		kategoriePaneContent.setPadding(new Insets(10, 0, 0, 10));
+		vergleicheAuswahlLink.setDisable(true);
+		vergleicheAuswahlLink.setText("Vergleichen (Min: 2 - Max: 5)");
+		vergleicheAuswahlLink.setVisible(false);
 	}
 
 	private void addLabel() {
@@ -81,7 +92,7 @@ public class KategorienController implements Initializable {
 	}
 
 	public void addKategorienToFlowPane(String produktId) {
-
+		vergleicheAuswahlLink.setVisible(true);
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Einsatzzweck> allProdukte = dbObjects.getAllEinsatzzwecke();
 		for (Einsatzzweck einsatzzweck : allProdukte) {
@@ -97,26 +108,40 @@ public class KategorienController implements Initializable {
 			btn.setWrapText(true);
 			btn.getStyleClass().add("btnProductView");
 
-			btn.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					if (e.getSource() instanceof ToggleButton) {
-						ObservableList<Node> children = kategoriePane.getChildren();
-						for (Node tb : children) {
-							((ToggleButton) tb).setSelected(false);
-						}
+			btn.setOnAction((event) -> {
+				if (event.getSource() instanceof ToggleButton) {
+					ObservableList<Node> children = kategoriePane.getChildren();
+					for (Node tb : children) {
+						((ToggleButton) tb).setSelected(false);
 					}
-					btn.setSelected(true);
-					tableContent = new KategorieContentTable();
-					kategoriePaneContent.getChildren().clear();
-					kategoriePaneContent.getChildren()
-							.addAll(tableContent.getTable(Integer.parseInt(((ToggleButton) e.getSource()).getId())));
+				}
+				btn.setSelected(true);
+				tableContent = new KategorieContentTable();
+				tableContent.setVergleicheAuswahlLink(vergleicheAuswahlLink);
+				kategoriePaneContent.getChildren().clear();
+				kategoriePaneContent.getChildren()
+						.addAll(tableContent.getTable(Integer.parseInt(((ToggleButton) event.getSource()).getId())));
+			});
+
+			vergleicheAuswahlLink.setOnAction((event) -> {
+				FXMLLoader load = new FXMLLoader(getClass().getResource("../VergleichDialog.fxml"));
+				Parent root;
+				try {
+					root = load.load();
+					load.<VergleichDialogController>getController().setLoader(root);
+					load.<VergleichDialogController>getController().start(tableContent.getSelectedSaegen());
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			});
 			kategoriePane.getChildren().add(btn);
 		}
 	}
 
+	/**
+	 * Zeigt bei einem leeren Hintergrund das Bild an, ansonsten wird es
+	 * ausgeblendet.
+	 */
 	public void setDefaultView(boolean b) {
 		if (b) {
 			Image image = new Image(getClass().getResourceAsStream("/pics/startLogo.jpg"), 0, 800, true, true);
@@ -127,6 +152,21 @@ public class KategorienController implements Initializable {
 			kategorieMainPane.setBackground(null);
 			kategorieScrollPane.setVisible(true);
 		}
+	}
+
+	/**
+	 * @return the vergleicheAuswahlLink
+	 */
+	public Hyperlink getVergleicheAuswahlLink() {
+		return vergleicheAuswahlLink;
+	}
+
+	/**
+	 * @param vergleicheAuswahlLink
+	 *            the vergleicheAuswahlLink to set
+	 */
+	public void setVergleicheAuswahlLink(Hyperlink vergleicheAuswahlLink) {
+		this.vergleicheAuswahlLink = vergleicheAuswahlLink;
 	}
 
 	/**

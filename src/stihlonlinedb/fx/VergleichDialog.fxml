@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<DialogPane fx:id="vergleichDetailDialog" prefHeight="250.0"
+	prefWidth="600.0" BorderPane.alignment="CENTER"
+	xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="stihlonlinedb.fx.controller.VergleichDialogController">
+	<content>
+		<BorderPane  styleClass="whiteBackground">
+			<bottom>
+				<Button fx:id="closeBtn" cancelButton="true" mnemonicParsing="false"
+					text="schließen (ESC)" BorderPane.alignment="CENTER">
+					<BorderPane.margin>
+						<Insets top="10.0" />
+					</BorderPane.margin>
+				</Button>
+			</bottom>
+			<center>
+				<FlowPane fx:id="saegenVergleichContent" styleClass="whiteBackground"
+					BorderPane.alignment="CENTER" />
+			</center>
+		</BorderPane>
+	</content>
+</DialogPane>

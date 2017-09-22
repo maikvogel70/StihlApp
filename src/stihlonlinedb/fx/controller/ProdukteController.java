@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -74,28 +72,31 @@ public class ProdukteController implements Initializable {
 			btn.setWrapText(true);
 			btn.getStyleClass().add("btnProductView");
 
-			btn.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					KategorienController kategorienPaneController = mainController.getKategorienPaneController();
-					ToggleButton btn = (ToggleButton) e.getSource();
-					ObservableList<Node> children = productPane.getChildren();
-					for (Node tb : children) {
-						((ToggleButton) tb).setSelected(false);
-					}
-					btn.setSelected(true);
-					if ("productBtn_1".equals(btn.getId())) {
-						kategorienPaneController.addKategorienToFlowPane(btn.getId());
-						kategorienPaneController.getAnchorPaneKategorien().setVisible(true);
-						kategorienPaneController.setDefaultView(false);
-						kategorienPaneController.getKategorienLabel().setText(btn.getText());
-					} else {
-						kategorienPaneController.getKategoriePane().getChildren().clear();
-						kategorienPaneController.getKategorienLabel().setText("sorry... nur zu Demozwecken...");
-						kategorienPaneController.setDefaultView(true);
-					}
+			btn.setOnAction((event) -> {
+				final ToggleButton toggleBtn;
+				KategorienController kategorienPaneController = mainController.getKategorienPaneController();
+				toggleBtn = (ToggleButton) event.getSource();
+
+				// zur stetigen anzeige der selektierten buttons
+				ObservableList<Node> children = productPane.getChildren();
+				for (Node tb : children) {
+					((ToggleButton) tb).setSelected(false);
 				}
+				toggleBtn.setSelected(true);
+
+				if ("productBtn_1".equals(toggleBtn.getId())) {
+					kategorienPaneController.addKategorienToFlowPane(toggleBtn.getId());
+					kategorienPaneController.getAnchorPaneKategorien().setVisible(true);
+					kategorienPaneController.setDefaultView(false);
+					kategorienPaneController.getKategorienLabel().setText(toggleBtn.getText());
+				} else {
+					kategorienPaneController.getKategoriePane().getChildren().clear();
+					kategorienPaneController.getKategorienLabel().setText("sorry... nur zu Demozwecken...");
+					kategorienPaneController.setDefaultView(true);
+				}
+
 			});
+
 			idCounter++;
 			productPane.getChildren().add(btn);
 		}
