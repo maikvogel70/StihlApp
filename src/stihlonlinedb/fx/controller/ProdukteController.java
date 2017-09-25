@@ -24,6 +24,8 @@ import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.entities.Produkte;
 
 public class ProdukteController implements Initializable {
+	private static final String STIHL_PRODUKTE_LABEL = "STIHL Produkte";
+	private static final int IMAGE_WIDTH = 160;
 	@FXML
 	private HBox productHBox;
 	@FXML
@@ -32,9 +34,9 @@ public class ProdukteController implements Initializable {
 	private FlowPane productPane;
 	@FXML
 	private AnchorPane centerPane;
-
 	@FXML
 	private KategorienController katCon;
+
 	VBox vboxKategorien;
 	KategorienController c;
 	FXMLLoader fxmlLoader;
@@ -47,7 +49,7 @@ public class ProdukteController implements Initializable {
 	}
 
 	private void addLabel() {
-		produkteLabel.setText("STIHL Produkte");
+		produkteLabel.setText(STIHL_PRODUKTE_LABEL);
 		produkteLabel.getStyleClass().add("labelTitleView");
 	}
 
@@ -60,8 +62,8 @@ public class ProdukteController implements Initializable {
 		List<Produkte> allProdukte = dbObjects.getAllProdukte();
 		int idCounter = 0;
 		for (Produkte produkte : allProdukte) {
-			Image image = new Image(getClass().getResourceAsStream("/pics/" + produkte.getBild().getPfad()), 160, 100,
-					true, true);
+			Image image = new Image(getClass().getResourceAsStream("/pics/" + produkte.getBild().getPfad()),
+					IMAGE_WIDTH, 0, true, true);
 			ImageView view = new ImageView(image);
 			ToggleButton btn = new ToggleButton(produkte.getName(), view);
 			btn.setId("productBtn_" + idCounter);

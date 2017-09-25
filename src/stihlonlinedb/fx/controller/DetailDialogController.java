@@ -76,6 +76,7 @@ public class DetailDialogController implements Initializable {
 		sb.append(saege.getKw() + " kW / ");
 		sb.append(saege.getPs() + " PS\n");
 		sb.append("Einsatzzweck: \n");
+		// TODO: ggf. noch einbauen, falls Zeit übrig
 		// sb.append(saege.getEinsatzzweck().getName() + "\n");
 		sb.append("Preis: \t\t\t");
 		sb.append("€ " + saege.getPreis());

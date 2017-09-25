@@ -1,4 +1,4 @@
-package stihlonlinedb.dao;
+package stihlonlinedb.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +25,8 @@ import stihlonlinedb.entities.Saege;
 import stihlonlinedb.fx.controller.DetailDialogController;
 
 public class KategorieContentTable {
+	private static final int MIN_TABLE_WIDTH = 715;
+	private static final int MAX_TABLE_HEIGH = 260;
 	private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: CENTER;";
 	private static final String TOOLTIP_DETAIL_BTN = "Zeige weitere Details zu dem Gerät an";
 	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
@@ -42,13 +44,11 @@ public class KategorieContentTable {
 		selectedSaegen = new ArrayList<>();
 		Button showBtn;
 		CheckBox cbxVergleich;
-
 		for (Saege saege : saegen) {
 
 			showBtn = new Button("", new ImageView(image));
 			showBtn.setTooltip(new Tooltip(TOOLTIP_DETAIL_BTN));
 			showBtn.setStyle(showBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
-
 			showBtn.setOnAction((event) -> {
 				FXMLLoader load = null;
 				try {
@@ -103,7 +103,7 @@ public class KategorieContentTable {
 		showCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("btn"));
 
 		TableColumn<SaegeView, String> modellnameCol = new TableColumn<SaegeView, String>("Modellname");
-		modellnameCol.setMinWidth(200);
+		modellnameCol.setMinWidth(155);
 		modellnameCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("name"));
 
 		TableColumn<SaegeView, Double> hubraumCol = new TableColumn<SaegeView, Double>("Hubraum cm³");
@@ -117,18 +117,18 @@ public class KategorieContentTable {
 		leistungCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("ps"));
 
 		TableColumn<SaegeView, Double> gewichtCol = new TableColumn<SaegeView, Double>("Gewicht kg");
-		gewichtCol.setMinWidth(100);
+		gewichtCol.setMinWidth(80);
 		gewichtCol.setStyle(FX_ALIGNMENT_CENTER);
 		gewichtCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("gewicht"));
 
 		TableColumn<SaegeView, Double> preisCol = new TableColumn<SaegeView, Double>("Preis €");
-		preisCol.setMinWidth(100);
+		preisCol.setMinWidth(80);
 		preisCol.setStyle(FX_ALIGNMENT_CENTER);
 		preisCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("preis"));
 
 		table = new TableView<SaegeView>();
-		table.setMaxHeight(220);
-		table.setMinWidth(600);
+		table.setMaxHeight(MAX_TABLE_HEIGH);
+		table.setMinWidth(MIN_TABLE_WIDTH);
 		table.setItems(tableData);
 		table.scrollTo(0);
 		table.getColumns().addAll(colVergleich, showCol, modellnameCol, hubraumCol, leistungCol, gewichtCol, preisCol);

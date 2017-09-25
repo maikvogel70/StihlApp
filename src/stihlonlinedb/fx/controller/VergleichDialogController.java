@@ -15,6 +15,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.view.VergleichContentTable;
 
 public class VergleichDialogController implements Initializable {
 
@@ -45,7 +46,7 @@ public class VergleichDialogController implements Initializable {
 		VergleichContentTable tableVergleichContent = new VergleichContentTable();
 		saegenVergleichContent.getChildren().add(tableVergleichContent.getVergleichTable(list));
 		Stage stage = new Stage();
-		stage.setTitle("ddddd");
+		stage.setTitle("Vergleiche Sägen");
 		stage.setResizable(false);
 		stage.setScene(new Scene(loader));
 		stage.show();

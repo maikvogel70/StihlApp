@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="stihlonlinedb.fx.controller.MenubarController">
+	<VBox minWidth="1200.0">
+		<MenuBar fx:id="menubar">
+			<menus>
+				<Menu mnemonicParsing="false" text="Datei">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Beenden" fx:id="closeItem" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Bearbeiten">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Delete" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Suchen">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Suchen" fx:id="searchItem" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Hilfe">
+					<items>
+						<MenuItem mnemonicParsing="false" text="About" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</VBox>
+</AnchorPane>
+

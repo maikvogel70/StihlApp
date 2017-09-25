@@ -1,4 +1,4 @@
-package stihlonlinedb.dao;
+package stihlonlinedb.view;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
 public class SaegeView {
-	SimpleStringProperty name, kettenteilung;
+	SimpleStringProperty name, kettenteilung, beschreibung;
 	SimpleDoubleProperty hubraum, ps, kw, gewicht, preis;
 	Button btn;
 	SimpleIntegerProperty id, schienenlaenge;
@@ -39,6 +39,14 @@ public class SaegeView {
 		this.gewicht = gewicht;
 		this.preis = preis;
 	}
+
+	public SaegeView(Button showBtn, SimpleIntegerProperty id, SimpleStringProperty name,
+			SimpleStringProperty beschreibung) {
+		this.btn = showBtn;
+		this.id = id;
+		this.name = name;
+		this.beschreibung = beschreibung;
+	};
 
 	/**
 	 * @return the id
@@ -203,6 +211,21 @@ public class SaegeView {
 	 */
 	public void setSchienenlaenge(int schienenlaenge) {
 		this.schienenlaenge.set(schienenlaenge);
+	}
+
+	/**
+	 * @return the beschreibung
+	 */
+	public String getBeschreibung() {
+		return beschreibung.get();
+	}
+
+	/**
+	 * @param beschreibung
+	 *            the beschreibung to set
+	 */
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung.set(beschreibung);
 	}
 
 	/*

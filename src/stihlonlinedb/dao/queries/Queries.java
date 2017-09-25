@@ -12,11 +12,26 @@ import stihlonlinedb.entities.Fuehrungsschienen;
 import stihlonlinedb.entities.Ketten;
 import stihlonlinedb.entities.Produkte;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.entities.SearchClass;
 import stihlonlinedb.entities.Zubehoer;
 
 public class Queries {
 
 	public Queries() {
+	}
+
+	public List<SearchClass> getSearchResults(String kategorie, String searchString) {
+		String q = "";
+		switch (kategorie) {
+		case "Motorsägen und Kettensägen":
+			q = "SELECT id,name,beschreibung FROM `saege` WHERE `Name` LIKE '%" + searchString + "%' ORDER BY saege.ID";
+			return this.getSearchByKatSearch(q, new Saege());
+		case "Zubehör und Betriebsstoffe":
+			q = "SELECT id,name,beschreibung FROM `zubehoer` WHERE `Name` LIKE '%" + searchString
+					+ "%' ORDER BY zubehoer.ID";
+			return this.getSearchByKatSearch(q, new Zubehoer());
+		}
+		return null;
 	}
 
 	public List<Saege> getSaegeByEinsatzzweck(int id) {
@@ -62,6 +77,28 @@ public class Queries {
 	public Bildablage getBildById(int id) {
 		String q = "SELECT * FROM Bildablage WHERE bildablage.ID =" + id;
 		return this.getBildById(q);
+	}
+
+	private List<SearchClass> getSearchByKatSearch(String q, SearchClass clazz) {
+		ResultSet rs = DBConnection.executeQuery(q);
+		List<SearchClass> scL = new ArrayList<>();
+		SearchClass sc = null;
+		try {// id,name,beschreibung
+			while (rs.next()) {
+				if (clazz instanceof Saege) {
+					sc = new Saege();
+				} else if (clazz instanceof Zubehoer) {
+					sc = new Zubehoer();
+				}
+				sc.setId(rs.getInt(1));
+				sc.setName(rs.getString(2));
+				sc.setBeschreibung(rs.getString(3));
+				scL.add(sc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return scL;
 	}
 
 	private Bildablage getBildById(String q) {
@@ -147,7 +184,6 @@ public class Queries {
 	}
 
 	private List<Saege> getSaegeByEinsatzzweckId(String query) {
-		System.out.println(query);
 		ResultSet rs = DBConnection.executeQuery(query);
 		List<Saege> l = new ArrayList<>();
 		Saege s;
@@ -160,18 +196,6 @@ public class Queries {
 				s.setPs(rs.getDouble(4));
 				s.setGewicht(rs.getDouble(5));
 				s.setPreis(rs.getDouble(6));
-
-				//
-				// s.setBeschreibung(rs.getString(4));
-				// s.setBesonderheiten(rs.getString(6));
-				// s.setBestellnummer(rs.getString(3));
-				// s.setBestellung(null);
-				// s.setBildablage(new Bildablage(0, rs.getString(17)));
-				// s.setEinsatzzweck(null);
-				// s.setId(rs.getInt(1));
-				// s.setKettenteilung(rs.getString(5));
-				// s.setKw(rs.getDouble(7));
-				// s.setSchienenlaenge(rs.getInt(9));
 				l.add(s);
 			}
 		} catch (SQLException e) {
@@ -181,16 +205,11 @@ public class Queries {
 	}
 
 	private Saege getSaegeById(String query) {
-		System.out.println(query);
 		ResultSet rs = DBConnection.executeQuery(query);
 		Saege s = null;
 		try {
 			if (rs.next()) {
 				s = new Saege();
-				// 1ID 2Bestellnummer 3Kettenteilung 4Name 6Besonderheiten 7KW 8PS
-				// 9Schienenlaenge
-				// 10Gewicht 11Hubraum 12Preis 13FK_Bild 14FK_Einsatzzweck FK_Bestellung ID
-				// 17Pfad
 				s.setBeschreibung(rs.getString(5));
 				s.setBesonderheiten(rs.getString(6));
 				s.setBestellnummer(rs.getString(2));

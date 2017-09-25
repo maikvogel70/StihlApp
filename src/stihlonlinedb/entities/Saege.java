@@ -1,6 +1,6 @@
 package stihlonlinedb.entities;
 
-public class Saege {
+public class Saege extends SearchClass {
 	private int id;
 	private int schienenlaenge;
 	private String bestellnummer, kettenteilung, name, beschreibung, besonderheiten;
@@ -44,6 +44,7 @@ public class Saege {
 	 * @param id
 	 *            the id to set
 	 */
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -104,6 +105,7 @@ public class Saege {
 	 * @param name
 	 *            the name to set
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -119,6 +121,7 @@ public class Saege {
 	 * @param beschreibung
 	 *            the beschreibung to set
 	 */
+	@Override
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}

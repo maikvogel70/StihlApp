@@ -23,13 +23,14 @@ public class Test implements IClauses {
 			// System.out.println(listDbObjects.getAllSaegen());
 			// System.out.println(listDbObjects.getAllKetten());
 			// System.out.println(listDbObjects.getAllFuerungsschienen());
-			System.out.println(qs.getZubehoerById(3));
-			System.out.println(qs.getSaegeById(6));
-			System.out.println(qs.getProdukteById(5));
-			System.out.println(qs.getEinsatzzweckById(3));
-			System.out.println(qs.getFuehungsschienenById(6));
-			System.out.println(qs.getKettenById(15));
-			System.out.println(qs.getBildById(15));
+
+			// System.out.println(qs.getZubehoerById(3));
+			// System.out.println(qs.getSaegeById(6));
+			System.out.println(qs.getProdukteById(2));
+			// System.out.println(qs.getEinsatzzweckById(3));
+			// System.out.println(qs.getFuehungsschienenById(6));
+			// System.out.println(qs.getKettenById(15));
+			// System.out.println(qs.getBildById(15));
 			DBConnection.closeConnection();
 
 		} catch (Exception e) {

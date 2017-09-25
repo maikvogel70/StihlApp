@@ -1,6 +1,6 @@
 package stihlonlinedb.entities;
 
-public class Zubehoer {
+public class Zubehoer extends SearchClass {
 
 	private int id;
 	private String bestellnummer;
@@ -34,6 +34,7 @@ public class Zubehoer {
 	 * @param id
 	 *            the id to set
 	 */
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -64,6 +65,7 @@ public class Zubehoer {
 	 * @param name
 	 *            the name to set
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -79,6 +81,7 @@ public class Zubehoer {
 	 * @param beschreibung
 	 *            the beschreibung to set
 	 */
+	@Override
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}

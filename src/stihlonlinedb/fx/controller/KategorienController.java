@@ -30,14 +30,15 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import stihlonlinedb.dao.KategorieContentTable;
 import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.entities.Einsatzzweck;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.view.KategorieContentTable;
 
-public class KategorienController implements Initializable {
+public class KategorienController extends Pane implements Initializable {
 
 	@FXML
 	private FlowPane kategoriePane, kategoriePaneContent, kategorieMainPane;
@@ -65,7 +66,6 @@ public class KategorienController implements Initializable {
 	private Hyperlink vergleicheAuswahlLink;
 
 	private KategorieContentTable tableContent;
-	private VergleichContentTable vergleichTableContent;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -74,11 +74,11 @@ public class KategorienController implements Initializable {
 		setDefaultView(true);
 		kategorieVbox.setBorder(null);
 		kategorieScrollPane.setStyle("-fx-background-color:transparent;");
-		kategoriePaneContent.setMinWidth(795);
 		kategoriePaneContent.setPadding(new Insets(10, 0, 0, 10));
+		kategoriePaneContent.setVgap(10);
 		vergleicheAuswahlLink.setDisable(true);
+		vergleicheAuswahlLink.setStyle("-fx-text-fill: #f37a1f; -fx-font-weight: bold;");
 		vergleicheAuswahlLink.setText("Vergleichen (Min: 2 - Max: 5)");
-		vergleicheAuswahlLink.setVisible(false);
 	}
 
 	private void addLabel() {
@@ -92,7 +92,6 @@ public class KategorienController implements Initializable {
 	}
 
 	public void addKategorienToFlowPane(String produktId) {
-		vergleicheAuswahlLink.setVisible(true);
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Einsatzzweck> allProdukte = dbObjects.getAllEinsatzzwecke();
 		for (Einsatzzweck einsatzzweck : allProdukte) {
@@ -115,6 +114,7 @@ public class KategorienController implements Initializable {
 						((ToggleButton) tb).setSelected(false);
 					}
 				}
+				vergleicheAuswahlLink.setVisible(true);
 				btn.setSelected(true);
 				tableContent = new KategorieContentTable();
 				tableContent.setVergleicheAuswahlLink(vergleicheAuswahlLink);
@@ -195,6 +195,13 @@ public class KategorienController implements Initializable {
 	 */
 	public FlowPane getKategoriePane() {
 		return kategoriePane;
+	}
+
+	/**
+	 * @return the kategorieScrollPane
+	 */
+	public ScrollPane getKategorieScrollPane() {
+		return kategorieScrollPane;
 	}
 
 }

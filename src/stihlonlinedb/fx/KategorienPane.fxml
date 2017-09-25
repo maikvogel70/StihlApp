@@ -29,7 +29,7 @@
 										BorderPane.alignment="CENTER" styleClass="whiteBackground">
 									</FlowPane>
 								</HBox>
-									<Hyperlink fx:id="vergleicheAuswahlLink" />
+									<Hyperlink fx:id="vergleicheAuswahlLink" visible="false"/>
 							</children>
 						</VBox>
 					</ScrollPane>

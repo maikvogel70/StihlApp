@@ -1,4 +1,4 @@
-package stihlonlinedb.fx.controller;
+package stihlonlinedb.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import stihlonlinedb.dao.SaegeView;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Saege;
 
 public class VergleichContentTable {
+	private static final int MIN_TABLE_WIDTH = 600;
+	private static final int MAX_TABLE_HEIGHT = 220;
 	private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: CENTER;";
 	private ObservableList<SaegeView> tableDataVergleich;
 	private TableView<SaegeView> tableVergleich;
@@ -36,8 +37,8 @@ public class VergleichContentTable {
 		tableDataVergleich = FXCollections.observableList(swl);
 		tableVergleich = new TableView<SaegeView>();
 		createTableStructure();
-		tableVergleich.setMaxHeight(220);
-		tableVergleich.setMinWidth(600);
+		tableVergleich.setMaxHeight(MAX_TABLE_HEIGHT);
+		tableVergleich.setMinWidth(MIN_TABLE_WIDTH);
 		tableVergleich.setItems(tableDataVergleich);
 		tableVergleich.scrollTo(0);
 	}
@@ -45,7 +46,7 @@ public class VergleichContentTable {
 	private void createTableStructure() {
 
 		TableColumn<SaegeView, String> modellnameCol = new TableColumn<SaegeView, String>("Modellname");
-		modellnameCol.setMinWidth(200);
+		modellnameCol.setMinWidth(170);
 		modellnameCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("name"));
 
 		TableColumn<SaegeView, Double> hubraumCol = new TableColumn<SaegeView, Double>("Hubraum cm³");
