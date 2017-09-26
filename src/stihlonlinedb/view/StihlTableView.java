@@ -6,16 +6,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
-public class SaegeView {
+public class StihlTableView {
 	SimpleStringProperty name, kettenteilung, beschreibung;
 	SimpleDoubleProperty hubraum, ps, kw, gewicht, preis;
 	Button btn;
 	SimpleIntegerProperty id, schienenlaenge;
 	CheckBox cbxVergleich;
 
-	public SaegeView(SimpleIntegerProperty id, SimpleStringProperty name, SimpleDoubleProperty hubraum,
+	public StihlTableView(Button btn, SimpleIntegerProperty id, SimpleStringProperty name, SimpleDoubleProperty hubraum,
 			SimpleDoubleProperty ps, SimpleDoubleProperty gewicht, SimpleDoubleProperty kw,
 			SimpleStringProperty kettenteilung, SimpleIntegerProperty schienenlaenge, SimpleDoubleProperty preis) {
+		this.btn = btn;
 		this.id = id;
 		this.name = name;
 		this.hubraum = hubraum;
@@ -27,7 +28,7 @@ public class SaegeView {
 		this.preis = preis;
 	}
 
-	public SaegeView(CheckBox cbxVergleich, SimpleIntegerProperty id, Button btn, SimpleStringProperty name,
+	public StihlTableView(CheckBox cbxVergleich, SimpleIntegerProperty id, Button btn, SimpleStringProperty name,
 			SimpleDoubleProperty hubraum, SimpleDoubleProperty ps, SimpleDoubleProperty gewicht,
 			SimpleDoubleProperty preis) {
 		this.id = id;
@@ -40,7 +41,7 @@ public class SaegeView {
 		this.preis = preis;
 	}
 
-	public SaegeView(Button showBtn, SimpleIntegerProperty id, SimpleStringProperty name,
+	public StihlTableView(Button showBtn, SimpleIntegerProperty id, SimpleStringProperty name,
 			SimpleStringProperty beschreibung) {
 		this.btn = showBtn;
 		this.id = id;

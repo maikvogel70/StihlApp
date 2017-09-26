@@ -96,10 +96,8 @@ public class DetailDialogController implements Initializable {
 		saegenImage.setImage(image);
 		saegenTitleLabel.setText(searchClass.getName());
 		saegenTitleLabel.setWrapText(true);
-		StringBuffer sb = new StringBuffer();
-		sb.append("Beschreibung: \t");
-		sb.append(searchClass.getBeschreibung() + "\n");
-		saegenDetailsLabel.setText(sb.toString());
+		saegenDetailsLabel.setText(searchClass.getBeschreibung());
+		saegenDetailsLabel.setWrapText(true);
 
 		Stage stage = new Stage();
 		stage.setTitle(searchClass.getName());

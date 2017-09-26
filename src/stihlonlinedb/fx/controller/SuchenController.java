@@ -34,7 +34,8 @@ import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Produkte;
 import stihlonlinedb.entities.SearchClass;
-import stihlonlinedb.view.SaegeView;
+import stihlonlinedb.fx.util.FxUtils;
+import stihlonlinedb.view.StihlTableView;
 
 public class SuchenController implements Initializable {
 	private static final String SEARCH_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
@@ -51,7 +52,7 @@ public class SuchenController implements Initializable {
 	@FXML
 	private Button searchBtn;
 	@FXML
-	private TableView<SaegeView> resultTable;
+	private TableView<StihlTableView> resultTable;
 	@FXML
 	private FlowPane resultPane;
 	@FXML
@@ -59,7 +60,7 @@ public class SuchenController implements Initializable {
 
 	private String selectedProdukt;
 	private MainController mainController;
-	ObservableList<SaegeView> tableData;
+	ObservableList<StihlTableView> tableData;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -78,7 +79,7 @@ public class SuchenController implements Initializable {
 
 	private void search() {
 		Queries qs = new Queries();
-		List<SaegeView> swl = new ArrayList<>();
+		List<StihlTableView> swl = new ArrayList<>();
 		List<SearchClass> searchResults = qs.getSearchResults(selectedProdukt, searchFor.getText());
 
 		for (SearchClass searchClass : searchResults) {
@@ -106,7 +107,7 @@ public class SuchenController implements Initializable {
 				}
 			});
 
-			swl.add(new SaegeView(btn, new SimpleIntegerProperty(searchClass.getId()),
+			swl.add(new StihlTableView(btn, new SimpleIntegerProperty(searchClass.getId()),
 					new SimpleStringProperty(searchClass.getName()),
 					new SimpleStringProperty(searchClass.getBeschreibung())));
 		}
@@ -119,20 +120,22 @@ public class SuchenController implements Initializable {
 	}
 
 	private void createTableStructure() {
-		TableColumn<SaegeView, String> colVergleich = new TableColumn<SaegeView, String>("Details");
+		TableColumn<StihlTableView, String> colVergleich = new TableColumn<StihlTableView, String>("Details");
 		colVergleich.setMinWidth(40);
 		colVergleich.setStyle(FX_ALIGNMENT_CENTER);
-		colVergleich.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("btn"));
+		colVergleich.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("btn"));
 
-		TableColumn<SaegeView, String> modellnameCol = new TableColumn<SaegeView, String>("Name");
+		TableColumn<StihlTableView, String> modellnameCol = new TableColumn<StihlTableView, String>("Name");
 		modellnameCol.setMinWidth(240);
-		modellnameCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("name"));
+		modellnameCol.setCellFactory(FxUtils.WRAPPING_CELL_FACTORY);
+		modellnameCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("name"));
 
-		TableColumn<SaegeView, String> beschreibungCol = new TableColumn<SaegeView, String>("Beschreibung");
+		TableColumn<StihlTableView, String> beschreibungCol = new TableColumn<StihlTableView, String>("Beschreibung");
 		beschreibungCol.setMaxWidth(290);
-		beschreibungCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("beschreibung"));
+		beschreibungCol.setCellFactory(FxUtils.WRAPPING_CELL_FACTORY);
+		beschreibungCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("beschreibung"));
 
-		resultTable = new TableView<SaegeView>();
+		resultTable = new TableView<StihlTableView>();
 		resultTable.setMaxHeight(310);
 		resultTable.setMinWidth(780);
 		resultTable.setItems(tableData);

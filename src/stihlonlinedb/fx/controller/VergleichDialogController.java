@@ -39,7 +39,6 @@ public class VergleichDialogController implements Initializable {
 			}
 		});
 		closeBtn.setStyle(closeBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
-
 	}
 
 	public void start(List<Saege> list) {
@@ -48,7 +47,8 @@ public class VergleichDialogController implements Initializable {
 		Stage stage = new Stage();
 		stage.setTitle("Vergleiche Sägen");
 		stage.setResizable(false);
-		stage.setScene(new Scene(loader));
+		Scene scene = new Scene(loader);
+		stage.setScene(scene);
 		stage.show();
 	}
 

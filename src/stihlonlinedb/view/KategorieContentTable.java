@@ -30,8 +30,8 @@ public class KategorieContentTable {
 	private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: CENTER;";
 	private static final String TOOLTIP_DETAIL_BTN = "Zeige weitere Details zu dem Gerät an";
 	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
-	private ObservableList<SaegeView> tableData;
-	private TableView<SaegeView> table;
+	private ObservableList<StihlTableView> tableData;
+	private TableView<StihlTableView> table;
 	private int cbxVergleichCounter = 0;
 	private Hyperlink vergleicheAuswahlLink;
 	private List<Saege> selectedSaegen;
@@ -39,7 +39,7 @@ public class KategorieContentTable {
 	private void initSaegenTable(int id) {
 		Queries qs = new Queries();
 		List<Saege> saegen = qs.getSaegeByEinsatzzweck(id);
-		List<SaegeView> swl = new ArrayList<>();
+		List<StihlTableView> swl = new ArrayList<>();
 		Image image = new Image(getClass().getResourceAsStream("/pics/tableShowDetail.gif"), 100, 20, true, true);
 		selectedSaegen = new ArrayList<>();
 		this.vergleicheAuswahlLink.setDisable(true);
@@ -73,7 +73,7 @@ public class KategorieContentTable {
 				}
 			});
 
-			swl.add(new SaegeView(cbxVergleich, new SimpleIntegerProperty(saege.getId()), showBtn,
+			swl.add(new StihlTableView(cbxVergleich, new SimpleIntegerProperty(saege.getId()), showBtn,
 					new SimpleStringProperty(saege.getName()), new SimpleDoubleProperty(saege.getHubraum()),
 					new SimpleDoubleProperty(saege.getPs()), new SimpleDoubleProperty(saege.getGewicht()),
 					new SimpleDoubleProperty(saege.getPreis())));
@@ -93,41 +93,41 @@ public class KategorieContentTable {
 	}
 
 	private void createTableStructure() {
-		TableColumn<SaegeView, String> colVergleich = new TableColumn<SaegeView, String>("Vergleich");
+		TableColumn<StihlTableView, String> colVergleich = new TableColumn<StihlTableView, String>("Vergleich");
 		colVergleich.setMinWidth(40);
 		colVergleich.setStyle(FX_ALIGNMENT_CENTER);
-		colVergleich.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("cbxVergleich"));
+		colVergleich.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("cbxVergleich"));
 
-		TableColumn<SaegeView, String> showCol = new TableColumn<SaegeView, String>("Details");
+		TableColumn<StihlTableView, String> showCol = new TableColumn<StihlTableView, String>("Details");
 		showCol.setMinWidth(40);
 		showCol.setStyle(FX_ALIGNMENT_CENTER);
-		showCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("btn"));
+		showCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("btn"));
 
-		TableColumn<SaegeView, String> modellnameCol = new TableColumn<SaegeView, String>("Modellname");
+		TableColumn<StihlTableView, String> modellnameCol = new TableColumn<StihlTableView, String>("Modellname");
 		modellnameCol.setMinWidth(155);
-		modellnameCol.setCellValueFactory(new PropertyValueFactory<SaegeView, String>("name"));
+		modellnameCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("name"));
 
-		TableColumn<SaegeView, Double> hubraumCol = new TableColumn<SaegeView, Double>("Hubraum cm³");
+		TableColumn<StihlTableView, Double> hubraumCol = new TableColumn<StihlTableView, Double>("Hubraum cm³");
 		hubraumCol.setMinWidth(100);
 		hubraumCol.setStyle(FX_ALIGNMENT_CENTER);
-		hubraumCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("hubraum"));
+		hubraumCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("hubraum"));
 
-		TableColumn<SaegeView, Double> leistungCol = new TableColumn<SaegeView, Double>("Leistung PS");
+		TableColumn<StihlTableView, Double> leistungCol = new TableColumn<StihlTableView, Double>("Leistung PS");
 		leistungCol.setMinWidth(100);
 		leistungCol.setStyle(FX_ALIGNMENT_CENTER);
-		leistungCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("ps"));
+		leistungCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("ps"));
 
-		TableColumn<SaegeView, Double> gewichtCol = new TableColumn<SaegeView, Double>("Gewicht kg");
+		TableColumn<StihlTableView, Double> gewichtCol = new TableColumn<StihlTableView, Double>("Gewicht kg");
 		gewichtCol.setMinWidth(80);
 		gewichtCol.setStyle(FX_ALIGNMENT_CENTER);
-		gewichtCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("gewicht"));
+		gewichtCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("gewicht"));
 
-		TableColumn<SaegeView, Double> preisCol = new TableColumn<SaegeView, Double>("Preis €");
+		TableColumn<StihlTableView, Double> preisCol = new TableColumn<StihlTableView, Double>("Preis €");
 		preisCol.setMinWidth(80);
 		preisCol.setStyle(FX_ALIGNMENT_CENTER);
-		preisCol.setCellValueFactory(new PropertyValueFactory<SaegeView, Double>("preis"));
+		preisCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("preis"));
 
-		table = new TableView<SaegeView>();
+		table = new TableView<StihlTableView>();
 		table.setMaxHeight(MAX_TABLE_HEIGH);
 		table.setMinWidth(MIN_TABLE_WIDTH);
 		table.setItems(tableData);
@@ -138,7 +138,7 @@ public class KategorieContentTable {
 	/**
 	 * @return the table
 	 */
-	public TableView<SaegeView> getTable(int id) {
+	public TableView<StihlTableView> getTable(int id) {
 		initSaegenTable(id);
 		return table;
 	}
