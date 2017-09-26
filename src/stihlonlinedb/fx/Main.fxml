@@ -19,14 +19,14 @@
 			</left>
 			<center>
 				<StackPane fx:id="centerStackPane">
-				<fx:include fx:id="kategorienPane" source="KategorienPane.fxml" />
-				<fx:include fx:id="suchePane" source="SuchePane.fxml" />
+					<fx:include fx:id="kategorienPane" source="KategorienPane.fxml" />
+					<fx:include fx:id="suchePane" source="SuchePane.fxml" />
 				</StackPane>
 			</center>
 			<padding>
 				<Insets top="20.0" />
 			</padding>
 		</BorderPane>
-				<fx:include fx:id="menubar" source="Menuitem.fxml" />	 
+		<fx:include fx:id="menubar" source="Menuitem.fxml" />
 	</children>
 </AnchorPane>

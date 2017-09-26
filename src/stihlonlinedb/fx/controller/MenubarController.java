@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 
 public class MenubarController implements Initializable {
@@ -31,12 +32,18 @@ public class MenubarController implements Initializable {
 		searchItem.setOnAction((event -> {
 			ObservableList<Node> children = mainController.getCenterStackPane().getChildren();
 			for (Node node : children) {
-				AnchorPane ap = (AnchorPane) node;
-				if ("anchorPaneKategorien".equals(ap.getId())) {
-					ap.setVisible(false);
-				} else if ("suchePane".equals(ap.getId())) {
-					ap.setVisible(true);
+				if (node instanceof AnchorPane) {
+					AnchorPane ap = (AnchorPane) node;
+					if ("anchorPaneKategorien".equals(ap.getId())) {
+						ap.setVisible(false);
+					} else if ("suchePane".equals(ap.getId())) {
+						ap.setVisible(true);
+					}
 				}
+			}
+			ObservableList<Node> childrenP = mainController.getProductPaneController().getProductPane().getChildren();
+			for (Node tb : childrenP) {
+				((ToggleButton) tb).setSelected(false);
 			}
 		}));
 

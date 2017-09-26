@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.entities.SearchClass;
 
 public class DetailDialogController implements Initializable {
 
@@ -30,7 +31,7 @@ public class DetailDialogController implements Initializable {
 	private ImageView saegenImage;
 	@FXML
 	private Button closeBtn;
-
+	private MainController mainController;
 	private Parent loader;
 
 	@Override
@@ -89,6 +90,24 @@ public class DetailDialogController implements Initializable {
 		stage.show();
 	}
 
+	public void startSucheDetail(SearchClass searchClass) {
+		Image image = new Image(getClass().getResourceAsStream("/pics/" + searchClass.getBildablage().getPfad()), 300,
+				0, true, true);
+		saegenImage.setImage(image);
+		saegenTitleLabel.setText(searchClass.getName());
+		saegenTitleLabel.setWrapText(true);
+		StringBuffer sb = new StringBuffer();
+		sb.append("Beschreibung: \t");
+		sb.append(searchClass.getBeschreibung() + "\n");
+		saegenDetailsLabel.setText(sb.toString());
+
+		Stage stage = new Stage();
+		stage.setTitle(searchClass.getName());
+		stage.setResizable(false);
+		stage.setScene(new Scene(loader));
+		stage.show();
+	}
+
 	/**
 	 * @return the loader
 	 */
@@ -102,6 +121,11 @@ public class DetailDialogController implements Initializable {
 	 */
 	public void setLoader(Parent loader) {
 		this.loader = loader;
+	}
+
+	public void init(MainController mainController) {
+		this.mainController = mainController;
+
 	}
 
 }

@@ -104,6 +104,7 @@ public class Zubehoer extends SearchClass {
 	/**
 	 * @return the bildablage
 	 */
+	@Override
 	public Bildablage getBildablage() {
 		return bildablage;
 	}
@@ -112,6 +113,7 @@ public class Zubehoer extends SearchClass {
 	 * @param bildablage
 	 *            the bildablage to set
 	 */
+	@Override
 	public void setBildablage(Bildablage bildablage) {
 		this.bildablage = bildablage;
 	}

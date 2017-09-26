@@ -42,13 +42,15 @@ public class KategorieContentTable {
 		List<SaegeView> swl = new ArrayList<>();
 		Image image = new Image(getClass().getResourceAsStream("/pics/tableShowDetail.gif"), 100, 20, true, true);
 		selectedSaegen = new ArrayList<>();
+		this.vergleicheAuswahlLink.setDisable(true);
 		Button showBtn;
 		CheckBox cbxVergleich;
-		for (Saege saege : saegen) {
 
+		for (Saege saege : saegen) {
 			showBtn = new Button("", new ImageView(image));
 			showBtn.setTooltip(new Tooltip(TOOLTIP_DETAIL_BTN));
 			showBtn.setStyle(showBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
+
 			showBtn.setOnAction((event) -> {
 				FXMLLoader load = null;
 				try {
@@ -88,7 +90,6 @@ public class KategorieContentTable {
 			cbxVergleichCounter--;
 			this.selectedSaegen.remove(saege);
 		}
-		System.out.println(saege);
 	}
 
 	private void createTableStructure() {

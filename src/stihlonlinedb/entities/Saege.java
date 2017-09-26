@@ -249,6 +249,7 @@ public class Saege extends SearchClass {
 	/**
 	 * @return the bildablage
 	 */
+	@Override
 	public Bildablage getBildablage() {
 		return bildablage;
 	}
@@ -257,6 +258,7 @@ public class Saege extends SearchClass {
 	 * @param bildablage
 	 *            the bildablage to set
 	 */
+	@Override
 	public void setBildablage(Bildablage bildablage) {
 		this.bildablage = bildablage;
 	}

@@ -23,13 +23,18 @@ public class MainController extends Pane implements Initializable {
 	private BorderPane mainBorderPane;
 	@FXML
 	private StackPane centerStackPane;
+	// @FXML
+	// private DetailDialogController detailDialogController;
+	// @FXML
+	// private AnchorPane mainAnchorPane;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		productPaneController.init(this);
-		// kategorienPaneController.init(this);
+		kategorienPaneController.init(this);
 		menubarController.init(this);
 		suchePaneController.init(this);
+		// detailDialogController.init(this);
 	}
 
 	/**
@@ -73,5 +78,19 @@ public class MainController extends Pane implements Initializable {
 	public StackPane getCenterStackPane() {
 		return centerStackPane;
 	}
+
+	// /**
+	// * @return the detailDialogController
+	// */
+	// public DetailDialogController getDetailDialogController() {
+	// return detailDialogController;
+	// }
+	//
+	// /**
+	// * @return the mainAnchorPane
+	// */
+	// public AnchorPane getMainAnchorPane() {
+	// return mainAnchorPane;
+	// }
 
 }

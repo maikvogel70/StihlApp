@@ -86,13 +86,13 @@ public class ProdukteController implements Initializable {
 				}
 				toggleBtn.setSelected(true);
 
+				kategorienPaneController.getKategoriePane().getChildren().clear();
 				if ("productBtn_1".equals(toggleBtn.getId())) {
 					kategorienPaneController.addKategorienToFlowPane(toggleBtn.getId());
 					kategorienPaneController.getAnchorPaneKategorien().setVisible(true);
 					kategorienPaneController.setDefaultView(false);
 					kategorienPaneController.getKategorienLabel().setText(toggleBtn.getText());
 				} else {
-					kategorienPaneController.getKategoriePane().getChildren().clear();
 					kategorienPaneController.getKategorienLabel().setText("sorry... nur zu Demozwecken...");
 					kategorienPaneController.setDefaultView(true);
 				}
@@ -103,6 +103,13 @@ public class ProdukteController implements Initializable {
 			productPane.getChildren().add(btn);
 		}
 
+	}
+
+	/**
+	 * @return the productPane
+	 */
+	public FlowPane getProductPane() {
+		return productPane;
 	}
 
 	public void init(MainController mainController) {

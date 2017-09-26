@@ -24,11 +24,14 @@ public class Queries {
 		String q = "";
 		switch (kategorie) {
 		case "Motorsägen und Kettensägen":
-			q = "SELECT id,name,beschreibung FROM `saege` WHERE `Name` LIKE '%" + searchString + "%' ORDER BY saege.ID";
+			// q = "SELECT id,name,beschreibung FROM `saege` WHERE `Name` LIKE '%" +
+			// searchString + "%' ORDER BY saege.ID";
+			q = "SELECT saege.id,name,beschreibung,bildablage.pfad FROM `saege` INNER JOIN bildablage ON bildablage.ID = Saege.FK_Bild WHERE `Name` LIKE '%"
+					+ searchString + "%' ORDER BY saege.ID";
 			return this.getSearchByKatSearch(q, new Saege());
 		case "Zubehör und Betriebsstoffe":
-			q = "SELECT id,name,beschreibung FROM `zubehoer` WHERE `Name` LIKE '%" + searchString
-					+ "%' ORDER BY zubehoer.ID";
+			q = "SELECT zubehoer.id,name,beschreibung,bildablage.pfad FROM `zubehoer` INNER JOIN bildablage ON bildablage.ID = zubehoer.FK_Bild WHERE `Name` LIKE '%"
+					+ searchString + "%' ORDER BY zubehoer.ID";
 			return this.getSearchByKatSearch(q, new Zubehoer());
 		}
 		return null;
@@ -93,6 +96,7 @@ public class Queries {
 				sc.setId(rs.getInt(1));
 				sc.setName(rs.getString(2));
 				sc.setBeschreibung(rs.getString(3));
+				sc.setBildablage(new Bildablage(0, rs.getString(4)));
 				scL.add(sc);
 			}
 		} catch (SQLException e) {
