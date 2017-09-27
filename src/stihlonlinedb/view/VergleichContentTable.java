@@ -3,19 +3,24 @@ package stihlonlinedb.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.controlsfx.control.PopOver;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Saege;
 import stihlonlinedb.fx.ICommonProps;
@@ -28,20 +33,18 @@ public class VergleichContentTable implements ICommonProps {
 	private void initSaegenVergleichTable(List<Saege> selectedSaegenList) {
 		Queries qs = new Queries();
 		List<StihlTableView> swl = new ArrayList<>();
-		Saege saege;
+		Saege saege = null;
 		for (Saege selectedSaege : selectedSaegenList) {
 			saege = qs.getSaegeById(selectedSaege.getId());
 			ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + "info.gif"),
 					INFO_BTN_WIDTH, 0, true, true));
 			Button info = new Button("", imageView);
 			info.getStyleClass().add(TRANSPARENT_STYLE_CLASS);
+			info.setUserData(saege.getBeschreibung());
 
-			Tooltip tooltip = new Tooltip(saege.getBeschreibung());
-			tooltip.setPrefWidth(300);
-			tooltip.setPrefHeight(200);
-			tooltip.setWrapText(true);
-			tooltip.setFont(new Font(12));
-			info.setTooltip(tooltip);
+			info.setOnAction((event -> {
+				getPopover(info).show(info);
+			}));
 
 			swl.add(new StihlTableView(info, new SimpleIntegerProperty(saege.getId()),
 					new SimpleStringProperty(saege.getName()), new SimpleDoubleProperty(saege.getHubraum()),
@@ -57,6 +60,27 @@ public class VergleichContentTable implements ICommonProps {
 		tableVergleich.setMinWidth(MIN_TABLE_WIDTH_VERGLEICH);
 		tableVergleich.setItems(tableDataVergleich);
 		tableVergleich.scrollTo(0);
+	}
+
+	private PopOver getPopover(Button info) {
+		PopOver popOver = new PopOver();
+		popOver.setAutoHide(true);
+		popOver.setHeaderAlwaysVisible(true);
+		popOver.setTitle("Beschreibung");
+
+		Label msgLabel = new Label();
+		msgLabel.setFont(Font.font(12));
+		msgLabel.setMaxWidth(300);
+		msgLabel.setMinHeight(300);
+		msgLabel.setWrapText(true);
+		msgLabel.setAlignment(Pos.TOP_LEFT);
+		msgLabel.setPadding(new Insets(10));
+		msgLabel.setText(info.getUserData().toString());
+
+		popOver.setContentNode(msgLabel);
+		popOver.setFadeInDuration(Duration.millis(200));
+		popOver.setFadeOutDuration(Duration.millis(200));
+		return popOver;
 	}
 
 	@SuppressWarnings("unchecked")
