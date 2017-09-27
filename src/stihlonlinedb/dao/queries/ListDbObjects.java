@@ -125,8 +125,7 @@ public class ListDbObjects implements IClauses {
 		try {
 			while (rs.next()) {
 				fList.add(new Fuehrungsschienen(rs.getInt(1), rs.getInt(5), rs.getInt(6), rs.getString(3),
-						rs.getString(2), rs.getString(4), rs.getDouble(7),
-						new stihlonlinedb.hibernateOLD.Bildablage(0, rs.getString(10))));
+						rs.getString(2), rs.getString(4), rs.getDouble(7), new Bildablage(0, rs.getString(10))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

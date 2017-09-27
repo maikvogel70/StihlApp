@@ -18,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,20 +28,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.TextAlignment;
 import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Produkte;
 import stihlonlinedb.entities.SearchClass;
+import stihlonlinedb.fx.ICommonProps;
 import stihlonlinedb.fx.util.FxUtils;
 import stihlonlinedb.view.StihlTableView;
 
-public class SuchenController implements Initializable {
-	private static final String SEARCH_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
-	private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: CENTER;";
-	private static final String TOOLTIP_DETAIL_BTN = "Zeige weitere Details zu dem Artikel an";
+public class SuchenController implements Initializable, ICommonProps {
+
 	@FXML
-	private Label testlabel;
+	private Label suchelabel;
 	@FXML
 	private ImageView sucheBild;
 	@FXML
@@ -64,13 +61,13 @@ public class SuchenController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		testlabel.getStyleClass().add("labelTitleView");
-		sucheBild.setImage(new Image(getClass().getResourceAsStream("/pics/suche.jpg"), 490, 0, true, true));
-		searchBtn.setStyle(SEARCH_BTN_STYLE);
+		suchelabel.getStyleClass().add(STIHL_LABEL_STYLE_CLASS);
+		sucheBild
+				.setImage(new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + "suche.jpg"), 780, 0, true, true));
 		searchBtn.disableProperty().bind(productList.valueProperty().isNull());
-
-		searchFor.setStyle(SEARCH_BTN_STYLE);
-		productList.setStyle(SEARCH_BTN_STYLE);
+		searchBtn.getStyleClass().add(SEARCH_BTN_STYLE_CLASS);
+		searchFor.getStyleClass().add(SEARCH_BTN_STYLE_CLASS);
+		productList.getStyleClass().add(SEARCH_BTN_STYLE_CLASS);
 		fillcombobox();
 		searchBtn.setOnAction((event) -> {
 			search();
@@ -87,11 +84,9 @@ public class SuchenController implements Initializable {
 			if (getClass().getResourceAsStream(name) == null) {
 				name = "/pics/ms170.jpg";
 			}
-			Button btn = new Button("",
-					new ImageView(new Image(getClass().getResourceAsStream(name), 160, 100, true, true)));
-			btn.setContentDisplay(ContentDisplay.TOP);
-			btn.setTextAlignment(TextAlignment.CENTER);
-			btn.setStyle(SEARCH_BTN_STYLE);
+			Button btn = new Button("", new ImageView(
+					new Image(getClass().getResourceAsStream(name), IMAGE_WIDTH_SHOW_BTN, 0, true, true)));
+			btn.getStyleClass().add(SEARCH_BTN_STYLE_CLASS);
 			btn.setTooltip(new Tooltip(TOOLTIP_DETAIL_BTN));
 
 			btn.setOnAction((event) -> {
@@ -119,11 +114,11 @@ public class SuchenController implements Initializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	private void createTableStructure() {
-		TableColumn<StihlTableView, String> colVergleich = new TableColumn<StihlTableView, String>("Details");
-		colVergleich.setMinWidth(40);
-		colVergleich.setStyle(FX_ALIGNMENT_CENTER);
-		colVergleich.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("btn"));
+		TableColumn<StihlTableView, String> colDetails = new TableColumn<StihlTableView, String>("Details");
+		colDetails.setStyle(FX_ALIGNMENT_CENTER);
+		colDetails.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("btn"));
 
 		TableColumn<StihlTableView, String> modellnameCol = new TableColumn<StihlTableView, String>("Name");
 		modellnameCol.setMinWidth(240);
@@ -131,7 +126,7 @@ public class SuchenController implements Initializable {
 		modellnameCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("name"));
 
 		TableColumn<StihlTableView, String> beschreibungCol = new TableColumn<StihlTableView, String>("Beschreibung");
-		beschreibungCol.setMaxWidth(290);
+		beschreibungCol.setMaxWidth(430);
 		beschreibungCol.setCellFactory(FxUtils.WRAPPING_CELL_FACTORY);
 		beschreibungCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("beschreibung"));
 
@@ -140,7 +135,7 @@ public class SuchenController implements Initializable {
 		resultTable.setMinWidth(780);
 		resultTable.setItems(tableData);
 		resultTable.scrollTo(0);
-		resultTable.getColumns().addAll(colVergleich, modellnameCol, beschreibungCol);
+		resultTable.getColumns().addAll(colDetails, modellnameCol, beschreibungCol);
 	}
 
 	private void fillcombobox() {
@@ -165,7 +160,7 @@ public class SuchenController implements Initializable {
 	 * @return the testlabel
 	 */
 	public Label getTestlabel() {
-		return testlabel;
+		return suchelabel;
 	}
 
 	/**

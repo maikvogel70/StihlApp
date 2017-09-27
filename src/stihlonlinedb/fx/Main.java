@@ -7,18 +7,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import stihlonlinedb.db.DBConnection;
 
-public class Main extends Application {
-	Parent root;
+public class Main extends Application implements ICommonProps {
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("STIHL Produkte");
+			primaryStage.setTitle(PRODUCT_TITLE);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

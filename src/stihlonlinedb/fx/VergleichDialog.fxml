@@ -5,25 +5,30 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane fx:id="vergleichDetailDialog" prefHeight="250.0"
-	prefWidth="600.0" BorderPane.alignment="CENTER"
+<AnchorPane fx:controller="stihlonlinedb.fx.controller.VergleichDialogController"
 	xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="stihlonlinedb.fx.controller.VergleichDialogController">
-	<content>
-		<BorderPane  styleClass="whiteBackground">
-			<bottom>
-				<Button fx:id="closeBtn" cancelButton="true" mnemonicParsing="false"
-					text="schließen (ESC)" BorderPane.alignment="CENTER">
-					<BorderPane.margin>
-						<Insets top="10.0" />
-					</BorderPane.margin>
-				</Button>
-			</bottom>
-			<center>
-				<FlowPane fx:id="saegenVergleichContent" styleClass="whiteBackground"
-					BorderPane.alignment="CENTER" />
-			</center>
-		</BorderPane>
-	</content>
-</DialogPane>
+	fx:id="vergleichPane">
+	<children>
+		<DialogPane maxHeight="250.0"
+			BorderPane.alignment="CENTER">
+			<content>
+				<BorderPane styleClass="whiteBackground">
+					<bottom>
+						<Button fx:id="closeBtn" cancelButton="true"
+							mnemonicParsing="false" text="schließen (ESC)"
+							BorderPane.alignment="CENTER">
+							<BorderPane.margin>
+								<Insets top="10.0" />
+							</BorderPane.margin>
+						</Button>
+					</bottom>
+					<center>
+						<FlowPane fx:id="saegenVergleichContent" styleClass="whiteBackground" />
+					</center>
+				</BorderPane>
+			</content>
+		</DialogPane>
+	</children>
+</AnchorPane>

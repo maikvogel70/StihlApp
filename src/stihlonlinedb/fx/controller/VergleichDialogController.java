@@ -11,23 +11,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.fx.ICommonProps;
 import stihlonlinedb.view.VergleichContentTable;
 
-public class VergleichDialogController implements Initializable {
+public class VergleichDialogController implements Initializable, ICommonProps {
 
-	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
-
-	@FXML
-	private DialogPane vergleichDetailDialog;
 	@FXML
 	private Button closeBtn;
 	@FXML
 	private FlowPane saegenVergleichContent;
-
+	@FXML
+	private AnchorPane vergleichPane;
 	private Parent loader;
 
 	@Override
@@ -38,18 +36,27 @@ public class VergleichDialogController implements Initializable {
 				((Stage) closeBtn.getScene().getWindow()).close();
 			}
 		});
-		closeBtn.setStyle(closeBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
+		closeBtn.getStyleClass().add(SHOW_DETAIL_BTN_STYLE_CLASS);
 	}
 
 	public void start(List<Saege> list) {
 		VergleichContentTable tableVergleichContent = new VergleichContentTable();
 		saegenVergleichContent.getChildren().add(tableVergleichContent.getVergleichTable(list));
-		Stage stage = new Stage();
-		stage.setTitle("Vergleiche Sägen");
-		stage.setResizable(false);
-		Scene scene = new Scene(loader);
-		stage.setScene(scene);
+		Stage stage = createAndStyleStage();
 		stage.show();
+	}
+
+	private Stage createAndStyleStage() {
+		// TODO: untersuchen, warum in diesem Controller das CSS nicht default geladen
+		// wird
+		Stage stage = new Stage();
+		stage.setResizable(false);
+		stage.setScene(new Scene(loader));
+		stage.getScene().getStylesheets()
+				.add(getClass().getResource("/stihlonlinedb/fx/application.css").toExternalForm());
+		closeBtn.getStyleClass().add(SEARCH_BTN_STYLE_CLASS);
+		saegenVergleichContent.getStyleClass().add("whiteBackground");
+		return stage;
 	}
 
 	/**

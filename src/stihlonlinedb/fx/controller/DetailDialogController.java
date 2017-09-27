@@ -18,10 +18,9 @@ import javafx.stage.Stage;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Saege;
 import stihlonlinedb.entities.SearchClass;
+import stihlonlinedb.fx.ICommonProps;
 
-public class DetailDialogController implements Initializable {
-
-	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
+public class DetailDialogController implements Initializable, ICommonProps {
 
 	@FXML
 	private DialogPane detailDialog;
@@ -31,7 +30,6 @@ public class DetailDialogController implements Initializable {
 	private ImageView saegenImage;
 	@FXML
 	private Button closeBtn;
-	private MainController mainController;
 	private Parent loader;
 
 	@Override
@@ -42,22 +40,19 @@ public class DetailDialogController implements Initializable {
 				((Stage) closeBtn.getScene().getWindow()).close();
 			}
 		});
-		closeBtn.setStyle(closeBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
 
-		// musste hier gesetzt werden. in der fxml zogen die änderungen nicht
-		detailDialog.setStyle("-fx-background-color: white;");
-		saegenDetailsLabel.setStyle(detailDialog.getStyle() + "-fx-font-size: 14.0; -fx-text-fill: #444;");
-		saegenTitleLabel.setStyle("-fx-font-size: 20.0; -fx-text-fill: #f37a1f; -fx-font-weight: bold;");
 	}
 
 	public void start(int id) {
+		Stage stage = createAndStyleStage();
+
 		Queries qs = new Queries();
 		Saege saege = qs.getSaegeById(id);
 		if (saege == null) {
 			return;
 		}
-		Image image = new Image(getClass().getResourceAsStream("/pics/" + saege.getBildablage().getPfad()), 500, 400,
-				true, true);
+		Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + saege.getBildablage().getPfad()),
+				IMAGE_WIDTH_DETAILS, 0, true, true);
 		saegenImage.setImage(image);
 		saegenTitleLabel.setText(saege.getName());
 		StringBuffer sb = new StringBuffer();
@@ -83,27 +78,37 @@ public class DetailDialogController implements Initializable {
 		sb.append("€ " + saege.getPreis());
 		saegenDetailsLabel.setText(sb.toString());
 
-		Stage stage = new Stage();
 		stage.setTitle(saege.getName());
-		stage.setResizable(false);
-		stage.setScene(new Scene(loader));
 		stage.show();
 	}
 
 	public void startSucheDetail(SearchClass searchClass) {
-		Image image = new Image(getClass().getResourceAsStream("/pics/" + searchClass.getBildablage().getPfad()), 300,
-				0, true, true);
+		Stage stage = createAndStyleStage();
+		Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + searchClass.getBildablage().getPfad()),
+				IMAGE_WIDTH_DETAILS, 0, true, true);
 		saegenImage.setImage(image);
 		saegenTitleLabel.setText(searchClass.getName());
 		saegenTitleLabel.setWrapText(true);
 		saegenDetailsLabel.setText(searchClass.getBeschreibung());
 		saegenDetailsLabel.setWrapText(true);
 
-		Stage stage = new Stage();
 		stage.setTitle(searchClass.getName());
+		stage.show();
+	}
+
+	private Stage createAndStyleStage() {
+		// TODO: untersuchen, warum in diesem Controller das CSS nicht default geladen
+		// wird
+		Stage stage = new Stage();
 		stage.setResizable(false);
 		stage.setScene(new Scene(loader));
-		stage.show();
+		stage.getScene().getStylesheets()
+				.add(getClass().getResource("/stihlonlinedb/fx/application.css").toExternalForm());
+		closeBtn.getStyleClass().add("showDetailBtn");
+		detailDialog.getStyleClass().add("whiteBackground");
+		saegenDetailsLabel.getStyleClass().add("detailsLabel");
+		saegenTitleLabel.getStyleClass().add("labelTitleView");
+		return stage;
 	}
 
 	/**
@@ -119,11 +124,6 @@ public class DetailDialogController implements Initializable {
 	 */
 	public void setLoader(Parent loader) {
 		this.loader = loader;
-	}
-
-	public void init(MainController mainController) {
-		this.mainController = mainController;
-
 	}
 
 }

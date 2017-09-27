@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -23,10 +24,10 @@ public class MainController extends Pane implements Initializable {
 	private BorderPane mainBorderPane;
 	@FXML
 	private StackPane centerStackPane;
-	// @FXML
-	// private DetailDialogController detailDialogController;
-	// @FXML
-	// private AnchorPane mainAnchorPane;
+	@FXML
+	private AnchorPane mainController;
+	@FXML
+	private DetailDialogController detailDialog;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -79,18 +80,11 @@ public class MainController extends Pane implements Initializable {
 		return centerStackPane;
 	}
 
-	// /**
-	// * @return the detailDialogController
-	// */
-	// public DetailDialogController getDetailDialogController() {
-	// return detailDialogController;
-	// }
-	//
-	// /**
-	// * @return the mainAnchorPane
-	// */
-	// public AnchorPane getMainAnchorPane() {
-	// return mainAnchorPane;
-	// }
+	/**
+	 * @return the mainController
+	 */
+	public AnchorPane getMainController() {
+		return mainController;
+	}
 
 }

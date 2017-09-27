@@ -18,12 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.fx.ICommonProps;
 
-public class VergleichContentTable {
-	private static final int MIN_TABLE_WIDTH = 600;
-	private static final int MAX_TABLE_HEIGHT = 220;
-	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-color: transparent;";
-	private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: CENTER;";
+public class VergleichContentTable implements ICommonProps {
+
 	private ObservableList<StihlTableView> tableDataVergleich;
 	private TableView<StihlTableView> tableVergleich;
 
@@ -33,10 +31,10 @@ public class VergleichContentTable {
 		Saege saege;
 		for (Saege selectedSaege : selectedSaegenList) {
 			saege = qs.getSaegeById(selectedSaege.getId());
-			ImageView imageView = new ImageView(
-					new Image(getClass().getResourceAsStream("/pics/info.gif"), 20, 0, true, true));
+			ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + "info.gif"),
+					INFO_BTN_WIDTH, 0, true, true));
 			Button info = new Button("", imageView);
-			info.setStyle(SHOW_DETAIL_BTN_STYLE);
+			info.getStyleClass().add(TRANSPARENT_STYLE_CLASS);
 
 			Tooltip tooltip = new Tooltip(saege.getBeschreibung());
 			tooltip.setPrefWidth(300);
@@ -55,12 +53,13 @@ public class VergleichContentTable {
 		tableDataVergleich = FXCollections.observableList(swl);
 		tableVergleich = new TableView<StihlTableView>();
 		createTableStructure();
-		tableVergleich.setMaxHeight(MAX_TABLE_HEIGHT);
-		tableVergleich.setMinWidth(MIN_TABLE_WIDTH);
+		tableVergleich.setMaxHeight(MAX_TABLE_HEIGHT_VERGLEICH);
+		tableVergleich.setMinWidth(MIN_TABLE_WIDTH_VERGLEICH);
 		tableVergleich.setItems(tableDataVergleich);
 		tableVergleich.scrollTo(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void createTableStructure() {
 
 		TableColumn<StihlTableView, String> colInfo = new TableColumn<StihlTableView, String>("Details");
@@ -69,7 +68,8 @@ public class VergleichContentTable {
 		colInfo.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("btn"));
 
 		TableColumn<StihlTableView, String> modellnameCol = new TableColumn<StihlTableView, String>("Modellname");
-		modellnameCol.setMinWidth(170);
+		modellnameCol.setMinWidth(190);
+		modellnameCol.setStyle(FX_ALIGNMENT_CENTER);
 		modellnameCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("name"));
 
 		TableColumn<StihlTableView, Double> hubraumCol = new TableColumn<StihlTableView, Double>("Hubraum cm³");

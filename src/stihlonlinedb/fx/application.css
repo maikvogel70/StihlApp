@@ -1,16 +1,16 @@
-.btnProductView{
+.btnStihlStyle{
         -fx-background-color:rgba(35.0, 44.0, 51.0, 0.85);
         -fx-font-size: 11.0;
         -fx-text-fill: white;
         -fx-font-weight: bold;
 }
-.btnProductView:hover{
+.btnStihlStyle:hover{
 	-fx-background-color: #383838;
 }
-.btnProductView:pressed{
+.btnStihlStyle:pressed{
 	-fx-background-color:  #f37a1f;
 }
-.btnProductView:selected{
+.btnStihlStyle:selected{
 	-fx-background-color:  #f37a1f;
 }
 
@@ -22,5 +22,30 @@
 		-fx-font-size: 20.0;
         -fx-text-fill: #f37a1f;
         -fx-font-weight: bold;
-        -fx-padding: 5;
+        -fx-padding: 5.0;
+}
+
+.showDetailBtn{
+	 -fx-background-color: transparent;  
+	 -fx-border-width: 1.0; 
+	 -fx-border-color: transparent, #f37a1f;  
+	 -fx-border-radius: 3.0;
+}
+
+.detailsLabel{
+	-fx-font-size: 14.0; 
+	-fx-text-fill: #444;
+}
+
+.table-cell {
+     -fx-alignment: BASELINE_LEFT;
+ }
+
+.transparentBg{
+	-fx-background-color:transparent;
+}
+
+.hyperLink{
+	-fx-text-fill: #f37a1f; 
+	-fx-font-weight: bold;
 }

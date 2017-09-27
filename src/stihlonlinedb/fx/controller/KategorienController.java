@@ -25,11 +25,9 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,9 +44,11 @@ import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Einsatzzweck;
 import stihlonlinedb.entities.Saege;
+import stihlonlinedb.fx.ICommonProps;
+import stihlonlinedb.view.KategorieContentTable;
 import stihlonlinedb.view.StihlTableView;
 
-public class KategorienController extends Pane implements Initializable {
+public class KategorienController extends Pane implements Initializable, ICommonProps {
 
 	@FXML
 	private FlowPane kategoriePane, kategoriePaneContent, kategorieMainPane;
@@ -58,8 +58,6 @@ public class KategorienController extends Pane implements Initializable {
 	private AnchorPane anchorPaneKategorien;
 	@FXML
 	private ScrollPane kategorieScrollPane;
-	@FXML
-	private TableView<Saege> kategorieContent;
 	@FXML
 	private Dialog<Saege> detailDialog;
 	@FXML
@@ -74,11 +72,6 @@ public class KategorienController extends Pane implements Initializable {
 	private VBox kategorieVbox;
 	@FXML
 	private Hyperlink vergleicheAuswahlLink;
-	private static final int MIN_TABLE_WIDTH = 715;
-	private static final int MAX_TABLE_HEIGH = 260;
-	private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: CENTER;";
-	private static final String TOOLTIP_DETAIL_BTN = "Zeige weitere Details zu dem Gerät an";
-	private static final String SHOW_DETAIL_BTN_STYLE = " -fx-background-color: transparent;  -fx-border-width: 1; -fx-border-color: transparent, #f37a1f;  -fx-border-radius:3";
 	private ObservableList<StihlTableView> tableData;
 	private TableView<StihlTableView> table;
 	private int cbxVergleichCounter = 0;
@@ -91,16 +84,16 @@ public class KategorienController extends Pane implements Initializable {
 		addKategorienFlowPaneContent();
 		setDefaultView(true);
 		kategorieVbox.setBorder(null);
-		kategorieScrollPane.setStyle("-fx-background-color:transparent;");
+		kategorieScrollPane.getStyleClass().add(TRANSPARENT_STYLE_CLASS);
 		kategoriePaneContent.setPadding(new Insets(10, 0, 0, 10));
 		kategoriePaneContent.setVgap(10);
 		vergleicheAuswahlLink.setDisable(true);
-		vergleicheAuswahlLink.setStyle("-fx-text-fill: #f37a1f; -fx-font-weight: bold;");
+		vergleicheAuswahlLink.getStyleClass().add(HYPERLINK_STYLE_CLASS);
 		vergleicheAuswahlLink.setText("Vergleichen (Min: 2 - Max: 5)");
 	}
 
 	private void addLabel() {
-		kategorienLabel.getStyleClass().add("labelTitleView");
+		kategorienLabel.getStyleClass().add(STIHL_LABEL_STYLE_CLASS);
 	}
 
 	private void addKategorienFlowPaneContent() {
@@ -114,8 +107,8 @@ public class KategorienController extends Pane implements Initializable {
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Einsatzzweck> allProdukte = dbObjects.getAllEinsatzzwecke();
 		for (Einsatzzweck einsatzzweck : allProdukte) {
-			Image image = new Image(getClass().getResourceAsStream("/pics/" + einsatzzweck.getBild().getPfad()), 160,
-					100, true, true);
+			Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + einsatzzweck.getBild().getPfad()),
+					IMAGE_WIDTH_NAV, 0, true, true);
 			ImageView view = new ImageView(image);
 			ToggleButton btn = new ToggleButton(einsatzzweck.getName(), view);
 			btn.setId("" + einsatzzweck.getId());
@@ -124,7 +117,7 @@ public class KategorienController extends Pane implements Initializable {
 			btn.setMaxWidth(160);
 			btn.setMinHeight(140);
 			btn.setWrapText(true);
-			btn.getStyleClass().add("btnProductView");
+			btn.getStyleClass().add(STIHL_BTN_STYLE_CLASS);
 
 			btn.setOnAction((event) -> {
 				if (event.getSource() instanceof ToggleButton) {
@@ -160,7 +153,8 @@ public class KategorienController extends Pane implements Initializable {
 		Queries qs = new Queries();
 		List<Saege> saegen = qs.getSaegeByEinsatzzweck(id);
 		List<StihlTableView> swl = new ArrayList<>();
-		Image image = new Image(getClass().getResourceAsStream("/pics/tableShowDetail.gif"), 100, 20, true, true);
+		Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + "tableShowDetail.gif"),
+				IMAGE_WIDTH_SHOW_BTN, 0, true, true);
 		selectedSaegen = new ArrayList<>();
 		this.vergleicheAuswahlLink.setDisable(true);
 		Button showBtn;
@@ -169,7 +163,7 @@ public class KategorienController extends Pane implements Initializable {
 		for (Saege saege : saegen) {
 			showBtn = new Button("", new ImageView(image));
 			showBtn.setTooltip(new Tooltip(TOOLTIP_DETAIL_BTN));
-			showBtn.setStyle(showBtn.getStyle() + SHOW_DETAIL_BTN_STYLE);
+			showBtn.getStyleClass().add(SHOW_DETAIL_BTN_STYLE_CLASS);
 
 			showBtn.setOnAction((event) -> {
 				FXMLLoader load = null;
@@ -200,7 +194,8 @@ public class KategorienController extends Pane implements Initializable {
 					new SimpleDoubleProperty(saege.getPreis())));
 		}
 		tableData = FXCollections.observableList(swl);
-		createTableStructure();
+		KategorieContentTable contentTable = new KategorieContentTable();
+		table = contentTable.createTableStructure(tableData);
 	}
 
 	protected void checkCheckBox(boolean isSelected, Saege saege) {
@@ -211,49 +206,6 @@ public class KategorienController extends Pane implements Initializable {
 			cbxVergleichCounter--;
 			this.selectedSaegen.remove(saege);
 		}
-	}
-
-	private void createTableStructure() {
-		TableColumn<StihlTableView, String> colVergleich = new TableColumn<StihlTableView, String>("Vergleich");
-		colVergleich.setMinWidth(40);
-		colVergleich.setStyle(FX_ALIGNMENT_CENTER);
-		colVergleich.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("cbxVergleich"));
-
-		TableColumn<StihlTableView, String> showCol = new TableColumn<StihlTableView, String>("Details");
-		showCol.setMinWidth(40);
-		showCol.setStyle(FX_ALIGNMENT_CENTER);
-		showCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("btn"));
-
-		TableColumn<StihlTableView, String> modellnameCol = new TableColumn<StihlTableView, String>("Modellname");
-		modellnameCol.setMinWidth(155);
-		modellnameCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, String>("name"));
-
-		TableColumn<StihlTableView, Double> hubraumCol = new TableColumn<StihlTableView, Double>("Hubraum cm³");
-		hubraumCol.setMinWidth(100);
-		hubraumCol.setStyle(FX_ALIGNMENT_CENTER);
-		hubraumCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("hubraum"));
-
-		TableColumn<StihlTableView, Double> leistungCol = new TableColumn<StihlTableView, Double>("Leistung PS");
-		leistungCol.setMinWidth(100);
-		leistungCol.setStyle(FX_ALIGNMENT_CENTER);
-		leistungCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("ps"));
-
-		TableColumn<StihlTableView, Double> gewichtCol = new TableColumn<StihlTableView, Double>("Gewicht kg");
-		gewichtCol.setMinWidth(80);
-		gewichtCol.setStyle(FX_ALIGNMENT_CENTER);
-		gewichtCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("gewicht"));
-
-		TableColumn<StihlTableView, Double> preisCol = new TableColumn<StihlTableView, Double>("Preis €");
-		preisCol.setMinWidth(80);
-		preisCol.setStyle(FX_ALIGNMENT_CENTER);
-		preisCol.setCellValueFactory(new PropertyValueFactory<StihlTableView, Double>("preis"));
-
-		table = new TableView<StihlTableView>();
-		table.setMaxHeight(MAX_TABLE_HEIGH);
-		table.setMinWidth(MIN_TABLE_WIDTH);
-		table.setItems(tableData);
-		table.scrollTo(0);
-		table.getColumns().addAll(colVergleich, showCol, modellnameCol, hubraumCol, leistungCol, gewichtCol, preisCol);
 	}
 
 	/**
@@ -299,7 +251,8 @@ public class KategorienController extends Pane implements Initializable {
 	 */
 	public void setDefaultView(boolean b) {
 		if (b) {
-			Image image = new Image(getClass().getResourceAsStream("/pics/startLogo.jpg"), 0, 800, true, true);
+			Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + "startLogo.jpg"), 0,
+					IMAGE_HEIGHT_START_LOGO, true, true);
 			kategorieMainPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 			kategorieScrollPane.setVisible(false);
@@ -307,13 +260,6 @@ public class KategorienController extends Pane implements Initializable {
 			kategorieMainPane.setBackground(null);
 			kategorieScrollPane.setVisible(true);
 		}
-	}
-
-	/**
-	 * @return the vergleicheAuswahlLink
-	 */
-	public Hyperlink getVergleicheAuswahlLink() {
-		return vergleicheAuswahlLink;
 	}
 
 	/**
@@ -343,13 +289,6 @@ public class KategorienController extends Pane implements Initializable {
 	 */
 	public FlowPane getKategoriePane() {
 		return kategoriePane;
-	}
-
-	/**
-	 * @return the kategorieScrollPane
-	 */
-	public ScrollPane getKategorieScrollPane() {
-		return kategorieScrollPane;
 	}
 
 	public void init(MainController mainController) {

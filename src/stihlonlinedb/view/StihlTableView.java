@@ -236,8 +236,10 @@ public class StihlTableView {
 	 */
 	@Override
 	public String toString() {
-		return "SaegeView [name=" + name + ", hubraum=" + hubraum + ", ps=" + ps + ", gewicht=" + gewicht + ", preis="
-				+ preis + ", btn=" + btn + ", id=" + id + "]";
+		return "StihlTableView [name=" + name + ", kettenteilung=" + kettenteilung + ", beschreibung=" + beschreibung
+				+ ", hubraum=" + hubraum + ", ps=" + ps + ", kw=" + kw + ", gewicht=" + gewicht + ", preis=" + preis
+				+ ", btn=" + btn + ", id=" + id + ", schienenlaenge=" + schienenlaenge + ", cbxVergleich="
+				+ cbxVergleich + "]";
 	}
 
 }

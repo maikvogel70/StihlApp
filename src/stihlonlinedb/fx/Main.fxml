@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.141"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="stihlonlinedb.fx.controller.MainController">
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="stihlonlinedb.fx.controller.MainController"> 
 	<children>
 		<BorderPane minHeight="600" minWidth="1000" fx:id="mainBorderPane"
 			xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -27,6 +27,8 @@
 				<Insets top="20.0" />
 			</padding>
 		</BorderPane>
-		<fx:include fx:id="menubar" source="Menuitem.fxml" />
+		<StackPane>
+			<fx:include fx:id="menubar" source="Menuitem.fxml" />
+		</StackPane>
 	</children>
 </AnchorPane>

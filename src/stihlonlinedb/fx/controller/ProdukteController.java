@@ -22,10 +22,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.entities.Produkte;
+import stihlonlinedb.fx.ICommonProps;
 
-public class ProdukteController implements Initializable {
-	private static final String STIHL_PRODUKTE_LABEL = "STIHL Produkte";
-	private static final int IMAGE_WIDTH = 160;
+public class ProdukteController implements Initializable, ICommonProps {
+
 	@FXML
 	private HBox productHBox;
 	@FXML
@@ -50,7 +50,7 @@ public class ProdukteController implements Initializable {
 
 	private void addLabel() {
 		produkteLabel.setText(STIHL_PRODUKTE_LABEL);
-		produkteLabel.getStyleClass().add("labelTitleView");
+		produkteLabel.getStyleClass().add(STIHL_LABEL_STYLE_CLASS);
 	}
 
 	private void addProductFlowPaneContent() {
@@ -62,8 +62,8 @@ public class ProdukteController implements Initializable {
 		List<Produkte> allProdukte = dbObjects.getAllProdukte();
 		int idCounter = 0;
 		for (Produkte produkte : allProdukte) {
-			Image image = new Image(getClass().getResourceAsStream("/pics/" + produkte.getBild().getPfad()),
-					IMAGE_WIDTH, 0, true, true);
+			Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + produkte.getBild().getPfad()),
+					IMAGE_WIDTH_NAV, 0, true, true);
 			ImageView view = new ImageView(image);
 			ToggleButton btn = new ToggleButton(produkte.getName(), view);
 			btn.setId("productBtn_" + idCounter);
@@ -72,11 +72,10 @@ public class ProdukteController implements Initializable {
 			btn.setMaxWidth(160);
 			btn.setMinHeight(140);
 			btn.setWrapText(true);
-			btn.getStyleClass().add("btnProductView");
+			btn.getStyleClass().add(STIHL_BTN_STYLE_CLASS);
 
 			btn.setOnAction((event) -> {
 				final ToggleButton toggleBtn;
-				KategorienController kategorienPaneController = mainController.getKategorienPaneController();
 				toggleBtn = (ToggleButton) event.getSource();
 
 				// zur stetigen anzeige der selektierten buttons
@@ -86,6 +85,7 @@ public class ProdukteController implements Initializable {
 				}
 				toggleBtn.setSelected(true);
 
+				KategorienController kategorienPaneController = mainController.getKategorienPaneController();
 				kategorienPaneController.getKategoriePane().getChildren().clear();
 				if ("productBtn_1".equals(toggleBtn.getId())) {
 					kategorienPaneController.addKategorienToFlowPane(toggleBtn.getId());
