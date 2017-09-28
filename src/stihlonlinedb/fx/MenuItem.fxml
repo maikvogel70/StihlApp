@@ -16,11 +16,6 @@
 						<MenuItem mnemonicParsing="false" text="Beenden" fx:id="closeItem" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Bearbeiten">
-					<items>
-						<MenuItem mnemonicParsing="false" text="Delete" />
-					</items>
-				</Menu>
 				<Menu mnemonicParsing="false" text="Suchen">
 					<items>
 						<MenuItem mnemonicParsing="false" text="Suchen" fx:id="searchItem" />
