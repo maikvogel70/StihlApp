@@ -7,11 +7,18 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Stellt die Methoden für die DB-Kommunikation bereit
+ *
+ */
 public class DBConnection {
 
 	private static Connection dbConn;
 	private static String connectionString;
 
+	/**
+	 * Öffnet eine Datenbankverbindung
+	 */
 	public static void openDbConnection() {
 		String connectionString, classForName;
 		String server = "localhost";
@@ -61,7 +68,7 @@ public class DBConnection {
 	/**
 	 * Gibt die aktuelle Datenbankverbindung zurück.
 	 * 
-	 * @return
+	 * @return {@link Connection}
 	 */
 	public static Connection getConnection() {
 		if (dbConn == null) {
@@ -73,7 +80,7 @@ public class DBConnection {
 	/**
 	 * Gibt die aktuelle Verbindungszeichenfolge zurück.
 	 * 
-	 * @return
+	 * @return connectionString
 	 */
 	public static String getConnectionString() {
 		return connectionString;
@@ -98,7 +105,7 @@ public class DBConnection {
 	/**
 	 * Gibt den Namen der aktuell geöffneten Datenbank zurück.
 	 * 
-	 * @return
+	 * @return Name
 	 */
 	public static String getCurrentDb() {
 		String catalog = "";
@@ -118,7 +125,7 @@ public class DBConnection {
 	 * gehören.
 	 * 
 	 * @param SQL
-	 * @return
+	 * @return Fehlercode
 	 */
 	public static int executeNonQuery(String SQL) {
 		int retValue = -1;
@@ -142,7 +149,7 @@ public class DBConnection {
 	 * der ersten Zeile und der ersten Spalte zurück.
 	 * 
 	 * @param SQL
-	 * @return
+	 * @return Object
 	 */
 	public static Object executeForSingleResult(String SQL) {
 		Object retValue = null;
@@ -153,14 +160,8 @@ public class DBConnection {
 		try {
 			stmt = dbConn.createStatement();
 			ResultSet rSet = stmt.executeQuery(SQL);
-
-			// Auf die erste Zeile innerhalb des ResultSets positionieren
 			rSet.next();
-
-			// Den Inhalt der ersten Spalte in der Zeile dem Rückgabewert zuweisen
 			retValue = rSet.getObject(1);
-
-			// ResultSet und Statement schließen
 			rSet.close();
 			stmt.close();
 
@@ -175,7 +176,7 @@ public class DBConnection {
 	 * Führt alle SQL-Anweisungen der Data Query Language aus.
 	 * 
 	 * @param SQL
-	 * @return
+	 * @return {@link ResultSet}
 	 */
 	public static ResultSet executeQuery(String SQL) {
 		ResultSet rSet = null;
@@ -198,7 +199,7 @@ public class DBConnection {
 	 * doppelte Anführungszeichen ersetzt.
 	 * 
 	 * @param value
-	 * @return
+	 * @return value
 	 */
 	public static String dbString(String value) {
 		return "'" + value.replace("'", "''") + "'";

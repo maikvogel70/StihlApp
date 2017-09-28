@@ -7,6 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import stihlonlinedb.db.DBConnection;
 
+/**
+ * 
+ * Hauptklasse zum Start der FX-Anwendung
+ *
+ */
 public class Main extends Application implements ICommonProps {
 
 	@Override
@@ -24,6 +29,11 @@ public class Main extends Application implements ICommonProps {
 		}
 	}
 
+	/**
+	 * Startet die Applikation
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		DBConnection.openDbConnection();
 		launch(args);

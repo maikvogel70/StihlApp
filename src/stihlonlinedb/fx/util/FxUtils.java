@@ -5,10 +5,19 @@ import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 import stihlonlinedb.view.StihlTableView;
 
+/**
+ * 
+ * FX-Uitility-Klasse für diverse Static-Methoden
+ *
+ */
 public class FxUtils {
+
 	/**
+	 * Der Zeilenumbruch innerhalb eine Tabellenzelle wird über diese Methode
+	 * gesteuert. Siehe Ordner "doku" im Projekt für den Fall, dass der Link
+	 * ungültig geworden ist.
 	 * 
-	 * @see http://www.jluger.de/blog/20160731_javafx_text_rendering_in_tableview.html
+	 * {@link http://www.jluger.de/blog/20160731_javafx_text_rendering_in_tableview.html}
 	 * 
 	 */
 	public static final Callback<TableColumn<StihlTableView, String>, TableCell<StihlTableView, String>> WRAPPING_CELL_FACTORY = new Callback<TableColumn<StihlTableView, String>, TableCell<StihlTableView, String>>() {

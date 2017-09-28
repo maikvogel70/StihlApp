@@ -8,18 +8,22 @@ import java.util.List;
 import stihlonlinedb.db.DBConnection;
 import stihlonlinedb.entities.Bildablage;
 import stihlonlinedb.entities.Einsatzzweck;
-import stihlonlinedb.entities.Fuehrungsschienen;
-import stihlonlinedb.entities.Ketten;
-import stihlonlinedb.entities.Kunde;
 import stihlonlinedb.entities.Produkte;
 import stihlonlinedb.entities.Saege;
 import stihlonlinedb.entities.Zubehoer;
 
+/**
+ * Liefert die Inhalte der einzelnen Tabellen. Kann mit System.out.println()
+ * direkt auf die Konsole ausgegeben werden.
+ *
+ */
 public class ListDbObjects implements IClauses {
 
-	public ListDbObjects() {
-	}
-
+	/**
+	 * Liefert alle Produkte
+	 * 
+	 * @return List
+	 */
 	public List<Produkte> getAllProdukte() {
 		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_PRODUKTE);
 		List<Produkte> pList = new ArrayList<>();
@@ -33,6 +37,11 @@ public class ListDbObjects implements IClauses {
 		return pList;
 	}
 
+	/**
+	 * Liefert alle Bilder
+	 * 
+	 * @return List
+	 */
 	public List<Bildablage> getAllBilder() {
 		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_BILDER);
 		List<Bildablage> bList = new ArrayList<>();
@@ -46,6 +55,11 @@ public class ListDbObjects implements IClauses {
 		return bList;
 	}
 
+	/**
+	 * Liefert alle Einsatzzwecke
+	 * 
+	 * @return List
+	 */
 	public List<Einsatzzweck> getAllEinsatzzwecke() {
 		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_EINSATZ);
 		List<Einsatzzweck> eList = new ArrayList<>();
@@ -60,6 +74,11 @@ public class ListDbObjects implements IClauses {
 		return eList;
 	}
 
+	/**
+	 * Liefert alle Zubehöre
+	 * 
+	 * @return List
+	 */
 	public List<Zubehoer> getAllZubehoer() {
 		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_ZUBEHOER);
 		List<Zubehoer> zList = new ArrayList<>();
@@ -74,6 +93,11 @@ public class ListDbObjects implements IClauses {
 		return zList;
 	}
 
+	/**
+	 * Liefert alle Sägen
+	 * 
+	 * @return List
+	 */
 	public List<Saege> getAllSaegen() {
 		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_SAEGE);
 		List<Saege> sList = new ArrayList<>();
@@ -83,7 +107,6 @@ public class ListDbObjects implements IClauses {
 				s.setBeschreibung(rs.getString(4));
 				s.setBesonderheiten(rs.getString(6));
 				s.setBestellnummer(rs.getString(3));
-				s.setBestellung(null);
 				s.setBildablage(new Bildablage(0, rs.getString(16)));
 				Bildablage b = new Bildablage(0, rs.getString(18));
 				Einsatzzweck e = new Einsatzzweck(0, rs.getString(17), b);
@@ -103,40 +126,6 @@ public class ListDbObjects implements IClauses {
 			e.printStackTrace();
 		}
 		return sList;
-	}
-
-	public List<Ketten> getAllKetten() {
-		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_KETTEN);
-		List<Ketten> kList = new ArrayList<>();
-		try {
-			while (rs.next()) {
-				kList.add(new Ketten(rs.getInt(1), rs.getInt(6), rs.getInt(9), rs.getString(3), rs.getString(2),
-						rs.getString(4), rs.getString(5), rs.getDouble(8), rs.getDouble(6)));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return kList;
-	}
-
-	public List<Fuehrungsschienen> getAllFuerungsschienen() {
-		ResultSet rs = DBConnection.executeQuery(FROM_CLAUSE_FUEHRUNG);
-		List<Fuehrungsschienen> fList = new ArrayList<>();
-		try {
-			while (rs.next()) {
-				fList.add(new Fuehrungsschienen(rs.getInt(1), rs.getInt(5), rs.getInt(6), rs.getString(3),
-						rs.getString(2), rs.getString(4), rs.getDouble(7), new Bildablage(0, rs.getString(10))));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return fList;
-	}
-
-	public List<Kunde> getAllKunden() {
-		return null;
-		// return (List<Kunde>) getObjects(sessionFactory.openSession(),
-		// FROM_CLAUSE_KUNDE);
 	}
 
 }

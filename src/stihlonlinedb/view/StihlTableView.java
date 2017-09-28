@@ -6,6 +6,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
+/**
+ * 
+ * Eigenschaftsklasse für die Darstellung einer Tabelle
+ *
+ */
 public class StihlTableView {
 	SimpleStringProperty name, kettenteilung, beschreibung;
 	SimpleDoubleProperty hubraum, ps, kw, gewicht, preis;
@@ -13,6 +18,19 @@ public class StihlTableView {
 	SimpleIntegerProperty id, schienenlaenge;
 	CheckBox cbxVergleich;
 
+	/**
+	 * 
+	 * @param btn
+	 * @param id
+	 * @param name
+	 * @param hubraum
+	 * @param ps
+	 * @param gewicht
+	 * @param kw
+	 * @param kettenteilung
+	 * @param schienenlaenge
+	 * @param preis
+	 */
 	public StihlTableView(Button btn, SimpleIntegerProperty id, SimpleStringProperty name, SimpleDoubleProperty hubraum,
 			SimpleDoubleProperty ps, SimpleDoubleProperty gewicht, SimpleDoubleProperty kw,
 			SimpleStringProperty kettenteilung, SimpleIntegerProperty schienenlaenge, SimpleDoubleProperty preis) {
@@ -28,6 +46,17 @@ public class StihlTableView {
 		this.preis = preis;
 	}
 
+	/**
+	 * 
+	 * @param cbxVergleich
+	 * @param id
+	 * @param btn
+	 * @param name
+	 * @param hubraum
+	 * @param ps
+	 * @param gewicht
+	 * @param preis
+	 */
 	public StihlTableView(CheckBox cbxVergleich, SimpleIntegerProperty id, Button btn, SimpleStringProperty name,
 			SimpleDoubleProperty hubraum, SimpleDoubleProperty ps, SimpleDoubleProperty gewicht,
 			SimpleDoubleProperty preis) {
@@ -41,6 +70,13 @@ public class StihlTableView {
 		this.preis = preis;
 	}
 
+	/**
+	 * 
+	 * @param showBtn
+	 * @param id
+	 * @param name
+	 * @param beschreibung
+	 */
 	public StihlTableView(Button showBtn, SimpleIntegerProperty id, SimpleStringProperty name,
 			SimpleStringProperty beschreibung) {
 		this.btn = showBtn;

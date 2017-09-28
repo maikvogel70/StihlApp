@@ -6,8 +6,19 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import stihlonlinedb.fx.ICommonProps;
 
+/**
+ * 
+ * Klasse für die {@link StihlTableView}
+ *
+ */
 public class KategorieContentTable implements ICommonProps {
 
+	/**
+	 * Erzeugt die Tabelle für die Kategorie-Inhalte der Sägen nach Auswahl des
+	 * Einsatzzweckes
+	 * 
+	 * @return TableView {@link StihlTableView}
+	 */
 	@SuppressWarnings("unchecked")
 	public TableView<StihlTableView> createTableStructure(ObservableList<StihlTableView> tableData) {
 		TableColumn<StihlTableView, String> colVergleich = new TableColumn<StihlTableView, String>("Vergleich");

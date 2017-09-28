@@ -20,6 +20,11 @@ import stihlonlinedb.entities.Saege;
 import stihlonlinedb.entities.SearchClass;
 import stihlonlinedb.fx.ICommonProps;
 
+/**
+ * 
+ * Controller für den Detail-Dialog
+ *
+ */
 public class DetailDialogController implements Initializable, ICommonProps {
 
 	@FXML
@@ -43,6 +48,11 @@ public class DetailDialogController implements Initializable, ICommonProps {
 
 	}
 
+	/**
+	 * Zeige die Eigenschaften anhand der Säge-ID
+	 * 
+	 * @param id
+	 */
 	public void start(int id) {
 		Stage stage = createAndStyleStage();
 
@@ -82,6 +92,12 @@ public class DetailDialogController implements Initializable, ICommonProps {
 		stage.show();
 	}
 
+	/**
+	 * Zeige die Suchergebnisse anhand der Typenklasse
+	 * 
+	 * @param {@link
+	 * 			SearchClass}
+	 */
 	public void startSucheDetail(SearchClass searchClass) {
 		Stage stage = createAndStyleStage();
 		Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + searchClass.getBildablage().getPfad()),
@@ -96,6 +112,7 @@ public class DetailDialogController implements Initializable, ICommonProps {
 		stage.show();
 	}
 
+	// Erzeuge eine Stage und lade die CSS-Datei in die Stage
 	private Stage createAndStyleStage() {
 		// TODO: untersuchen, warum in diesem Controller das CSS nicht default geladen
 		// wird

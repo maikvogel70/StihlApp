@@ -1,13 +1,14 @@
 package stihlonlinedb.entities;
 
+/**
+ * Liefert ein Produkt-Objekt mit ID, Name und ForeignKey zum Bild
+ *
+ */
 public class Produkte {
 
 	private int id;
 	private String name;
 	private Bildablage bild;
-
-	public Produkte() {
-	}
 
 	public Produkte(int id, String name, Bildablage bild) {
 		this.id = id;

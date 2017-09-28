@@ -1,5 +1,10 @@
 package stihlonlinedb.entities;
 
+/**
+ * Typisierung der Suchergebnisse nach Sägen und Zubehör (zu Demozwecken nur auf
+ * diese beiden begrenzt) <br>
+ * {@link Saege}, {@link Zubehoer}
+ */
 public abstract class SearchClass {
 
 	public abstract void setId(int id);

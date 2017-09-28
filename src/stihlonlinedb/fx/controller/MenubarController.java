@@ -13,6 +13,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * 
+ * Controller für die Menübar
+ *
+ */
 public class MenubarController implements Initializable {
 	@FXML
 	private MenuItem closeItem;
@@ -49,6 +54,11 @@ public class MenubarController implements Initializable {
 
 	}
 
+	/**
+	 * Verlinkung des MainControllers zur Steuerung
+	 * 
+	 * @param mainController
+	 */
 	public void init(MainController mainController) {
 		this.mainController = mainController;
 	}

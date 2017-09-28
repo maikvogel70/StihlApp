@@ -48,6 +48,11 @@ import stihlonlinedb.fx.ICommonProps;
 import stihlonlinedb.view.KategorieContentTable;
 import stihlonlinedb.view.StihlTableView;
 
+/**
+ * 
+ * Controller für die Kategorien.
+ *
+ */
 public class KategorienController extends Pane implements Initializable, ICommonProps {
 
 	@FXML
@@ -102,14 +107,19 @@ public class KategorienController extends Pane implements Initializable, ICommon
 		kategoriePane.setHgap(4);
 	}
 
+	/**
+	 * Erstellt die Image-Buttons für die Kategorien anhand der Produkt-ID
+	 * 
+	 * @param produktId
+	 */
 	public void addKategorienToFlowPane(String produktId) {
 		togglePanes();
 		ListDbObjects dbObjects = new ListDbObjects();
 		List<Einsatzzweck> allProdukte = dbObjects.getAllEinsatzzwecke();
 		for (Einsatzzweck einsatzzweck : allProdukte) {
-			Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + einsatzzweck.getBild().getPfad()),
-					IMAGE_WIDTH_NAV, 0, true, true);
-			ImageView view = new ImageView(image);
+			ImageView view = new ImageView(
+					new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + einsatzzweck.getBild().getPfad()),
+							IMAGE_WIDTH_NAV, 0, true, true));
 			ToggleButton btn = new ToggleButton(einsatzzweck.getName(), view);
 			btn.setId("" + einsatzzweck.getId());
 			btn.setContentDisplay(ContentDisplay.TOP);
@@ -149,14 +159,17 @@ public class KategorienController extends Pane implements Initializable, ICommon
 		}
 	}
 
+	// Erstellt die Sägentabelle anhand der Einsatzzweck-ID
 	private void initSaegenTable(int id) {
 		Queries qs = new Queries();
 		List<Saege> saegen = qs.getSaegeByEinsatzzweck(id);
 		List<StihlTableView> swl = new ArrayList<>();
+
 		Image image = new Image(getClass().getResourceAsStream(MAIN_IMAGE_PATH + "tableShowDetail.gif"),
 				IMAGE_WIDTH_SHOW_BTN, 0, true, true);
 		selectedSaegen = new ArrayList<>();
 		this.vergleicheAuswahlLink.setDisable(true);
+
 		Button showBtn;
 		CheckBox cbxVergleich;
 
@@ -169,9 +182,8 @@ public class KategorienController extends Pane implements Initializable, ICommon
 				FXMLLoader load = null;
 				// zur kommunikation mit dem dialog
 				load = new FXMLLoader(getClass().getResource("../DetailDialog.fxml"));
-				Parent root;
 				try {
-					root = load.load();
+					Parent root = load.load();
 					load.<DetailDialogController>getController().setLoader(root);
 					load.<DetailDialogController>getController().start(saege.getId());
 				} catch (IOException e) {
@@ -198,6 +210,8 @@ public class KategorienController extends Pane implements Initializable, ICommon
 		table = contentTable.createTableStructure(tableData);
 	}
 
+	// Ermittelt, wieviele Checkboxen aktiviert sind, um den minimalen und maximalen
+	// Bereich für die Sichtbarkeit des "Vergleichen-Links" zu steuern.
 	protected void checkCheckBox(boolean isSelected, Saege saege) {
 		if (isSelected) {
 			cbxVergleichCounter++;
@@ -214,21 +228,6 @@ public class KategorienController extends Pane implements Initializable, ICommon
 	public TableView<StihlTableView> getTable(int id) {
 		initSaegenTable(id);
 		return table;
-	}
-
-	/**
-	 * @return the selectedSaegen
-	 */
-	public List<Saege> getSelectedSaegen() {
-		return selectedSaegen;
-	}
-
-	public int getCbxVergleichCounter() {
-		return cbxVergleichCounter;
-	}
-
-	public void setCbxVergleichCounter(int cbxVergleichCounter) {
-		this.cbxVergleichCounter = cbxVergleichCounter;
 	}
 
 	private void togglePanes() {
@@ -271,6 +270,25 @@ public class KategorienController extends Pane implements Initializable, ICommon
 	}
 
 	/**
+	 * @return the selectedSaegen
+	 */
+	public List<Saege> getSelectedSaegen() {
+		return selectedSaegen;
+	}
+
+	/**
+	 * 
+	 * @return cbxVergleichCounter
+	 */
+	public int getCbxVergleichCounter() {
+		return cbxVergleichCounter;
+	}
+
+	public void setCbxVergleichCounter(int cbxVergleichCounter) {
+		this.cbxVergleichCounter = cbxVergleichCounter;
+	}
+
+	/**
 	 * @return the vboxKategorien
 	 */
 	public AnchorPane getAnchorPaneKategorien() {
@@ -291,6 +309,11 @@ public class KategorienController extends Pane implements Initializable, ICommon
 		return kategoriePane;
 	}
 
+	/**
+	 * Verlinkung des MainControllers zur Steuerung
+	 * 
+	 * @param mainController
+	 */
 	public void init(MainController mainController) {
 		this.mainController = mainController;
 

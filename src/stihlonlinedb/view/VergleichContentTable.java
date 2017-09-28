@@ -25,11 +25,17 @@ import stihlonlinedb.dao.queries.Queries;
 import stihlonlinedb.entities.Saege;
 import stihlonlinedb.fx.ICommonProps;
 
+/**
+ * 
+ * Klasse für die {@link StihlTableView} Vergleichstabelle
+ *
+ */
 public class VergleichContentTable implements ICommonProps {
 
 	private ObservableList<StihlTableView> tableDataVergleich;
 	private TableView<StihlTableView> tableVergleich;
 
+	// Erzeugt die Tabelle, die die Vergleiche untereinander anzeigt
 	private void initSaegenVergleichTable(List<Saege> selectedSaegenList) {
 		Queries qs = new Queries();
 		List<StihlTableView> swl = new ArrayList<>();
@@ -75,14 +81,25 @@ public class VergleichContentTable implements ICommonProps {
 		msgLabel.setWrapText(true);
 		msgLabel.setAlignment(Pos.TOP_LEFT);
 		msgLabel.setPadding(new Insets(10));
-		msgLabel.setText(info.getUserData().toString());
-
+		if (info.getUserData().toString() == null || info.getUserData().toString().length() == 0) {
+			msgLabel.setText("Keine Beschreibung verfügbar");
+			msgLabel.setMinHeight(60);
+		} else {
+			msgLabel.setText(info.getUserData().toString());
+		}
 		popOver.setContentNode(msgLabel);
 		popOver.setFadeInDuration(Duration.millis(200));
 		popOver.setFadeOutDuration(Duration.millis(200));
 		return popOver;
 	}
 
+	/**
+	 * Erzeugt die Tabelle für die Vergleichs-Inhalte der Sägen nach Auswahl der
+	 * einzelnen Sägen
+	 * 
+	 * @param tableData
+	 * @return TableView {@link StihlTableView}
+	 */
 	@SuppressWarnings("unchecked")
 	private void createTableStructure() {
 
@@ -137,7 +154,12 @@ public class VergleichContentTable implements ICommonProps {
 	}
 
 	/**
-	 * @return the table
+	 * Erzeugt die Tabelle für die Vergleichsinhalte-Inhalte der Sägen nach Auswahl
+	 * der einzelnen Sägen
+	 * 
+	 * @param List
+	 *            {@link Saege}
+	 * @return TableView {@link StihlTableView}
 	 */
 	public TableView<StihlTableView> getVergleichTable(List<Saege> selectedSaegenList) {
 		initSaegenVergleichTable(selectedSaegenList);

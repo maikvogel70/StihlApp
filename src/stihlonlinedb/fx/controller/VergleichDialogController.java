@@ -18,6 +18,11 @@ import stihlonlinedb.entities.Saege;
 import stihlonlinedb.fx.ICommonProps;
 import stihlonlinedb.view.VergleichContentTable;
 
+/**
+ * 
+ * Controller für den Dialog, der die zu vergleichenden Sägen anzeigt
+ *
+ */
 public class VergleichDialogController implements Initializable, ICommonProps {
 
 	@FXML
@@ -26,6 +31,7 @@ public class VergleichDialogController implements Initializable, ICommonProps {
 	private FlowPane saegenVergleichContent;
 	@FXML
 	private AnchorPane vergleichPane;
+
 	private Parent loader;
 
 	@Override
@@ -39,6 +45,11 @@ public class VergleichDialogController implements Initializable, ICommonProps {
 		closeBtn.getStyleClass().add(SHOW_DETAIL_BTN_STYLE_CLASS);
 	}
 
+	/**
+	 * Erzeugt die Liste für die Anzeige der Vergleichssägen und startet die Stage
+	 * 
+	 * @param list
+	 */
 	public void start(List<Saege> list) {
 		VergleichContentTable tableVergleichContent = new VergleichContentTable();
 		saegenVergleichContent.getChildren().add(tableVergleichContent.getVergleichTable(list));
@@ -46,6 +57,7 @@ public class VergleichDialogController implements Initializable, ICommonProps {
 		stage.show();
 	}
 
+	// Erzeuge eine Stage und lade die CSS-Datei in die Stage
 	private Stage createAndStyleStage() {
 		// TODO: untersuchen, warum in diesem Controller das CSS nicht default geladen
 		// wird

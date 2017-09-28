@@ -36,6 +36,11 @@ import stihlonlinedb.fx.ICommonProps;
 import stihlonlinedb.fx.util.FxUtils;
 import stihlonlinedb.view.StihlTableView;
 
+/**
+ * 
+ * Controller für die Suchenfunktion
+ *
+ */
 public class SuchenController implements Initializable, ICommonProps {
 
 	@FXML
@@ -90,9 +95,8 @@ public class SuchenController implements Initializable, ICommonProps {
 			btn.setTooltip(new Tooltip(TOOLTIP_DETAIL_BTN));
 
 			btn.setOnAction((event) -> {
-				FXMLLoader load = null;
 				// zur kommunikation mit dem dialog
-				load = new FXMLLoader(getClass().getResource("../DetailDialog.fxml"));
+				FXMLLoader load = new FXMLLoader(getClass().getResource("../DetailDialog.fxml"));
 				try {
 					Parent root = load.load();
 					load.<DetailDialogController>getController().setLoader(root);
@@ -146,35 +150,19 @@ public class SuchenController implements Initializable, ICommonProps {
 		}
 		productList.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
-			public void changed(ObservableValue ov, String oldVal, String newVal) {
+			public void changed(@SuppressWarnings("rawtypes") ObservableValue ov, String oldVal, String newVal) {
 				selectedProdukt = newVal;
 			}
 		});
 	}
 
+	/**
+	 * Verlinkung des MainControllers zur Steuerung
+	 * 
+	 * @param mainController
+	 */
 	public void init(MainController mainController) {
 		this.mainController = mainController;
-	}
-
-	/**
-	 * @return the testlabel
-	 */
-	public Label getTestlabel() {
-		return suchelabel;
-	}
-
-	/**
-	 * @return the mainController
-	 */
-	public MainController getMainController() {
-		return mainController;
-	}
-
-	/**
-	 * @return the sucheBorderPane
-	 */
-	public BorderPane getSucheBorderPane() {
-		return sucheBorderPane;
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -18,12 +17,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import stihlonlinedb.dao.queries.ListDbObjects;
 import stihlonlinedb.entities.Produkte;
 import stihlonlinedb.fx.ICommonProps;
 
+/**
+ * 
+ * Kontroller für die Produkte
+ *
+ */
 public class ProdukteController implements Initializable, ICommonProps {
 
 	@FXML
@@ -37,9 +40,6 @@ public class ProdukteController implements Initializable, ICommonProps {
 	@FXML
 	private KategorienController katCon;
 
-	VBox vboxKategorien;
-	KategorienController c;
-	FXMLLoader fxmlLoader;
 	private MainController mainController;
 
 	@Override
@@ -53,6 +53,7 @@ public class ProdukteController implements Initializable, ICommonProps {
 		produkteLabel.getStyleClass().add(STIHL_LABEL_STYLE_CLASS);
 	}
 
+	// Erstellt das Hauptmenü der Produkte mit den Image-Buttons
 	private void addProductFlowPaneContent() {
 		productPane.setPadding(new Insets(10));
 		productPane.setVgap(4);
@@ -112,6 +113,11 @@ public class ProdukteController implements Initializable, ICommonProps {
 		return productPane;
 	}
 
+	/**
+	 * Verlinkung des MainControllers zur Steuerung
+	 * 
+	 * @param mainController
+	 */
 	public void init(MainController mainController) {
 		this.mainController = mainController;
 	}

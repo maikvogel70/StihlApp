@@ -1,5 +1,9 @@
 package stihlonlinedb.entities;
 
+/**
+ * Liefert die Säge mit ihren Eigenschaften <br>
+ * Oberklasse: {@link SearchClass}
+ */
 public class Saege extends SearchClass {
 	private int id;
 	private int schienenlaenge;
@@ -7,14 +11,13 @@ public class Saege extends SearchClass {
 	private double kw, ps, gewicht, hubraum, preis;
 	private Bildablage bildablage;
 	private Einsatzzweck einsatzzweck;
-	private Bestellung bestellung;
 
 	public Saege() {
 	}
 
 	public Saege(int id, int schienenlaenge, String bestellnummer, String kettenteilung, String name,
 			String beschreibung, String besonderheiten, double kw, double ps, double gewicht, double hubraum,
-			double preis, Bildablage bild, Einsatzzweck einsatzzweck, Bestellung bestellung) {
+			double preis, Bildablage bild, Einsatzzweck einsatzzweck) {
 		super();
 		this.id = id;
 		this.schienenlaenge = schienenlaenge;
@@ -30,7 +33,6 @@ public class Saege extends SearchClass {
 		this.preis = preis;
 		this.bildablage = bild;
 		this.einsatzzweck = einsatzzweck;
-		this.bestellung = bestellung;
 	}
 
 	/**
@@ -232,21 +234,6 @@ public class Saege extends SearchClass {
 	}
 
 	/**
-	 * @return the bestellung
-	 */
-	public Bestellung getBestellung() {
-		return bestellung;
-	}
-
-	/**
-	 * @param bestellung
-	 *            the bestellung to set
-	 */
-	public void setBestellung(Bestellung bestellung) {
-		this.bestellung = bestellung;
-	}
-
-	/**
 	 * @return the bildablage
 	 */
 	@Override
@@ -274,7 +261,7 @@ public class Saege extends SearchClass {
 				+ ", kettenteilung=" + kettenteilung + ", name=" + name + ", beschreibung=" + beschreibung
 				+ ", besonderheiten=" + besonderheiten + ", kw=" + kw + ", ps=" + ps + ", gewicht=" + gewicht
 				+ ", hubraum=" + hubraum + ", preis=" + preis + ", bildablage=" + bildablage + ", einsatzzweck="
-				+ einsatzzweck + ", bestellung=" + bestellung + "]";
+				+ einsatzzweck + "]";
 	}
 
 }

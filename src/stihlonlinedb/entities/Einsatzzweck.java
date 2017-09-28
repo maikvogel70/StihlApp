@@ -1,12 +1,13 @@
 package stihlonlinedb.entities;
 
+/**
+ * Liefert den Einsatzzweck mit ID, Name und ForeignKey zum Bild
+ *
+ */
 public class Einsatzzweck {
 	private int id;
 	private String name;
 	private Bildablage bild;
-
-	public Einsatzzweck() {
-	}
 
 	public Einsatzzweck(int id, String name, Bildablage bild) {
 		super();

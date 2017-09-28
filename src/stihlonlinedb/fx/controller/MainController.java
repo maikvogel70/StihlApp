@@ -10,6 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * 
+ * Hauptkontroller zur Kommunikation der anderen Kontroller untereinander
+ *
+ */
 public class MainController extends Pane implements Initializable {
 
 	@FXML
@@ -35,7 +40,6 @@ public class MainController extends Pane implements Initializable {
 		kategorienPaneController.init(this);
 		menubarController.init(this);
 		suchePaneController.init(this);
-		// detailDialogController.init(this);
 	}
 
 	/**

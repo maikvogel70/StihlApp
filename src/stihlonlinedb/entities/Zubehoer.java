@@ -1,5 +1,9 @@
 package stihlonlinedb.entities;
 
+/**
+ * Liefert das Zubehör mit seinen Eigenschaften <br>
+ * Oberklasse: {@link SearchClass}
+ */
 public class Zubehoer extends SearchClass {
 
 	private int id;

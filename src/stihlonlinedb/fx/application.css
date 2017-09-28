@@ -1,23 +1,44 @@
+/*
+ * Style der Navigations-Buttons
+ */
 .btnStihlStyle{
         -fx-background-color:rgba(35.0, 44.0, 51.0, 0.85);
         -fx-font-size: 11.0;
         -fx-text-fill: white;
         -fx-font-weight: bold;
 }
+
+/*
+ * Style der Navigations-Buttons bei Hover
+ */
 .btnStihlStyle:hover{
 	-fx-background-color: #383838;
 }
+
+/*
+ * Style der Navigations-Buttons bei gedrückt
+ */
 .btnStihlStyle:pressed{
 	-fx-background-color:  #f37a1f;
 }
+
+/*
+ * Style der Navigations-Buttons wenn ausgewählt wurde
+ */
 .btnStihlStyle:selected{
 	-fx-background-color:  #f37a1f;
 }
 
+/*
+ * Style des weißen Hintergrundes
+ */
 .whiteBackground {
 	 -fx-background-color:  white;
 }
 
+/*
+ * Style der Beschriftung im STIHL-CI
+ */
 .labelTitleView{
 		-fx-font-size: 20.0;
         -fx-text-fill: #f37a1f;
@@ -25,6 +46,9 @@
         -fx-padding: 5.0;
 }
 
+/*
+ * Style der Detail-Buttons im STIHL-CI
+ */
 .showDetailBtn{
 	 -fx-background-color: transparent;  
 	 -fx-border-width: 1.0; 
@@ -32,19 +56,31 @@
 	 -fx-border-radius: 3.0;
 }
 
+/*
+ * Style der Beschriftung
+ */
 .detailsLabel{
 	-fx-font-size: 14.0; 
 	-fx-text-fill: #444;
 }
 
+/*
+ * Überschriebener Style der Ausrichtung innerhalb der Tabelle
+ */
 .table-cell {
      -fx-alignment: BASELINE_LEFT;
  }
 
+/*
+ * Transparenter Style für die Buttons
+ */
 .transparentBg{
 	-fx-background-color:transparent;
 }
 
+/*
+ * Style des "Vergleichen"-Links
+ */
 .hyperLink{
 	-fx-text-fill: #f37a1f; 
 	-fx-font-weight: bold;

@@ -1,12 +1,13 @@
 package stihlonlinedb.entities;
 
+/**
+ * Liefert das Bildobjekt mit ID und Pfad
+ *
+ */
 public class Bildablage {
 
 	private int bild_ID;
 	private String pfad;
-
-	public Bildablage() {
-	}
 
 	public Bildablage(int id, String pfad) {
 		super();
