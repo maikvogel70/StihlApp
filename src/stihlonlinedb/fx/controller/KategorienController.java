@@ -124,8 +124,8 @@ public class KategorienController extends Pane implements Initializable, ICommon
 			btn.setId("" + einsatzzweck.getId());
 			btn.setContentDisplay(ContentDisplay.TOP);
 			btn.setTextAlignment(TextAlignment.CENTER);
-			btn.setMaxWidth(160);
-			btn.setMinHeight(140);
+			btn.setMaxWidth(IMAGE_WIDTH_NAV);
+			btn.setMinHeight(IMAGE_WIDTH_NAV - 20);
 			btn.setWrapText(true);
 			btn.getStyleClass().add(STIHL_BTN_STYLE_CLASS);
 
